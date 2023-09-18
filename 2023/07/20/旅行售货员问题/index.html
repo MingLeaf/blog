@@ -6,14 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Tag: 算法 | LeafMing的个人主页</title>
+  <title>旅行售货员问题（TSP） | LeafMing的个人主页</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="LeafMing的个人主页">
-<meta property="og:url" content="http://example.com/tags/%E7%AE%97%E6%B3%95/index.html">
+  <meta name="description" content="完成时间：大二上">
+<meta property="og:type" content="article">
+<meta property="og:title" content="旅行售货员问题（TSP）">
+<meta property="og:url" content="http://example.com/2023/07/20/%E6%97%85%E8%A1%8C%E5%94%AE%E8%B4%A7%E5%91%98%E9%97%AE%E9%A2%98/index.html">
 <meta property="og:site_name" content="LeafMing的个人主页">
+<meta property="og:description" content="完成时间：大二上">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-07-20T04:49:19.000Z">
+<meta property="article:modified_time" content="2023-09-18T04:51:50.694Z">
 <meta property="article:author" content="Ziming Ye">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="LeafMing的个人主页" type="application/atom+xml">
@@ -134,36 +140,38 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-旅行售货员问题" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      旅行售货员问题（TSP）
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2023" class="archive-year">2023</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/07/20/%E6%97%85%E8%A1%8C%E5%94%AE%E8%B4%A7%E5%91%98%E9%97%AE%E9%A2%98/" class="archive-article-date">
+
+        
+        <a href="/2023/07/20/%E6%97%85%E8%A1%8C%E5%94%AE%E8%B4%A7%E5%91%98%E9%97%AE%E9%A2%98/" class="archive-article-date">
   	<time datetime="2023-07-20T04:49:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-07-20</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/07/20/%E6%97%85%E8%A1%8C%E5%94%AE%E8%B4%A7%E5%91%98%E9%97%AE%E9%A2%98/">旅行售货员问题（TSP）</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="完成时间：大二上"><a href="#完成时间：大二上" class="headerlink" title="完成时间：大二上"></a>完成时间：大二上</h2><span id="more"></span>
+<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>旅行售货员问题：即TSP问题（Traveling Salesman Problem）又译为旅行推销员问题、货郎担问题，是数学领域中著名问题之一。假设有一个旅行商人要拜访n个城市，他必须选择所要走的路径，路径的限制是每个城市只能拜访一次，而且最后要回到原来出发的城市。路径的选择目标是要求得的路径路程为所有路径之中的最小值。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br></pre></td><td class="code"><pre><span class="line">class TSP:</span><br><span class="line">    def __init__(self, matrix, names):</span><br><span class="line"></span><br><span class="line">        matrix.append([0]*len(matrix))</span><br><span class="line"></span><br><span class="line">        matrix.insert(0, [0]*len(matrix))</span><br><span class="line"></span><br><span class="line">        for i in range(len(matrix)):</span><br><span class="line"></span><br><span class="line">            matrix[i].insert(0, 0)</span><br><span class="line"></span><br><span class="line">            matrix[i].append(0)</span><br><span class="line"></span><br><span class="line">            self.matrix = matrix</span><br><span class="line"></span><br><span class="line">            self.names = names</span><br><span class="line"></span><br><span class="line">            self.num = len(names) # 城市个数</span><br><span class="line"></span><br><span class="line">            self.temp_path = [i for i in range(0, self.num+1)] # 当前路径</span><br><span class="line"></span><br><span class="line">            self.temp_len = 0 # 当前路径长度</span><br><span class="line"></span><br><span class="line">            self.best_path = [0] * (self.num+1) # 最短路径</span><br><span class="line"></span><br><span class="line">            self.best_len = 99999999 # 最短路径的长度</span><br><span class="line"></span><br><span class="line">    def __backtrack(self, node):</span><br><span class="line"></span><br><span class="line">        if node &gt; self.num:</span><br><span class="line"></span><br><span class="line">            v = self.matrix[self.temp_path[self.num]][1]</span><br><span class="line"></span><br><span class="line">            if (v != 0) and (v + self.temp_len &lt; self.best_len):</span><br><span class="line"></span><br><span class="line">                self.best_len = v + self.temp_len</span><br><span class="line"></span><br><span class="line">                for i in range(1, self.num + 1):</span><br><span class="line"></span><br><span class="line">                    self.best_path[i] = self.temp_path[i]</span><br><span class="line"></span><br><span class="line">        else:</span><br><span class="line"></span><br><span class="line">            for i in range(node, self.num + 1):</span><br><span class="line"></span><br><span class="line">                v = self.matrix[self.temp_path[node-1]][self.temp_path[i]]</span><br><span class="line"></span><br><span class="line">                if (v != 0) and (v + self.temp_len &lt; self.best_len):</span><br><span class="line"></span><br><span class="line">                    self.temp_path[node], self.temp_path[i] = self.temp_path[i], self. temp_path[node]</span><br><span class="line"></span><br><span class="line">                    self.temp_len += self.matrix[self.temp_path[node-1]][self.temp_path [node]]</span><br><span class="line"></span><br><span class="line">                    self.__backtrack(node + 1)</span><br><span class="line"></span><br><span class="line">                    self.temp_len -= self.matrix[self.temp_path[node-1]][self.temp_path [node]]</span><br><span class="line"></span><br><span class="line">                    self.temp_path[node], self.temp_path[i] = self.temp_path[i], self. temp_path[node]</span><br><span class="line"></span><br><span class="line">        return</span><br><span class="line"></span><br><span class="line">    def solve(self):</span><br><span class="line"></span><br><span class="line">        self.__backtrack(2)</span><br><span class="line"></span><br><span class="line">        path_str = &quot;&quot;</span><br><span class="line"></span><br><span class="line">        for i in range(1, self.num+1):</span><br><span class="line"></span><br><span class="line">            path_str += self.names[self.best_path[i]]</span><br><span class="line"></span><br><span class="line">            path_str += self.names[1]</span><br><span class="line"></span><br><span class="line">        return path_str, self.best_len</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    n = int(input(&quot;城市数量：&quot;))</span><br><span class="line">    distance = []</span><br><span class="line"># distance = [[0, 1231, 5582, 344, 8164, 9588],</span><br><span class="line"></span><br><span class="line"># [8943, 0, 3363, 9212, 12335, 11319],</span><br><span class="line"></span><br><span class="line"># [5582, 3363, 0, 5850, 1012, 10872],</span><br><span class="line"></span><br><span class="line"># [344, 9212, 5850, 0, 8238, 5739],</span><br><span class="line"></span><br><span class="line"># [8164, 12475, 11012, 7238, 0, 2103],</span><br><span class="line"></span><br><span class="line"># [9588, 11319, 10872, 9739, 2103, 0]]</span><br><span class="line"></span><br><span class="line"># 记录两个城市之间距离的邻接矩阵</span><br><span class="line">    print(&quot;请输入城市之间的邻接矩阵&quot;)</span><br><span class="line">    for i in range(n): </span><br><span class="line">        distance.append((input().split(&#x27; &#x27;)) )</span><br><span class="line">        distance[i]=list(map(int, distance[i]))    </span><br><span class="line">    # print(distance)  </span><br><span class="line"># 城市名字</span><br><span class="line"># city_name = &#123;1: &#x27;L&#x27;, 2: &#x27;M&#x27;, 3: &#x27;N&#x27;, 4: &#x27;P&#x27;, 5: &#x27;B&#x27;, 6: &#x27;T&#x27;&#125;</span><br><span class="line">city_name = &#123;&#125;</span><br><span class="line">for i in range(1,n+1,1):</span><br><span class="line">    b=input(&quot;城市&quot;+str(i)+&quot;的名字&quot;)</span><br><span class="line">    city_name[i] = b</span><br><span class="line"># print(city_name)</span><br><span class="line"></span><br><span class="line"># 求解</span><br><span class="line"></span><br><span class="line">tsp = TSP(distance, city_name)</span><br><span class="line"></span><br><span class="line">shortest_path, shortest_length = tsp.solve()</span><br><span class="line"></span><br><span class="line"># 显示结果</span><br><span class="line"></span><br><span class="line">print(&quot;最短环为%s，其总长度为%d&quot; % (shortest_path, shortest_length))</span><br></pre></td></tr></table></figure>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>本实验完成于大二上学期（2021下半年），所使用语言为Python</p>
 
-        <div class="article-info info-on-right">
-          
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -179,187 +187,115 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2023/07/20/%E6%97%85%E8%A1%8C%E5%94%AE%E8%B4%A7%E5%91%98%E9%97%AE%E9%A2%98/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/07/19/%E6%A3%8B%E7%9B%98%E8%A6%86%E7%9B%96%E9%97%AE%E9%A2%98/" class="archive-article-date">
-  	<time datetime="2023-07-19T01:19:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-07-19</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2023/09/17/%E8%87%AA%E6%88%91%E4%BB%8B%E7%BB%8D/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          自我介绍
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/07/19/%E6%A3%8B%E7%9B%98%E8%A6%86%E7%9B%96%E9%97%AE%E9%A2%98/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">棋盘覆盖问题（分治策略）</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/07/19/%E6%A3%8B%E7%9B%98%E8%A6%86%E7%9B%96%E9%97%AE%E9%A2%98/">棋盘覆盖问题（分治策略）</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/07/19/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E6%9C%80%E9%95%BF%E5%AD%90%E5%BA%8F%E5%88%97%E9%97%AE%E9%A2%98/" class="archive-article-date">
-  	<time datetime="2023-07-19T01:19:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-07-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/07/19/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E6%9C%80%E9%95%BF%E5%AD%90%E5%BA%8F%E5%88%97%E9%97%AE%E9%A2%98/">最长子序列（动态规划）</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/07/19/%E6%B1%BD%E8%BD%A6%E5%8A%A0%E6%B2%B9%E9%97%AE%E9%A2%98/" class="archive-article-date">
-  	<time datetime="2023-07-19T01:15:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-07-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/07/19/%E6%B1%BD%E8%BD%A6%E5%8A%A0%E6%B2%B9%E9%97%AE%E9%A2%98/">汽车加油问题(贪心算法)</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/07/19/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E4%BB%A5%E5%8F%8A%E5%A0%86%E6%8E%92%E5%BA%8F%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="archive-article-date">
-  	<time datetime="2023-07-19T00:15:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-07-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/07/19/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E4%BB%A5%E5%8F%8A%E5%A0%86%E6%8E%92%E5%BA%8F%E7%9A%84%E5%AE%9E%E7%8E%B0/">冒泡排序以及堆排序的实现</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -382,9 +318,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
