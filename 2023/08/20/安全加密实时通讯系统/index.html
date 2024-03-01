@@ -18,16 +18,16 @@
 <meta property="og:image" content="https://z1.ax1x.com/2023/09/22/pPokxvd.png">
 <meta property="og:image" content="https://z1.ax1x.com/2023/09/22/pPoApDI.png">
 <meta property="og:image" content="https://z1.ax1x.com/2023/09/22/pPoAE8g.png">
-<meta property="og:image" content="https://i.hd-r.cn/015132bc4e70b1a963684c4a6f856efc.png">
-<meta property="og:image" content="https://i.hd-r.cn/cf6e3bf9565b9ebf9cd9fb611f0772ac.png">
-<meta property="og:image" content="https://i.hd-r.cn/7f50a1dbb5ef181029e9fa0f024c74d7.png">
-<meta property="og:image" content="https://i.hd-r.cn/322d6f802c49b18574c8964d6e628233.png">
-<meta property="og:image" content="https://i.hd-r.cn/7716d3075171a1b2c83a667d2ba7aab7.png">
-<meta property="og:image" content="https://i.hd-r.cn/1c68f2e33a50582817852e6f589eb399.png">
-<meta property="og:image" content="https://i.hd-r.cn/20b5bf79c325929299cf2982111d126f.png">
-<meta property="og:image" content="https://i.hd-r.cn/aa73f8de52c5c4f85e66f90084087739.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/%E7%BD%91%E5%AE%891.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/%E7%BD%91%E5%AE%892.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/%E7%BD%91%E5%AE%893.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/%E7%BD%91%E5%AE%894.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/%E7%BD%91%E5%AE%895.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/%E7%BD%91%E5%AE%896.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/%E7%BD%91%E5%AE%897.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/%E7%BD%91%E5%AE%898.png">
 <meta property="article:published_time" content="2023-08-20T01:44:09.000Z">
-<meta property="article:modified_time" content="2023-09-22T02:59:14.048Z">
+<meta property="article:modified_time" content="2024-03-01T08:10:42.509Z">
 <meta property="article:author" content="Ziming Ye">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="MySQL">
@@ -206,10 +206,10 @@
 <p>解密函数：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public static String decrypt(String content, String password) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            byte[] decodeContent = Base64.getDecoder().decode(content);</span><br><span class="line">            KeyGenerator kgen = KeyGenerator.getInstance(&quot;DES&quot;);</span><br><span class="line">            SecureRandom secureRandom = SecureRandom.getInstance(&quot;SHA1PRNG&quot;);</span><br><span class="line">            secureRandom.setSeed(password.getBytes());</span><br><span class="line">            kgen.init(56, secureRandom);</span><br><span class="line">            SecretKey secretKey = kgen.generateKey();</span><br><span class="line">            byte[] enCodeFormat = secretKey.getEncoded();</span><br><span class="line">            SecretKeySpec key = new SecretKeySpec(enCodeFormat, &quot;DES&quot;);</span><br><span class="line">            Cipher cipher = Cipher.getInstance(&quot;DES&quot;);</span><br><span class="line">            cipher.init(Cipher.DECRYPT_MODE, key);</span><br><span class="line">            byte[] result = cipher.doFinal(decodeContent);</span><br><span class="line">            return new String(result, &quot;utf-8&quot;);</span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 <h2 id="完整演示"><a href="#完整演示" class="headerlink" title="完整演示"></a>完整演示</h2><ol>
-<li>运行ServerFrame.java启动服务器：<br><img src="https://i.hd-r.cn/015132bc4e70b1a963684c4a6f856efc.png" alt="1"></li>
-<li>运行Login.java进入客户端登录界面：<br><img src="https://i.hd-r.cn/cf6e3bf9565b9ebf9cd9fb611f0772ac.png" alt="2"><br>实现了多线程，可以同时登录多个账户：<br><img src="https://i.hd-r.cn/7f50a1dbb5ef181029e9fa0f024c74d7.png" alt="2.1"></li>
-<li>发送消息：<br><img src="https://i.hd-r.cn/322d6f802c49b18574c8964d6e628233.png" alt="3"></li>
-<li>传输消息的加密与解密：<br>发送时调用消息加密函数：<br><img src="https://i.hd-r.cn/7716d3075171a1b2c83a667d2ba7aab7.png" alt="4"><br>接收时调用消息解密函数（被注释部分，方便下图演示）<br><img src="https://i.hd-r.cn/1c68f2e33a50582817852e6f589eb399.png" alt="4.1"><br>在消息发送之前，会先把消息进行加密，下图所示是未解密的结果：<br><img src="https://i.hd-r.cn/20b5bf79c325929299cf2982111d126f.png" alt="4.2">  若使解密部分正常运行，则会得到如下所示的结果：<br><img src="https://i.hd-r.cn/aa73f8de52c5c4f85e66f90084087739.png" alt="4.3"><br>此时即可正常发送消息。</li>
+<li>运行ServerFrame.java启动服务器：<br><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/%E7%BD%91%E5%AE%891.png" alt="1"></li>
+<li>运行Login.java进入客户端登录界面：<br><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/%E7%BD%91%E5%AE%892.png" alt="2"><br>实现了多线程，可以同时登录多个账户：<br><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/%E7%BD%91%E5%AE%893.png" alt="2.1"></li>
+<li>发送消息：<br><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/%E7%BD%91%E5%AE%894.png" alt="3"></li>
+<li>传输消息的加密与解密：<br>发送时调用消息加密函数：<br><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/%E7%BD%91%E5%AE%895.png" alt="4"><br>接收时调用消息解密函数（被注释部分，方便下图演示）<br><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/%E7%BD%91%E5%AE%896.png" alt="4.1"><br>在消息发送之前，会先把消息进行加密，下图所示是未解密的结果：<br><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/%E7%BD%91%E5%AE%897.png" alt="4.2">  若使解密部分正常运行，则会得到如下所示的结果：<br><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/%E7%BD%91%E5%AE%898.png" alt="4.3"><br>此时即可正常发送消息。</li>
 </ol>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>MD5是一种常见的哈希算法，它能够将任意长度的消息压缩成一个128位的哈希值。在使用MD5加密时，我们需要将消息作为输入，经过MD5算法的处理后，得到一个固定长度的哈希值作为输出。 MD5算法是一种单向哈希算法，即无法通过哈希值反推出原始消息。在这里我将其运用到了数据库的加密中。<br>Java中的DES加密算法是一种对称加密算法，它使用相同的密钥进行加密和解密。在实验过程中，我们可以通过以下步骤来实现DES加密：</p>
 <ol>
@@ -457,18 +457,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">学习情况</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
@@ -482,6 +470,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">学习情况</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -501,15 +501,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">自我介绍</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">UML</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Mybaties</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">自我介绍</a>
               </li>
              
               <li class="article-tag-list-item">
