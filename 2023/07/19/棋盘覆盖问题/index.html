@@ -15,14 +15,14 @@
 <meta property="og:site_name" content="LeafMing的个人主页">
 <meta property="og:description" content="完成时间：大二上">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://i.hd-r.cn/3fd789b5e9fb597421091e331b7031a7.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/chess.png">
 <meta property="article:published_time" content="2023-07-19T01:19:31.000Z">
-<meta property="article:modified_time" content="2023-09-18T01:24:51.651Z">
+<meta property="article:modified_time" content="2024-03-01T08:46:15.482Z">
 <meta property="article:author" content="Ziming Ye">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.hd-r.cn/3fd789b5e9fb597421091e331b7031a7.png">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/chess.png">
   
     <link rel="alternative" href="/atom.xml" title="LeafMing的个人主页" type="application/atom+xml">
   
@@ -167,7 +167,7 @@
 <h2 id="可行性分析"><a href="#可行性分析" class="headerlink" title="可行性分析"></a>可行性分析</h2><p>当n &#x3D; 1时（2<em>2棋盘），显然有解<br>假设当n &#x3D; k时（2^k</em>2^k棋盘），有解，那么当n &#x3D; k+1时（2^k+1<em>2^k+1棋盘），<br>将其划分为4个2^k</em>2^k子棋盘，特殊方格位于其中一个棋盘中，用一个L形的骨牌<br>覆盖在另外三个子棋盘的公共部分，则子棋盘也化为了特殊棋盘，以此递归，得出有解。</p>
 <h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">def chess(tr,tc,pr,pc,size):#tr:棋盘初始行号 tc:棋盘初始列号  </span><br><span class="line">                            #pr:特殊棋盘格行号 pc:特殊棋盘格列号</span><br><span class="line">                            #size:棋盘格大小</span><br><span class="line">    global mark         </span><br><span class="line">    global table                  </span><br><span class="line">    if size==1:</span><br><span class="line">        return      #递归终止条件</span><br><span class="line">    mark+=1             #表示直角骨牌号</span><br><span class="line">    count=mark</span><br><span class="line">    half=size//2         #当size不等于1时，棋盘格规模减半，变为4个</span><br><span class="line">    #小棋盘格进行递归操作</span><br><span class="line">    #左上角</span><br><span class="line">    if (pr&lt;tr+half) and (pc&lt;tc+half):</span><br><span class="line">        chess(tr,tc,pr,pc,half)</span><br><span class="line">    else:</span><br><span class="line">        table[tr+half-1][tc+half-1]=count</span><br><span class="line">        chess(tr,tc,tr+half-1,tc+half-1,half)</span><br><span class="line">        #将[tr+half-1,tc+half-1]作为小规模棋盘格的特殊点，进行递归</span><br><span class="line"> </span><br><span class="line">    #右上角</span><br><span class="line">    if (pr&lt;tr+half) and (pc&gt;=tc+half):</span><br><span class="line">        chess(tr,tc+half,pr,pc,half)</span><br><span class="line">    else:</span><br><span class="line">        table[tr+half-1][tc+half]=count</span><br><span class="line">        chess(tr,tc+half,tr+half-1,tc+half,half)</span><br><span class="line">    #将[tr+half-1,tc+half]作为小规模棋盘格的特殊点，进行递归</span><br><span class="line"> </span><br><span class="line">    #左下角</span><br><span class="line">    if (pr&gt;=tr+half) and (pc&lt;tc+half):</span><br><span class="line">        chess(tr+half,tc,pr,pc,half)</span><br><span class="line">    else:</span><br><span class="line">        table[tr+half][tc+half-1]=count</span><br><span class="line">        chess(tr+half,tc,tr+half,tc+half-1,half)</span><br><span class="line">    #将[tr+half,tc+half-1]作为小规模棋盘格的特殊点，进行递归</span><br><span class="line"> </span><br><span class="line">    #右下角</span><br><span class="line">    if (pr&gt;=tr+half) and (pc&gt;=tc+half):</span><br><span class="line">        chess(tr+half,tc+half,pr,pc,half)</span><br><span class="line">    else:</span><br><span class="line">        table[tr+half][tc+half]=count</span><br><span class="line">        chess(tr+half,tc+half,tr+half,tc+half,half)</span><br><span class="line">    #将[tr+half,tc+half]作为小规模棋盘格的特殊点，进行递归</span><br><span class="line"> </span><br><span class="line">        #输出矩阵</span><br><span class="line">def show(table):</span><br><span class="line">    n=len(table)</span><br><span class="line">    for i in range(n):</span><br><span class="line">        for j in range(n):</span><br><span class="line">            print(table[i][j],end=&#x27; &#x27;)</span><br><span class="line">        print(&#x27;&#x27;)</span><br><span class="line"> </span><br><span class="line">mark=0</span><br><span class="line">n = int(input(&quot;请输入棋盘规模：&quot;))</span><br><span class="line">pr = int(input(&quot;请输入特殊棋格行号：&quot;))</span><br><span class="line">pc = int(input(&quot;请输入特殊棋格列号：&quot;))</span><br><span class="line"># n=8   #输入8*8的棋盘规格</span><br><span class="line">table=[[-1 for x in range(n)] for y in range(n)] #-1代表特殊格子</span><br><span class="line">chess(0,0,pr,pc,n)   #特殊棋盘位置</span><br><span class="line">show(table)</span><br></pre></td></tr></table></figure>
 <p>其中-1表示特殊棋格，行号列号均从0开始，相同数字表示一块L形的骨牌，数字大小说明其叠放次序。</p>
-<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><p><img src="https://i.hd-r.cn/3fd789b5e9fb597421091e331b7031a7.png" alt="代码"></p>
+<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><p><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/chess.png" alt="代码"></p>
 <h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>本实验完成于大二上学期（2021下半年），所使用语言为Python</p>
 
       
@@ -442,15 +442,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">自我介绍</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">UML</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Mybaties</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">自我介绍</a>
               </li>
              
               <li class="article-tag-list-item">
