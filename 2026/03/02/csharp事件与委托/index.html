@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2026 | LeafMing的个人主页</title>
+  <title>C# 事件与委托 | LeafMing的个人主页</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="LeafMing的个人主页">
-<meta property="og:url" content="http://example.com/archives/2026/index.html">
+  <meta name="description" content="事件与委托一句话：委托（delegate）是“可以装方法的变量”；事件（event）是“受保护的委托通知机制”。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C# 事件与委托">
+<meta property="og:url" content="http://example.com/2026/03/02/csharp%E4%BA%8B%E4%BB%B6%E4%B8%8E%E5%A7%94%E6%89%98/index.html">
 <meta property="og:site_name" content="LeafMing的个人主页">
+<meta property="og:description" content="事件与委托一句话：委托（delegate）是“可以装方法的变量”；事件（event）是“受保护的委托通知机制”。">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2026-03-02T02:43:21.000Z">
+<meta property="article:modified_time" content="2026-03-18T09:00:23.346Z">
 <meta property="article:author" content="Ziming Ye">
+<meta property="article:tag" content="C#">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="LeafMing的个人主页" type="application/atom+xml">
@@ -134,36 +139,118 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-csharp事件与委托" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      C# 事件与委托
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2026" class="archive-year">2026</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2026/03/02/csharp%E4%BA%8B%E4%BB%B6%E4%B8%8E%E5%A7%94%E6%89%98/" class="archive-article-date">
+
+        
+        <a href="/2026/03/02/csharp%E4%BA%8B%E4%BB%B6%E4%B8%8E%E5%A7%94%E6%89%98/" class="archive-article-date">
   	<time datetime="2026-03-02T02:43:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-03-02</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2026/03/02/csharp%E4%BA%8B%E4%BB%B6%E4%B8%8E%E5%A7%94%E6%89%98/">C# 事件与委托</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="事件与委托"><a href="#事件与委托" class="headerlink" title="事件与委托"></a>事件与委托</h2><p>一句话：委托（delegate）是“可以装方法的变量”；事件（event）是“受保护的委托通知机制”。</p>
+<span id="more"></span>
+<p>小例子</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 比如定义一个“能接收两个 int，返回一个 int 的方法类型</span></span><br><span class="line"><span class="function"><span class="built_in">delegate</span> <span class="built_in">int</span> <span class="title">Calc</span>(<span class="params"><span class="built_in">int</span> a, <span class="built_in">int</span> b</span>)</span>;</span><br></pre></td></tr></table></figure>
+<p>这句话的意思不是写了一个方法，而是定义了一种方法签名类型。</p>
+<p>也就是说，凡是长这样的方法，都可以装进 Calc：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="built_in">int</span> <span class="title">Add</span>(<span class="params"><span class="built_in">int</span> x, <span class="built_in">int</span> y</span>)</span> =&gt; x + y;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="built_in">int</span> <span class="title">Sub</span>(<span class="params"><span class="built_in">int</span> x, <span class="built_in">int</span> y</span>)</span> =&gt; x - y;</span><br></pre></td></tr></table></figure>
+<p>使用：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Calc c1 = Add;</span><br><span class="line">Calc c2 = Sub;</span><br><span class="line"></span><br><span class="line">Console.WriteLine(c1(<span class="number">3</span>, <span class="number">2</span>)); <span class="comment">// 5</span></span><br><span class="line">Console.WriteLine(c2(<span class="number">3</span>, <span class="number">2</span>)); <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<p>你可以把它理解成：<br>Add 是一个方法<br>Calc 是一种“能引用这类方法的类型”<br>c1 是一个装了 Add 的变量</p>
+<h4 id="为什么需要委托"><a href="#为什么需要委托" class="headerlink" title="为什么需要委托"></a>为什么需要委托</h4><p>核心价值有两个：</p>
+<ol>
+<li>把“做什么”当参数传进去，相当于把“算法”传进去了。</li>
+<li>回调一个方法做完事后，通知另一个方法处理结果，这就是回调。<br>委托特别适合干这个。<blockquote>
+<p>此外，为保证安全性，委托不是随便什么方法都能赋值，签名必须匹配（参数与返回值一致）。</p>
+</blockquote>
+</li>
+</ol>
+<p>委托的回调：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">CallbackDemo</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 1. 定义委托（回调函数类型）</span></span><br><span class="line">    <span class="function"><span class="built_in">delegate</span> <span class="keyword">void</span> <span class="title">Notify</span>(<span class="params"><span class="built_in">string</span> message</span>)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;Main: 开始执行&quot;</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 2. 把“回调方法”传进去</span></span><br><span class="line">            ProcessTask(OnTaskCompleted);</span><br><span class="line"></span><br><span class="line">            Console.WriteLine(<span class="string">&quot;Main: 程序结束&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 3. 被调用的方法（内部会触发回调）</span></span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">ProcessTask</span>(<span class="params">Notify callback</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;ProcessTask: 正在处理任务...&quot;</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 模拟处理过程</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">3</span>; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(<span class="string">$&quot;ProcessTask: 第<span class="subst">&#123;i&#125;</span>步处理中&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 4. 处理完成，调用回调方法</span></span><br><span class="line">            callback(<span class="string">&quot;任务已经完成！&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 5. 回调函数（由调用方提供）</span></span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">OnTaskCompleted</span>(<span class="params"><span class="built_in">string</span> msg</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;回调函数被调用！&quot;</span>);</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;收到消息: &quot;</span> + msg);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Main: 开始执行</span><br><span class="line">ProcessTask: 正在处理任务...</span><br><span class="line">ProcessTask: 第1步处理中</span><br><span class="line">ProcessTask: 第2步处理中</span><br><span class="line">ProcessTask: 第3步处理中</span><br><span class="line">回调函数被调用！</span><br><span class="line">收到消息: 任务已经完成！</span><br><span class="line">Main: 程序结束</span><br></pre></td></tr></table></figure>
+<h4 id="流程拆解"><a href="#流程拆解" class="headerlink" title="流程拆解"></a>流程拆解</h4><ul>
+<li>step 1 ProcessTask(OnTaskCompleted); OnTaskCompleted 方法“交给”了 ProcessTask</li>
+<li>step 2 进入 ProcessTask   <code>static void ProcessTask(Notify callback)</code><br>这里的 callback 实际上就是：</li>
+</ul>
+<p><code>callback == OnTaskCompleted</code></p>
+<ul>
+<li>step3 执行任务逻辑 <code>Console.WriteLine(&quot;处理中...&quot;);for&#123;...&#125;</code></li>
+<li>Step 4：触发回调（核心） <code>callback(&quot;任务已经完成！&quot;);</code>这行代码等价于：<code>OnTaskCompleted(&quot;任务已经完成！&quot;);</code><br>也就是说：ProcessTask 反过来调用了 Main 提供的方法</li>
+<li>step 5 执行回调函数<code>static void OnTaskCompleted(string msg)</code><br>输出:<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">回调函数被调用！</span><br><span class="line">收到消息: 任务已经完成！</span><br></pre></td></tr></table></figure>
+也就是说，可以定义多个不同的函数，只要满足参数和返回值类型与定义的委托一致，就可以作为参数传入到其他函数中</li>
+</ul>
+<p>同时，委托还支持多播</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">delegate</span> <span class="keyword">void</span> <span class="title">Notify</span>()</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">A</span>()</span> =&gt; Console.WriteLine(<span class="string">&quot;A&quot;</span>);</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">B</span>()</span> =&gt; Console.WriteLine(<span class="string">&quot;B&quot;</span>);</span><br><span class="line"></span><br><span class="line">Notify n = A;</span><br><span class="line">n += B;</span><br><span class="line"></span><br><span class="line">n();</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">A</span><br><span class="line">B</span><br></pre></td></tr></table></figure>
+<p>同理，也可以移除</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">n -= A;</span><br><span class="line">n();</span><br></pre></td></tr></table></figure>
+<h3 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h3><blockquote>
+<p>事件本质上是对委托的一层封装，限制外部只能订阅&#x2F;取消订阅，不能随便触发</p>
+</blockquote>
+<p>示例：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Button</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">event</span> Action Click;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">SimulateClick</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        Click?.Invoke();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 外部可以：</span></span><br><span class="line">button.Click += OnClick;</span><br><span class="line">button.Click -= OnClick;</span><br><span class="line"><span class="comment">// 不可：</span></span><br><span class="line">button.Click();       <span class="comment">// 不允许</span></span><br><span class="line">button.Click = <span class="literal">null</span>;  <span class="comment">// 不允许</span></span><br></pre></td></tr></table></figure>
+<p><b>也就是说，发布者负责触发，订阅者只负责响应</b><br>经典反例：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Button</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> Action Click;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 外部操作</span></span><br><span class="line">button.Click += OnClick;</span><br><span class="line">button.Click();       <span class="comment">// ❌ 外部可以触发</span></span><br><span class="line">button.Click = <span class="literal">null</span>;  <span class="comment">// ❌ 外部可以清空</span></span><br></pre></td></tr></table></figure>
+<p>问题：</p>
+<p>👉 外部把“按钮点击”这个行为控制权拿走了</p>
+<p>这在设计上是灾难：谁都可以伪造点击 谁都可以把监听清空<br>所以引入了event  </p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Button</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">event</span> Action Click;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">SimulateClick</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        Click?.Invoke();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 外部只能</span></span><br><span class="line">button.Click += OnClick;</span><br><span class="line">button.Click -= OnClick;</span><br><span class="line"><span class="comment">// 不能</span></span><br><span class="line">button.Click();       <span class="comment">// ❌ 不允许</span></span><br><span class="line">button.Click = <span class="literal">null</span>;  <span class="comment">// ❌ 不允许</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>事件的本质：一个 private 委托 + 受限访问<br>完整例子：</p>
+</blockquote>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">EventDemo</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">Button</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 1. 定义事件</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">event</span> Action Click;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2. 模拟点击</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Press</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;按钮被按下&quot;</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 3. 触发事件（通知所有订阅者）</span></span><br><span class="line">            Click?.Invoke();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> button = <span class="keyword">new</span> Button();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 4. 订阅事件（可以多个）</span></span><br><span class="line">            button.Click += OnClick1;</span><br><span class="line">            button.Click += OnClick2;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 5. 触发</span></span><br><span class="line">            button.Press();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">OnClick1</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;处理逻辑1：播放声音&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">OnClick2</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;处理逻辑2：记录日志&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">按钮被按下</span><br><span class="line">处理逻辑1：播放声音</span><br><span class="line">处理逻辑2：记录日志</span><br></pre></td></tr></table></figure>
+<p>流程拆解：  </p>
+<ol>
+<li><p>订阅  </p>
+<pre><code> button.Click += OnClick1;
+ button.Click += OnClick2;
+</code></pre>
+</li>
+</ol>
+<p>现在内部相当于：<code>_click = OnClick1 + OnClick2;</code><br>2. 触发事件  <code>Click?.Invoke();</code><br>等价于：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">OnClick1();</span><br><span class="line">OnClick2();</span><br></pre></td></tr></table></figure>
+<p>事件三要素：  </p>
+<ol>
+<li>发布者 这里是 class Button  </li>
+<li>事件本身 public event Action Click;  </li>
+<li>订阅者 button.Click +&#x3D; OnClick1;</li>
+</ol>
+<p>其余要点  </p>
+<ul>
+<li>Click?.Invoke()  此处的?表示执行前进行非空判断，若为null则不执行，Click.Invoke()则会在null时报错  </li>
+<li>事件本质上就是委托，但进行了event封装，委托访问权在外部，事件访问权在内部</li>
+<li>多播的返回值问题，如： <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">delegate</span> <span class="built_in">int</span> <span class="title">Calc</span>()</span>;</span><br><span class="line"><span class="comment">// 再绑定多个方法</span></span><br><span class="line">Calc c = A;</span><br><span class="line">c += B;</span><br><span class="line">c += C;</span><br><span class="line"><span class="comment">//调用</span></span><br><span class="line"><span class="built_in">int</span> result = c();</span><br><span class="line"><span class="comment">// 此时该输出什么？</span></span><br></pre></td></tr></table></figure>
+答案是： <blockquote>
+<p>只会得到最后一个方法的返回值<br>完整例子：</p>
+</blockquote>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">MulticastReturnDemo</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="built_in">delegate</span> <span class="built_in">int</span> <span class="title">Calc</span>()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            Calc c = Method1;</span><br><span class="line">            c += Method2;</span><br><span class="line">            c += Method3;</span><br><span class="line"></span><br><span class="line">            <span class="built_in">int</span> result = c();</span><br><span class="line"></span><br><span class="line">            Console.WriteLine(<span class="string">&quot;最终返回值: &quot;</span> + result);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="built_in">int</span> <span class="title">Method1</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;Method1 执行&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="built_in">int</span> <span class="title">Method2</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;Method2 执行&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="number">20</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="built_in">int</span> <span class="title">Method3</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;Method3 执行&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="number">30</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+输出：<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Method1 执行</span><br><span class="line">Method2 执行</span><br><span class="line">Method3 执行</span><br><span class="line">最终返回值: 30</span><br></pre></td></tr></table></figure></li>
+<li>中间有异常咋办？ 比如： Method1 正常 Method2 抛异常 Method3 正常<br>那么默认情况下，执行到 Method2 出错后，后面的 Method3 就不会继续执行。 此外，可以通过<code>GetInvocationList()</code>此方法来返回当前绑定的所有方法列表。这样你就可以一个一个调用，并分别处理异常</li>
+</ul>
 
-        <div class="article-info info-on-right">
-          
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -175,57 +262,119 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2026/03/02/csharp%E4%BA%8B%E4%BB%B6%E4%B8%8E%E5%A7%94%E6%89%98/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2026/02/19/csharp%E5%8D%8F%E5%8F%98%E5%92%8C%E9%80%86%E5%8F%98/" class="archive-article-date">
-  	<time datetime="2026-02-19T06:03:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-02-19</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2026/02/19/csharp%E5%8D%8F%E5%8F%98%E5%92%8C%E9%80%86%E5%8F%98/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">C# 协变和逆变</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2026/02/19/csharp%E5%8D%8F%E5%8F%98%E5%92%8C%E9%80%86%E5%8F%98/">C# 协变和逆变</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8B%E4%BB%B6%E4%B8%8E%E5%A7%94%E6%89%98"><span class="toc-number">1.</span> <span class="toc-text">事件与委托</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E5%A7%94%E6%89%98"><span class="toc-number">1.0.1.</span> <span class="toc-text">为什么需要委托</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%81%E7%A8%8B%E6%8B%86%E8%A7%A3"><span class="toc-number">1.0.2.</span> <span class="toc-text">流程拆解</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8B%E4%BB%B6"><span class="toc-number">1.1.</span> <span class="toc-text">事件</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
   
-    </div></section>
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -248,8 +397,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
