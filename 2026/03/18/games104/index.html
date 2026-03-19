@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Tag: 学习情况 | LeafMing的个人主页</title>
+  <title>games104 | LeafMing的个人主页</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="LeafMing的个人主页">
-<meta property="og:url" content="http://example.com/tags/%E5%AD%A6%E4%B9%A0%E6%83%85%E5%86%B5/index.html">
+  <meta name="description" content="现代游戏引擎导论">
+<meta property="og:type" content="article">
+<meta property="og:title" content="games104">
+<meta property="og:url" content="http://example.com/2026/03/18/games104/index.html">
 <meta property="og:site_name" content="LeafMing的个人主页">
+<meta property="og:description" content="现代游戏引擎导论">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2026-03-18T14:07:21.000Z">
+<meta property="article:modified_time" content="2026-03-18T15:37:19.680Z">
 <meta property="article:author" content="Ziming Ye">
+<meta property="article:tag" content="Game Engine">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="LeafMing的个人主页" type="application/atom+xml">
@@ -134,114 +139,651 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-games104" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2023" class="archive-year">2023</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/07/16/javasocket%E9%80%9A%E4%BF%A1/" class="archive-article-date">
-  	<time datetime="2023-07-16T04:01:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-07-16</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/07/16/javasocket%E9%80%9A%E4%BF%A1/">JavaSocket通信的实现</a>
+    <h1 class="article-title" itemprop="name">
+      games104
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2026/03/18/games104/" class="archive-article-date">
+  	<time datetime="2026-03-18T14:07:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-03-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="现代游戏引擎导论"><a href="#现代游戏引擎导论" class="headerlink" title="现代游戏引擎导论"></a>现代游戏引擎导论</h2><span id="more"></span>
+<h2 id="Class-1：什么是游戏引擎？"><a href="#Class-1：什么是游戏引擎？" class="headerlink" title="Class 1：什么是游戏引擎？"></a>Class 1：什么是游戏引擎？</h2><h3 id="🎮-游戏引擎的定义"><a href="#🎮-游戏引擎的定义" class="headerlink" title="🎮 游戏引擎的定义"></a>🎮 游戏引擎的定义</h3><p>游戏引擎（Game Engine）是一套为游戏开发提供通用能力的软件系统。</p>
+<p>它的核心目标是：</p>
+<blockquote>
+<p><strong>让开发者专注于“做游戏”，而不是重复造轮子。</strong></p>
+</blockquote>
+<hr>
+<h3 id="🧩-游戏引擎包含什么？"><a href="#🧩-游戏引擎包含什么？" class="headerlink" title="🧩 游戏引擎包含什么？"></a>🧩 游戏引擎包含什么？</h3><p>一个现代游戏引擎通常包括：</p>
+<ul>
+<li>🎨 渲染系统（Rendering）</li>
+<li>🦴 动画系统（Animation）</li>
+<li>⚙️ 物理系统（Physics）</li>
+<li>📦 资源管理（Asset Management）</li>
+<li>🧠 AI 系统</li>
+<li>🖥️ UI 系统</li>
+<li>📜 脚本系统（Lua &#x2F; C# 等）</li>
+<li>🛠️ 编辑器（Editor）</li>
+<li>🌍 跨平台支持</li>
+</ul>
+<hr>
+<h3 id="❓-为什么需要游戏引擎？"><a href="#❓-为什么需要游戏引擎？" class="headerlink" title="❓ 为什么需要游戏引擎？"></a>❓ 为什么需要游戏引擎？</h3><p>如果没有引擎，每个游戏都要重复实现：</p>
+<ul>
+<li>渲染管线</li>
+<li>输入系统</li>
+<li>场景管理</li>
+<li>资源加载</li>
+<li>平台适配</li>
+</ul>
+<p>👉 这几乎是不现实的。</p>
+<hr>
+<h3 id="✅-游戏引擎的价值"><a href="#✅-游戏引擎的价值" class="headerlink" title="✅ 游戏引擎的价值"></a>✅ 游戏引擎的价值</h3><ul>
+<li>提高开发效率</li>
+<li>降低重复劳动</li>
+<li>支持多人协作</li>
+<li>支持复杂大型项目</li>
+</ul>
+<hr>
+<h3 id="🧠-游戏引擎的三种角色"><a href="#🧠-游戏引擎的三种角色" class="headerlink" title="🧠 游戏引擎的三种角色"></a>🧠 游戏引擎的三种角色</h3><h4 id="1️⃣-运行时系统（Runtime）"><a href="#1️⃣-运行时系统（Runtime）" class="headerlink" title="1️⃣ 运行时系统（Runtime）"></a>1️⃣ 运行时系统（Runtime）</h4><p>负责游戏运行时的一切：</p>
+<ul>
+<li>游戏逻辑更新</li>
+<li>动画更新</li>
+<li>物理模拟</li>
+<li>渲染输出</li>
+</ul>
+<hr>
+<h4 id="2️⃣-内容生产工具（Toolchain）"><a href="#2️⃣-内容生产工具（Toolchain）" class="headerlink" title="2️⃣ 内容生产工具（Toolchain）"></a>2️⃣ 内容生产工具（Toolchain）</h4><p>提供开发工具：</p>
+<ul>
+<li>场景编辑器</li>
+<li>材质编辑器</li>
+<li>动画编辑器</li>
+<li>粒子编辑器</li>
+</ul>
+<blockquote>
+<p>🎯 好的工具 &#x3D; 更高的生产效率</p>
+</blockquote>
+<hr>
+<h4 id="3️⃣-协作中枢"><a href="#3️⃣-协作中枢" class="headerlink" title="3️⃣ 协作中枢"></a>3️⃣ 协作中枢</h4><p>连接不同角色：</p>
+<ul>
+<li>👨‍💻 程序</li>
+<li>🎨 美术</li>
+<li>🧩 策划</li>
+</ul>
+<hr>
+<h2 id="Class-2：引擎架构分层"><a href="#Class-2：引擎架构分层" class="headerlink" title="Class 2：引擎架构分层"></a>Class 2：引擎架构分层</h2><h3 id="🏗️-引擎整体结构"><a href="#🏗️-引擎整体结构" class="headerlink" title="🏗️ 引擎整体结构"></a>🏗️ 引擎整体结构</h3><h2 id="一个典型游戏引擎可以分为五层：Tool-Layer-（工具层）Function-Layer-（功能层）Resource-Layer-（资源层）Core-Layer-（核心层）Platform-Layer-（平台层）"><a href="#一个典型游戏引擎可以分为五层：Tool-Layer-（工具层）Function-Layer-（功能层）Resource-Layer-（资源层）Core-Layer-（核心层）Platform-Layer-（平台层）" class="headerlink" title="一个典型游戏引擎可以分为五层：Tool Layer （工具层）Function Layer （功能层）Resource Layer （资源层）Core Layer （核心层）Platform Layer （平台层）  "></a>一个典型游戏引擎可以分为五层：<br>Tool Layer （工具层）<br>Function Layer （功能层）<br>Resource Layer （资源层）<br>Core Layer （核心层）<br>Platform Layer （平台层）  </h2><h2 id="🛠️-一、工具层（Tool-Layer）"><a href="#🛠️-一、工具层（Tool-Layer）" class="headerlink" title="🛠️ 一、工具层（Tool Layer）"></a>🛠️ 一、工具层（Tool Layer）</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>面向开发者，不面向玩家。</p>
+<hr>
+<h3 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h3><ul>
+<li>编辑器（Editor）</li>
+<li>调试工具</li>
+<li>打包工具</li>
+<li>性能分析工具</li>
+</ul>
+<hr>
+<h3 id="🎯-核心目标"><a href="#🎯-核心目标" class="headerlink" title="🎯 核心目标"></a>🎯 核心目标</h3><blockquote>
+<p><strong>Allow anyone to create game</strong></p>
+</blockquote>
+<p>让更多人参与游戏开发。</p>
+<hr>
+<h2 id="🌍-二、功能层（Function-Layer）"><a href="#🌍-二、功能层（Function-Layer）" class="headerlink" title="🌍 二、功能层（Function Layer）"></a>🌍 二、功能层（Function Layer）</h2><h3 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h3><p>让游戏世界“活起来”。</p>
+<hr>
+<h3 id="核心模块"><a href="#核心模块" class="headerlink" title="核心模块"></a>核心模块</h3><ul>
+<li>渲染（Rendering）</li>
+<li>动画（Animation）</li>
+<li>物理（Physics）</li>
+<li>AI</li>
+<li>UI</li>
+<li>音频</li>
+<li>脚本系统</li>
+</ul>
+<hr>
+<h2 id="⏱️-Tick机制（极其重要）"><a href="#⏱️-Tick机制（极其重要）" class="headerlink" title="⏱️ Tick机制（极其重要）"></a>⏱️ Tick机制（极其重要）</h2><h3 id="一帧的基本流程："><a href="#一帧的基本流程：" class="headerlink" title="一帧的基本流程："></a>一帧的基本流程：</h3><p>Input → Logic → Animation&#x2F;Physics → Render Data → Render  </p>
+<hr>
+<h3 id="🔄-两个核心阶段"><a href="#🔄-两个核心阶段" class="headerlink" title="🔄 两个核心阶段"></a>🔄 两个核心阶段</h3><ul>
+<li><code>tickLogic</code>：更新世界状态  </li>
+<li><code>tickRender</code>：绘制当前画面</li>
+</ul>
+<hr>
+<h3 id="❗-为什么要分离？"><a href="#❗-为什么要分离？" class="headerlink" title="❗ 为什么要分离？"></a>❗ 为什么要分离？</h3><table>
+<thead>
+<tr>
+<th>逻辑（Logic）</th>
+<th>渲染（Render）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>更新世界状态</td>
+<td>展示结果</td>
+</tr>
+<tr>
+<td>CPU主导</td>
+<td>GPU主导</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="✅-好处"><a href="#✅-好处" class="headerlink" title="✅ 好处"></a>✅ 好处</h3><ul>
+<li>架构清晰</li>
+<li>易于调试</li>
+<li>支持多线程</li>
+<li>支持不同刷新率</li>
+</ul>
+<hr>
+<h2 id="🦴-动画系统流程"><a href="#🦴-动画系统流程" class="headerlink" title="🦴 动画系统流程"></a>🦴 动画系统流程</h2><p>动画选择 → 骨骼计算 → 应用到模型 → 网格更新 → 渲染  </p>
+<p>👉 动画系统是连接“逻辑”和“表现”的桥梁。</p>
+<hr>
+<h2 id="⚠️-功能层特点"><a href="#⚠️-功能层特点" class="headerlink" title="⚠️ 功能层特点"></a>⚠️ 功能层特点</h2><blockquote>
+<p>Heavy-duty Hotchpotch（复杂混合体）</p>
+</blockquote>
+<p>问题：</p>
+<ul>
+<li>模块多</li>
+<li>边界模糊</li>
+</ul>
+<hr>
+<h3 id="🧠-哪些是典型引擎能力？"><a href="#🧠-哪些是典型引擎能力？" class="headerlink" title="🧠 哪些是典型引擎能力？"></a>🧠 哪些是典型引擎能力？</h3><ul>
+<li>Rendering Pipeline</li>
+<li>Asset Management</li>
+</ul>
+<hr>
+<h2 id="🧵-多核设计思想"><a href="#🧵-多核设计思想" class="headerlink" title="🧵 多核设计思想"></a>🧵 多核设计思想</h2><p>现代引擎必须支持：</p>
+<ul>
+<li>多线程</li>
+<li>任务系统</li>
+<li>并行计算</li>
+</ul>
+<hr>
+<h3 id="可并行任务"><a href="#可并行任务" class="headerlink" title="可并行任务"></a>可并行任务</h3><ul>
+<li>动画计算</li>
+<li>粒子系统</li>
+<li>资源加载</li>
+<li>可见性剔除</li>
+</ul>
+<hr>
+<h2 id="📦-三、资源层（Resource-Layer）"><a href="#📦-三、资源层（Resource-Layer）" class="headerlink" title="📦 三、资源层（Resource Layer）"></a>📦 三、资源层（Resource Layer）</h2><h3 id="定义-2"><a href="#定义-2" class="headerlink" title="定义"></a>定义</h3><p>管理所有游戏资源。</p>
+<hr>
+<h3 id="🆚-Asset-vs-Resource"><a href="#🆚-Asset-vs-Resource" class="headerlink" title="🆚 Asset vs Resource"></a>🆚 Asset vs Resource</h3><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Asset</td>
+<td>PSD &#x2F; FBX &#x2F; PNG &#x2F; MP3</td>
+</tr>
+<tr>
+<td>Resource</td>
+<td>引擎内部数据</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="🔄-转换流程"><a href="#🔄-转换流程" class="headerlink" title="🔄 转换流程"></a>🔄 转换流程</h3><p>Asset → Import → Process → Resource  </p>
+<hr>
+<h3 id="❓-为什么要转换？"><a href="#❓-为什么要转换？" class="headerlink" title="❓ 为什么要转换？"></a>❓ 为什么要转换？</h3><ul>
+<li>提高加载速度</li>
+<li>统一格式</li>
+<li>去除冗余数据</li>
+<li>优化运行效率</li>
+</ul>
+<hr>
+<h3 id="职责"><a href="#职责" class="headerlink" title="职责"></a>职责</h3><ul>
+<li>资源导入</li>
+<li>依赖管理</li>
+<li>异步加载</li>
+<li>缓存管理</li>
+</ul>
+<hr>
+<h2 id="🧱-四、核心层（Core-Layer）"><a href="#🧱-四、核心层（Core-Layer）" class="headerlink" title="🧱 四、核心层（Core Layer）"></a>🧱 四、核心层（Core Layer）</h2><h3 id="定义-3"><a href="#定义-3" class="headerlink" title="定义"></a>定义</h3><p>引擎的基础设施层。</p>
+<hr>
+<h3 id="包含内容"><a href="#包含内容" class="headerlink" title="包含内容"></a>包含内容</h3><ul>
+<li>数学库（Vector &#x2F; Matrix &#x2F; Quaternion）</li>
+<li>内存管理</li>
+<li>数据结构</li>
+<li>任务系统</li>
+<li>文件系统</li>
+<li>日志系统</li>
+</ul>
+<hr>
+<h2 id="➗-数学基础"><a href="#➗-数学基础" class="headerlink" title="➗ 数学基础"></a>➗ 数学基础</h2><p>用于：</p>
+<ul>
+<li>Transform（位移&#x2F;旋转&#x2F;缩放）</li>
+<li>摄像机</li>
+<li>动画</li>
+</ul>
+<hr>
+<h2 id="⚡-SIMD"><a href="#⚡-SIMD" class="headerlink" title="⚡ SIMD"></a>⚡ SIMD</h2><blockquote>
+<p>Single Instruction Multiple Data</p>
+</blockquote>
+<p>作用：</p>
+<ul>
+<li>一条指令处理多个数据</li>
+<li>提升计算效率</li>
+</ul>
+<hr>
+<h2 id="🧠-内存管理"><a href="#🧠-内存管理" class="headerlink" title="🧠 内存管理"></a>🧠 内存管理</h2><h3 id="❗-为什么重要？"><a href="#❗-为什么重要？" class="headerlink" title="❗ 为什么重要？"></a>❗ 为什么重要？</h3><ul>
+<li>游戏是实时系统</li>
+<li>需要稳定帧率</li>
+</ul>
+<hr>
+<h3 id="🏊-内存池（Memory-Pool）"><a href="#🏊-内存池（Memory-Pool）" class="headerlink" title="🏊 内存池（Memory Pool）"></a>🏊 内存池（Memory Pool）</h3><p>预分配 → 自主管理 → 高效分配  </p>
+<hr>
+<h3 id="🚀-性能关键原则"><a href="#🚀-性能关键原则" class="headerlink" title="🚀 性能关键原则"></a>🚀 性能关键原则</h3><ol>
+<li>数据集中（Cache Friendly）  </li>
+<li>顺序访问  </li>
+<li>批量处理</li>
+</ol>
+<hr>
+<h2 id="🖥️-五、平台层（Platform-Layer）"><a href="#🖥️-五、平台层（Platform-Layer）" class="headerlink" title="🖥️ 五、平台层（Platform Layer）"></a>🖥️ 五、平台层（Platform Layer）</h2><h3 id="定义-4"><a href="#定义-4" class="headerlink" title="定义"></a>定义</h3><p>屏蔽平台差异。</p>
+<hr>
+<h3 id="处理内容"><a href="#处理内容" class="headerlink" title="处理内容"></a>处理内容</h3><ul>
+<li>操作系统（Windows &#x2F; Linux &#x2F; iOS）</li>
+<li>图形 API（DX &#x2F; Vulkan &#x2F; Metal）</li>
+<li>输入设备</li>
+<li>文件系统</li>
+</ul>
+<hr>
+<h3 id="🎯-目标"><a href="#🎯-目标" class="headerlink" title="🎯 目标"></a>🎯 目标</h3><blockquote>
+<p><strong>统一接口，隐藏差异</strong></p>
+</blockquote>
+<hr>
+<h2 id="🧩-总体结构总结"><a href="#🧩-总体结构总结" class="headerlink" title="🧩 总体结构总结"></a>🧩 总体结构总结</h2><pre><code>Tool Layer
+↑
+Function Layer
+↑
+Resource Layer
+↑
+Core Layer
+↑
+Platform Layer  
+</code></pre>
+<hr>
+<h2 id="📌-核心思想总结"><a href="#📌-核心思想总结" class="headerlink" title="📌 核心思想总结"></a>📌 核心思想总结</h2><h3 id="1️⃣-引擎是系统工程"><a href="#1️⃣-引擎是系统工程" class="headerlink" title="1️⃣ 引擎是系统工程"></a>1️⃣ 引擎是系统工程</h3><p>不是单一模块，而是完整体系。</p>
+<hr>
+<h3 id="2️⃣-逻辑与渲染分离（最重要）"><a href="#2️⃣-逻辑与渲染分离（最重要）" class="headerlink" title="2️⃣ 逻辑与渲染分离（最重要）"></a>2️⃣ 逻辑与渲染分离（最重要）</h3><p>是实时系统设计的核心。</p>
+<hr>
+<h3 id="3️⃣-性能本质-数据"><a href="#3️⃣-性能本质-数据" class="headerlink" title="3️⃣ 性能本质 &#x3D; 数据"></a>3️⃣ 性能本质 &#x3D; 数据</h3><ul>
+<li>内存访问 &gt; 算法复杂度（很多时候）</li>
+<li>Cache 命中极其关键</li>
+</ul>
+<hr>
+<h3 id="4️⃣-工具链决定生产力"><a href="#4️⃣-工具链决定生产力" class="headerlink" title="4️⃣ 工具链决定生产力"></a>4️⃣ 工具链决定生产力</h3><blockquote>
+<p>一个“好用”的引擎，比一个“跑得快”的引擎更有价值。</p>
+</blockquote>
+<hr>
+<h2 id="Class-3：如何构建游戏世界？"><a href="#Class-3：如何构建游戏世界？" class="headerlink" title="Class 3：如何构建游戏世界？"></a>Class 3：如何构建游戏世界？</h2><blockquote>
+<p>本节核心：<strong>Game Object + Component + Tick + Event + Scene 管理</strong></p>
+</blockquote>
+<hr>
+<h2 id="🎮-什么是“游戏世界”？"><a href="#🎮-什么是“游戏世界”？" class="headerlink" title="🎮 什么是“游戏世界”？"></a>🎮 什么是“游戏世界”？</h2><p>要构建游戏世界，首先需要理解：</p>
+<p>一个游戏世界由什么组成？</p>
+<hr>
+<h3 id="🧩-游戏的基本构成"><a href="#🧩-游戏的基本构成" class="headerlink" title="🧩 游戏的基本构成"></a>🧩 游戏的基本构成</h3><p>一个游戏可以拆解为：</p>
+<ul>
+<li>可交互的动态物体（角色、车辆、敌人）</li>
+<li>不可交互的静态物体（建筑、道具）</li>
+<li>地形系统（Terrain &#x2F; Environment）</li>
+<li>天空盒（Skybox）</li>
+<li>其他辅助物体：<ul>
+<li>空气墙</li>
+<li>检测点</li>
+<li>触发器（Trigger）</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="🎯-统一抽象：Game-Object（GO）"><a href="#🎯-统一抽象：Game-Object（GO）" class="headerlink" title="🎯 统一抽象：Game Object（GO）"></a>🎯 统一抽象：Game Object（GO）</h3><blockquote>
+<p><strong>Everything is a Game Object</strong></p>
+</blockquote>
+<p>游戏世界中的一切，都可以抽象为：</p>
+<p>Game Object（GO）  </p>
+<hr>
+<h2 id="🧠-如何描述一个-Game-Object？"><a href="#🧠-如何描述一个-Game-Object？" class="headerlink" title="🧠 如何描述一个 Game Object？"></a>🧠 如何描述一个 Game Object？</h2><p>一个 GO 通常由两部分构成：</p>
+<ul>
+<li>属性（Property）</li>
+<li>行为（Behavior）</li>
+</ul>
+<hr>
+<h3 id="🏛️-早期方案：面向对象（OOP）"><a href="#🏛️-早期方案：面向对象（OOP）" class="headerlink" title="🏛️ 早期方案：面向对象（OOP）"></a>🏛️ 早期方案：面向对象（OOP）</h3><p>传统方式：</p>
+<ul>
+<li>使用类继承</li>
+<li>构建父子关系</li>
+</ul>
+<p>例如：</p>
+<pre><code>Vehicle
+├── Car
+├── Boat
+</code></pre>
+<hr>
+<h2 id="❗-OOP-的问题"><a href="#❗-OOP-的问题" class="headerlink" title="❗ OOP 的问题"></a>❗ OOP 的问题</h2><p>随着复杂度上升，会遇到问题：</p>
+<p>👉 分类变得困难</p>
+<p>例如：</p>
+<ul>
+<li>水陆两栖车（是车？还是船？）</li>
+</ul>
+<p>👉 多重继承复杂、混乱</p>
+<hr>
+<h2 id="🧩-解决方案：组件化（Component-Based）"><a href="#🧩-解决方案：组件化（Component-Based）" class="headerlink" title="🧩 解决方案：组件化（Component-Based）"></a>🧩 解决方案：组件化（Component-Based）</h2><h3 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h3><blockquote>
+<p><strong>用组件组合，而不是用继承分类</strong></p>
+</blockquote>
+<hr>
+<h3 id="🧱-组件的例子"><a href="#🧱-组件的例子" class="headerlink" title="🧱 组件的例子"></a>🧱 组件的例子</h3><p>例如一个“车”：</p>
+<ul>
+<li>移动组件（Movement）</li>
+<li>物理组件（Physics）</li>
+<li>渲染组件（Render）</li>
+<li>输入组件（Input）</li>
+</ul>
+<hr>
+<h3 id="🔄-灵活组合"><a href="#🔄-灵活组合" class="headerlink" title="🔄 灵活组合"></a>🔄 灵活组合</h3><p>像积木一样：</p>
+<ul>
+<li>换“铲子” → 挖掘机  </li>
+<li>换“滚轮” → 压路机  </li>
+<li>FPS 游戏 → 武器配件组合</li>
+</ul>
+<hr>
+<h3 id="🧠-核心结论"><a href="#🧠-核心结论" class="headerlink" title="🧠 核心结论"></a>🧠 核心结论</h3><blockquote>
+<p>Game Object &#x3D; 一组 Components 的组合</p>
+</blockquote>
+<hr>
+<h2 id="🧩-组件系统设计"><a href="#🧩-组件系统设计" class="headerlink" title="🧩 组件系统设计"></a>🧩 组件系统设计</h2><h3 id="基础结构"><a href="#基础结构" class="headerlink" title="基础结构"></a>基础结构</h3><p>通常会设计：</p>
+<pre><code>ComponentBase（基类 / 接口）
+↑
+各种具体组件（Render / Physics / AI / ...）
+</code></pre>
+<hr>
+<h3 id="🎯-设计原则"><a href="#🎯-设计原则" class="headerlink" title="🎯 设计原则"></a>🎯 设计原则</h3><ul>
+<li>符合直觉（给设计师用）</li>
+<li>可组合</li>
+<li>可复用</li>
+<li>低耦合</li>
+</ul>
+<hr>
+<h2 id="🌍-世界如何“活起来”？"><a href="#🌍-世界如何“活起来”？" class="headerlink" title="🌍 世界如何“活起来”？"></a>🌍 世界如何“活起来”？</h2><blockquote>
+<p>核心问题：How to Make the World Alive？</p>
+</blockquote>
+<hr>
+<h2 id="⏱️-Tick机制（再次出现！）"><a href="#⏱️-Tick机制（再次出现！）" class="headerlink" title="⏱️ Tick机制（再次出现！）"></a>⏱️ Tick机制（再次出现！）</h2><h3 id="定义-5"><a href="#定义-5" class="headerlink" title="定义"></a>定义</h3><p>tick()：每一帧 &#x2F; 固定时间推进一次世界  </p>
+<p>例如：</p>
+<ul>
+<li>1&#x2F;30 秒更新一次</li>
+</ul>
+<hr>
+<h3 id="🧠-Object-based-Tick"><a href="#🧠-Object-based-Tick" class="headerlink" title="🧠 Object-based Tick"></a>🧠 Object-based Tick</h3><p>每一帧：</p>
+<ul>
+<li>每个 Game Object 更新</li>
+<li>每个 Component 更新</li>
+</ul>
+<hr>
+<h2 id="⚠️-问题：效率低！"><a href="#⚠️-问题：效率低！" class="headerlink" title="⚠️ 问题：效率低！"></a>⚠️ 问题：效率低！</h2><p>如果：</p>
+<ul>
+<li>每个 GO 都单独更新</li>
+<li>每个组件分散执行</li>
+</ul>
+<p>👉 会导致：</p>
+<ul>
+<li>Cache 不友好</li>
+<li>CPU 利用率低</li>
+<li>难以并行</li>
+</ul>
+<hr>
+<h2 id="🚀-优化方案：System-based-Tick"><a href="#🚀-优化方案：System-based-Tick" class="headerlink" title="🚀 优化方案：System-based Tick"></a>🚀 优化方案：System-based Tick</h2><h3 id="核心思想-1"><a href="#核心思想-1" class="headerlink" title="核心思想"></a>核心思想</h3><blockquote>
+<p><strong>按“系统”更新，而不是按“对象”更新</strong></p>
+</blockquote>
+<hr>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><pre><code>Render System → 一次处理所有 Render 组件
+Physics System → 一次处理所有 Physics 组件
+Animation System → 批量处理动画  
+</code></pre>
+<hr>
+<h3 id="✅-优点"><a href="#✅-优点" class="headerlink" title="✅ 优点"></a>✅ 优点</h3><ul>
+<li>批处理（Batching）</li>
+<li>Cache 友好</li>
+<li>易并行</li>
+<li>更高性能</li>
+</ul>
+<hr>
+<h2 id="🔗-游戏对象如何交互？"><a href="#🔗-游戏对象如何交互？" class="headerlink" title="🔗 游戏对象如何交互？"></a>🔗 游戏对象如何交互？</h2><h3 id="❗-问题"><a href="#❗-问题" class="headerlink" title="❗ 问题"></a>❗ 问题</h3><p>例如：</p>
+<ul>
+<li>飞机 ✈️</li>
+<li>驾驶员 👨‍✈️</li>
+</ul>
+<p>它们是两个独立 GO，如何产生联系？</p>
+<hr>
+<h3 id="❌-旧方式：Hardcode"><a href="#❌-旧方式：Hardcode" class="headerlink" title="❌ 旧方式：Hardcode"></a>❌ 旧方式：Hardcode</h3><p>直接写死逻辑：<code>pilot.control(plane)</code>  </p>
+<p>问题：</p>
+<ul>
+<li>耦合严重</li>
+<li>难扩展</li>
+<li>难维护</li>
+</ul>
+<hr>
+<h2 id="✅-解决方案：事件系统（Event-System）"><a href="#✅-解决方案：事件系统（Event-System）" class="headerlink" title="✅ 解决方案：事件系统（Event System）"></a>✅ 解决方案：事件系统（Event System）</h2><h3 id="核心思想-2"><a href="#核心思想-2" class="headerlink" title="核心思想"></a>核心思想</h3><blockquote>
+<p>用“事件”解耦对象之间的关系</p>
+</blockquote>
+<hr>
+<h3 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h3><pre><code>Pilot 发出事件 → &quot;EnterPlane&quot;
+Plane 接收事件 → 执行逻辑
+</code></pre>
+<hr>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>解耦</li>
+<li>灵活</li>
+<li>可扩展</li>
+</ul>
+<hr>
+<h2 id="🗂️-如何管理大量-Game-Object？"><a href="#🗂️-如何管理大量-Game-Object？" class="headerlink" title="🗂️ 如何管理大量 Game Object？"></a>🗂️ 如何管理大量 Game Object？</h2><h3 id="👉-场景管理（Scene-Management）"><a href="#👉-场景管理（Scene-Management）" class="headerlink" title="👉 场景管理（Scene Management）"></a>👉 场景管理（Scene Management）</h3><hr>
+<h2 id="🌐-空间数据结构（关键）"><a href="#🌐-空间数据结构（关键）" class="headerlink" title="🌐 空间数据结构（关键）"></a>🌐 空间数据结构（关键）</h2><p>为了高效管理 GO，需要空间划分：</p>
+<hr>
+<h3 id="🧱-方法-1：网格划分（Grid）"><a href="#🧱-方法-1：网格划分（Grid）" class="headerlink" title="🧱 方法 1：网格划分（Grid）"></a>🧱 方法 1：网格划分（Grid）</h3><p>把世界切成格子  </p>
+<p>优点：</p>
+<ul>
+<li>简单</li>
+<li>易实现</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>精度有限</li>
+</ul>
+<hr>
+<h3 id="🌲-方法-2：四叉树（Quadtree）"><a href="#🌲-方法-2：四叉树（Quadtree）" class="headerlink" title="🌲 方法 2：四叉树（Quadtree）"></a>🌲 方法 2：四叉树（Quadtree）</h3><p>递归划分空间  </p>
+<p>特点：</p>
+<ul>
+<li>层级结构</li>
+<li>自适应密度</li>
+</ul>
+<hr>
+<h3 id="🌳-其他结构"><a href="#🌳-其他结构" class="headerlink" title="🌳 其他结构"></a>🌳 其他结构</h3><ul>
+<li>二叉树（Binary Tree）</li>
+<li>八叉树（Octree）</li>
+<li>BVH（Bounding Volume Hierarchy）</li>
+</ul>
+<hr>
+<h3 id="🎯-作用"><a href="#🎯-作用" class="headerlink" title="🎯 作用"></a>🎯 作用</h3><p>用于：</p>
+<ul>
+<li>碰撞检测</li>
+<li>可见性剔除（Culling）</li>
+<li>空间查询</li>
+</ul>
+<hr>
+<h2 id="⚠️-关键工程问题"><a href="#⚠️-关键工程问题" class="headerlink" title="⚠️ 关键工程问题"></a>⚠️ 关键工程问题</h2><hr>
+<h3 id="1️⃣-组件依赖关系"><a href="#1️⃣-组件依赖关系" class="headerlink" title="1️⃣ 组件依赖关系"></a>1️⃣ 组件依赖关系</h3><p>例如：</p>
+<ul>
+<li>Render 依赖 Transform</li>
+<li>Physics 依赖 Collision</li>
+</ul>
+<p>👉 必须管理依赖顺序</p>
+<hr>
+<h3 id="2️⃣-Tick-顺序"><a href="#2️⃣-Tick-顺序" class="headerlink" title="2️⃣ Tick 顺序"></a>2️⃣ Tick 顺序</h3><p>不同系统执行顺序：<code>Input → Physics → Animation → Render</code>  </p>
+<p>顺序错误会导致：</p>
+<ul>
+<li>抖动</li>
+<li>错误行为</li>
+</ul>
+<hr>
+<h3 id="3️⃣-消息时序问题（非常重要）"><a href="#3️⃣-消息时序问题（非常重要）" class="headerlink" title="3️⃣ 消息时序问题（非常重要）"></a>3️⃣ 消息时序问题（非常重要）</h3><blockquote>
+<p>相同输入必须产生相同结果（Determinism）</p>
+</blockquote>
+<hr>
+<h3 id="❗-为什么重要？-1"><a href="#❗-为什么重要？-1" class="headerlink" title="❗ 为什么重要？"></a>❗ 为什么重要？</h3><ul>
+<li>网络同步（多人游戏）</li>
+<li>回放系统</li>
+<li>Debug</li>
+</ul>
+<hr>
+<h2 id="🧩-总体结构总结-1"><a href="#🧩-总体结构总结-1" class="headerlink" title="🧩 总体结构总结"></a>🧩 总体结构总结</h2><pre><code>Game World
+├── Game Object（GO）
+│ └── Components
+│
+├── Systems（批量更新）
+│
+├── Event System（交互）
+│
+└── Scene Management（空间管理）
+</code></pre>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习情况</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">socket</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Game Engine</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2026/03/18/games104/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/07/10/Python%E7%88%AC%E8%99%AB%E5%AE%9E%E8%B7%B5/" class="archive-article-date">
-  	<time datetime="2023-07-10T03:15:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-07-10</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2026/03/18/csharp%E4%B9%8BGC/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">csharp之GC</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/07/10/Python%E7%88%AC%E8%99%AB%E5%AE%9E%E8%B7%B5/">简单Python爬虫的实践</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习情况</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">爬虫</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%B0%E4%BB%A3%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%E5%AF%BC%E8%AE%BA"><span class="toc-number">1.</span> <span class="toc-text">现代游戏引擎导论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Class-1%EF%BC%9A%E4%BB%80%E4%B9%88%E6%98%AF%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%EF%BC%9F"><span class="toc-number">2.</span> <span class="toc-text">Class 1：什么是游戏引擎？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8E%AE-%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-number">2.1.</span> <span class="toc-text">🎮 游戏引擎的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%A7%A9-%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%E5%8C%85%E5%90%AB%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">2.2.</span> <span class="toc-text">🧩 游戏引擎包含什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9D%93-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%EF%BC%9F"><span class="toc-number">2.3.</span> <span class="toc-text">❓ 为什么需要游戏引擎？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9C%85-%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%E7%9A%84%E4%BB%B7%E5%80%BC"><span class="toc-number">2.4.</span> <span class="toc-text">✅ 游戏引擎的价值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%A7%A0-%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%E7%9A%84%E4%B8%89%E7%A7%8D%E8%A7%92%E8%89%B2"><span class="toc-number">2.5.</span> <span class="toc-text">🧠 游戏引擎的三种角色</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%EF%B8%8F%E2%83%A3-%E8%BF%90%E8%A1%8C%E6%97%B6%E7%B3%BB%E7%BB%9F%EF%BC%88Runtime%EF%BC%89"><span class="toc-number">2.5.1.</span> <span class="toc-text">1️⃣ 运行时系统（Runtime）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%EF%B8%8F%E2%83%A3-%E5%86%85%E5%AE%B9%E7%94%9F%E4%BA%A7%E5%B7%A5%E5%85%B7%EF%BC%88Toolchain%EF%BC%89"><span class="toc-number">2.5.2.</span> <span class="toc-text">2️⃣ 内容生产工具（Toolchain）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3%EF%B8%8F%E2%83%A3-%E5%8D%8F%E4%BD%9C%E4%B8%AD%E6%9E%A2"><span class="toc-number">2.5.3.</span> <span class="toc-text">3️⃣ 协作中枢</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Class-2%EF%BC%9A%E5%BC%95%E6%93%8E%E6%9E%B6%E6%9E%84%E5%88%86%E5%B1%82"><span class="toc-number">3.</span> <span class="toc-text">Class 2：引擎架构分层</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8F%97%EF%B8%8F-%E5%BC%95%E6%93%8E%E6%95%B4%E4%BD%93%E7%BB%93%E6%9E%84"><span class="toc-number">3.1.</span> <span class="toc-text">🏗️ 引擎整体结构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E4%B8%AA%E5%85%B8%E5%9E%8B%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%E5%8F%AF%E4%BB%A5%E5%88%86%E4%B8%BA%E4%BA%94%E5%B1%82%EF%BC%9ATool-Layer-%EF%BC%88%E5%B7%A5%E5%85%B7%E5%B1%82%EF%BC%89Function-Layer-%EF%BC%88%E5%8A%9F%E8%83%BD%E5%B1%82%EF%BC%89Resource-Layer-%EF%BC%88%E8%B5%84%E6%BA%90%E5%B1%82%EF%BC%89Core-Layer-%EF%BC%88%E6%A0%B8%E5%BF%83%E5%B1%82%EF%BC%89Platform-Layer-%EF%BC%88%E5%B9%B3%E5%8F%B0%E5%B1%82%EF%BC%89"><span class="toc-number">4.</span> <span class="toc-text">一个典型游戏引擎可以分为五层：Tool Layer （工具层）Function Layer （功能层）Resource Layer （资源层）Core Layer （核心层）Platform Layer （平台层）  </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9B%A0%EF%B8%8F-%E4%B8%80%E3%80%81%E5%B7%A5%E5%85%B7%E5%B1%82%EF%BC%88Tool-Layer%EF%BC%89"><span class="toc-number">5.</span> <span class="toc-text">🛠️ 一、工具层（Tool Layer）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-number">5.1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD"><span class="toc-number">5.2.</span> <span class="toc-text">功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8E%AF-%E6%A0%B8%E5%BF%83%E7%9B%AE%E6%A0%87"><span class="toc-number">5.3.</span> <span class="toc-text">🎯 核心目标</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8C%8D-%E4%BA%8C%E3%80%81%E5%8A%9F%E8%83%BD%E5%B1%82%EF%BC%88Function-Layer%EF%BC%89"><span class="toc-number">6.</span> <span class="toc-text">🌍 二、功能层（Function Layer）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-1"><span class="toc-number">6.1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97"><span class="toc-number">6.2.</span> <span class="toc-text">核心模块</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%8F%B1%EF%B8%8F-Tick%E6%9C%BA%E5%88%B6%EF%BC%88%E6%9E%81%E5%85%B6%E9%87%8D%E8%A6%81%EF%BC%89"><span class="toc-number">7.</span> <span class="toc-text">⏱️ Tick机制（极其重要）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E5%B8%A7%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B%EF%BC%9A"><span class="toc-number">7.1.</span> <span class="toc-text">一帧的基本流程：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%84-%E4%B8%A4%E4%B8%AA%E6%A0%B8%E5%BF%83%E9%98%B6%E6%AE%B5"><span class="toc-number">7.2.</span> <span class="toc-text">🔄 两个核心阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9D%97-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%88%86%E7%A6%BB%EF%BC%9F"><span class="toc-number">7.3.</span> <span class="toc-text">❗ 为什么要分离？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9C%85-%E5%A5%BD%E5%A4%84"><span class="toc-number">7.4.</span> <span class="toc-text">✅ 好处</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%A6%B4-%E5%8A%A8%E7%94%BB%E7%B3%BB%E7%BB%9F%E6%B5%81%E7%A8%8B"><span class="toc-number">8.</span> <span class="toc-text">🦴 动画系统流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%A0%EF%B8%8F-%E5%8A%9F%E8%83%BD%E5%B1%82%E7%89%B9%E7%82%B9"><span class="toc-number">9.</span> <span class="toc-text">⚠️ 功能层特点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%A7%A0-%E5%93%AA%E4%BA%9B%E6%98%AF%E5%85%B8%E5%9E%8B%E5%BC%95%E6%93%8E%E8%83%BD%E5%8A%9B%EF%BC%9F"><span class="toc-number">9.1.</span> <span class="toc-text">🧠 哪些是典型引擎能力？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%A7%B5-%E5%A4%9A%E6%A0%B8%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3"><span class="toc-number">10.</span> <span class="toc-text">🧵 多核设计思想</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E5%B9%B6%E8%A1%8C%E4%BB%BB%E5%8A%A1"><span class="toc-number">10.1.</span> <span class="toc-text">可并行任务</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%A6-%E4%B8%89%E3%80%81%E8%B5%84%E6%BA%90%E5%B1%82%EF%BC%88Resource-Layer%EF%BC%89"><span class="toc-number">11.</span> <span class="toc-text">📦 三、资源层（Resource Layer）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-2"><span class="toc-number">11.1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%86%9A-Asset-vs-Resource"><span class="toc-number">11.2.</span> <span class="toc-text">🆚 Asset vs Resource</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%84-%E8%BD%AC%E6%8D%A2%E6%B5%81%E7%A8%8B"><span class="toc-number">11.3.</span> <span class="toc-text">🔄 转换流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9D%93-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E8%BD%AC%E6%8D%A2%EF%BC%9F"><span class="toc-number">11.4.</span> <span class="toc-text">❓ 为什么要转换？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%81%8C%E8%B4%A3"><span class="toc-number">11.5.</span> <span class="toc-text">职责</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%A7%B1-%E5%9B%9B%E3%80%81%E6%A0%B8%E5%BF%83%E5%B1%82%EF%BC%88Core-Layer%EF%BC%89"><span class="toc-number">12.</span> <span class="toc-text">🧱 四、核心层（Core Layer）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-3"><span class="toc-number">12.1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%85%E5%90%AB%E5%86%85%E5%AE%B9"><span class="toc-number">12.2.</span> <span class="toc-text">包含内容</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9E%97-%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80"><span class="toc-number">13.</span> <span class="toc-text">➗ 数学基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%A1-SIMD"><span class="toc-number">14.</span> <span class="toc-text">⚡ SIMD</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%A7%A0-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="toc-number">15.</span> <span class="toc-text">🧠 内存管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9D%97-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%87%8D%E8%A6%81%EF%BC%9F"><span class="toc-number">15.1.</span> <span class="toc-text">❗ 为什么重要？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8F%8A-%E5%86%85%E5%AD%98%E6%B1%A0%EF%BC%88Memory-Pool%EF%BC%89"><span class="toc-number">15.2.</span> <span class="toc-text">🏊 内存池（Memory Pool）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%9A%80-%E6%80%A7%E8%83%BD%E5%85%B3%E9%94%AE%E5%8E%9F%E5%88%99"><span class="toc-number">15.3.</span> <span class="toc-text">🚀 性能关键原则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%96%A5%EF%B8%8F-%E4%BA%94%E3%80%81%E5%B9%B3%E5%8F%B0%E5%B1%82%EF%BC%88Platform-Layer%EF%BC%89"><span class="toc-number">16.</span> <span class="toc-text">🖥️ 五、平台层（Platform Layer）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-4"><span class="toc-number">16.1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E5%86%85%E5%AE%B9"><span class="toc-number">16.2.</span> <span class="toc-text">处理内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8E%AF-%E7%9B%AE%E6%A0%87"><span class="toc-number">16.3.</span> <span class="toc-text">🎯 目标</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%A7%A9-%E6%80%BB%E4%BD%93%E7%BB%93%E6%9E%84%E6%80%BB%E7%BB%93"><span class="toc-number">17.</span> <span class="toc-text">🧩 总体结构总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%8C-%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3%E6%80%BB%E7%BB%93"><span class="toc-number">18.</span> <span class="toc-text">📌 核心思想总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%EF%B8%8F%E2%83%A3-%E5%BC%95%E6%93%8E%E6%98%AF%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B"><span class="toc-number">18.1.</span> <span class="toc-text">1️⃣ 引擎是系统工程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%EF%B8%8F%E2%83%A3-%E9%80%BB%E8%BE%91%E4%B8%8E%E6%B8%B2%E6%9F%93%E5%88%86%E7%A6%BB%EF%BC%88%E6%9C%80%E9%87%8D%E8%A6%81%EF%BC%89"><span class="toc-number">18.2.</span> <span class="toc-text">2️⃣ 逻辑与渲染分离（最重要）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%EF%B8%8F%E2%83%A3-%E6%80%A7%E8%83%BD%E6%9C%AC%E8%B4%A8-%E6%95%B0%E6%8D%AE"><span class="toc-number">18.3.</span> <span class="toc-text">3️⃣ 性能本质 &#x3D; 数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%EF%B8%8F%E2%83%A3-%E5%B7%A5%E5%85%B7%E9%93%BE%E5%86%B3%E5%AE%9A%E7%94%9F%E4%BA%A7%E5%8A%9B"><span class="toc-number">18.4.</span> <span class="toc-text">4️⃣ 工具链决定生产力</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Class-3%EF%BC%9A%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E6%B8%B8%E6%88%8F%E4%B8%96%E7%95%8C%EF%BC%9F"><span class="toc-number">19.</span> <span class="toc-text">Class 3：如何构建游戏世界？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%AE-%E4%BB%80%E4%B9%88%E6%98%AF%E2%80%9C%E6%B8%B8%E6%88%8F%E4%B8%96%E7%95%8C%E2%80%9D%EF%BC%9F"><span class="toc-number">20.</span> <span class="toc-text">🎮 什么是“游戏世界”？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%A7%A9-%E6%B8%B8%E6%88%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%9E%84%E6%88%90"><span class="toc-number">20.1.</span> <span class="toc-text">🧩 游戏的基本构成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8E%AF-%E7%BB%9F%E4%B8%80%E6%8A%BD%E8%B1%A1%EF%BC%9AGame-Object%EF%BC%88GO%EF%BC%89"><span class="toc-number">20.2.</span> <span class="toc-text">🎯 统一抽象：Game Object（GO）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%A7%A0-%E5%A6%82%E4%BD%95%E6%8F%8F%E8%BF%B0%E4%B8%80%E4%B8%AA-Game-Object%EF%BC%9F"><span class="toc-number">21.</span> <span class="toc-text">🧠 如何描述一个 Game Object？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8F%9B%EF%B8%8F-%E6%97%A9%E6%9C%9F%E6%96%B9%E6%A1%88%EF%BC%9A%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%EF%BC%88OOP%EF%BC%89"><span class="toc-number">21.1.</span> <span class="toc-text">🏛️ 早期方案：面向对象（OOP）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9D%97-OOP-%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">22.</span> <span class="toc-text">❗ OOP 的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%A7%A9-%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%9A%E7%BB%84%E4%BB%B6%E5%8C%96%EF%BC%88Component-Based%EF%BC%89"><span class="toc-number">23.</span> <span class="toc-text">🧩 解决方案：组件化（Component-Based）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3"><span class="toc-number">23.1.</span> <span class="toc-text">核心思想</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%A7%B1-%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BE%8B%E5%AD%90"><span class="toc-number">23.2.</span> <span class="toc-text">🧱 组件的例子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%94%84-%E7%81%B5%E6%B4%BB%E7%BB%84%E5%90%88"><span class="toc-number">23.3.</span> <span class="toc-text">🔄 灵活组合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%A7%A0-%E6%A0%B8%E5%BF%83%E7%BB%93%E8%AE%BA"><span class="toc-number">23.4.</span> <span class="toc-text">🧠 核心结论</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%A7%A9-%E7%BB%84%E4%BB%B6%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1"><span class="toc-number">24.</span> <span class="toc-text">🧩 组件系统设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%BB%93%E6%9E%84"><span class="toc-number">24.1.</span> <span class="toc-text">基础结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8E%AF-%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99"><span class="toc-number">24.2.</span> <span class="toc-text">🎯 设计原则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8C%8D-%E4%B8%96%E7%95%8C%E5%A6%82%E4%BD%95%E2%80%9C%E6%B4%BB%E8%B5%B7%E6%9D%A5%E2%80%9D%EF%BC%9F"><span class="toc-number">25.</span> <span class="toc-text">🌍 世界如何“活起来”？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%8F%B1%EF%B8%8F-Tick%E6%9C%BA%E5%88%B6%EF%BC%88%E5%86%8D%E6%AC%A1%E5%87%BA%E7%8E%B0%EF%BC%81%EF%BC%89"><span class="toc-number">26.</span> <span class="toc-text">⏱️ Tick机制（再次出现！）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-5"><span class="toc-number">26.1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%A7%A0-Object-based-Tick"><span class="toc-number">26.2.</span> <span class="toc-text">🧠 Object-based Tick</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%A0%EF%B8%8F-%E9%97%AE%E9%A2%98%EF%BC%9A%E6%95%88%E7%8E%87%E4%BD%8E%EF%BC%81"><span class="toc-number">27.</span> <span class="toc-text">⚠️ 问题：效率低！</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9A%80-%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88%EF%BC%9ASystem-based-Tick"><span class="toc-number">28.</span> <span class="toc-text">🚀 优化方案：System-based Tick</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3-1"><span class="toc-number">28.1.</span> <span class="toc-text">核心思想</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B"><span class="toc-number">28.2.</span> <span class="toc-text">示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9C%85-%E4%BC%98%E7%82%B9"><span class="toc-number">28.3.</span> <span class="toc-text">✅ 优点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%97-%E6%B8%B8%E6%88%8F%E5%AF%B9%E8%B1%A1%E5%A6%82%E4%BD%95%E4%BA%A4%E4%BA%92%EF%BC%9F"><span class="toc-number">29.</span> <span class="toc-text">🔗 游戏对象如何交互？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9D%97-%E9%97%AE%E9%A2%98"><span class="toc-number">29.1.</span> <span class="toc-text">❗ 问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9D%8C-%E6%97%A7%E6%96%B9%E5%BC%8F%EF%BC%9AHardcode"><span class="toc-number">29.2.</span> <span class="toc-text">❌ 旧方式：Hardcode</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9C%85-%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%9A%E4%BA%8B%E4%BB%B6%E7%B3%BB%E7%BB%9F%EF%BC%88Event-System%EF%BC%89"><span class="toc-number">30.</span> <span class="toc-text">✅ 解决方案：事件系统（Event System）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3-2"><span class="toc-number">30.1.</span> <span class="toc-text">核心思想</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B-1"><span class="toc-number">30.2.</span> <span class="toc-text">示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E7%82%B9"><span class="toc-number">30.3.</span> <span class="toc-text">优点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%97%82%EF%B8%8F-%E5%A6%82%E4%BD%95%E7%AE%A1%E7%90%86%E5%A4%A7%E9%87%8F-Game-Object%EF%BC%9F"><span class="toc-number">31.</span> <span class="toc-text">🗂️ 如何管理大量 Game Object？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%91%89-%E5%9C%BA%E6%99%AF%E7%AE%A1%E7%90%86%EF%BC%88Scene-Management%EF%BC%89"><span class="toc-number">31.1.</span> <span class="toc-text">👉 场景管理（Scene Management）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8C%90-%E7%A9%BA%E9%97%B4%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E5%85%B3%E9%94%AE%EF%BC%89"><span class="toc-number">32.</span> <span class="toc-text">🌐 空间数据结构（关键）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%A7%B1-%E6%96%B9%E6%B3%95-1%EF%BC%9A%E7%BD%91%E6%A0%BC%E5%88%92%E5%88%86%EF%BC%88Grid%EF%BC%89"><span class="toc-number">32.1.</span> <span class="toc-text">🧱 方法 1：网格划分（Grid）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8C%B2-%E6%96%B9%E6%B3%95-2%EF%BC%9A%E5%9B%9B%E5%8F%89%E6%A0%91%EF%BC%88Quadtree%EF%BC%89"><span class="toc-number">32.2.</span> <span class="toc-text">🌲 方法 2：四叉树（Quadtree）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8C%B3-%E5%85%B6%E4%BB%96%E7%BB%93%E6%9E%84"><span class="toc-number">32.3.</span> <span class="toc-text">🌳 其他结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%8E%AF-%E4%BD%9C%E7%94%A8"><span class="toc-number">32.4.</span> <span class="toc-text">🎯 作用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%A0%EF%B8%8F-%E5%85%B3%E9%94%AE%E5%B7%A5%E7%A8%8B%E9%97%AE%E9%A2%98"><span class="toc-number">33.</span> <span class="toc-text">⚠️ 关键工程问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%EF%B8%8F%E2%83%A3-%E7%BB%84%E4%BB%B6%E4%BE%9D%E8%B5%96%E5%85%B3%E7%B3%BB"><span class="toc-number">33.1.</span> <span class="toc-text">1️⃣ 组件依赖关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%EF%B8%8F%E2%83%A3-Tick-%E9%A1%BA%E5%BA%8F"><span class="toc-number">33.2.</span> <span class="toc-text">2️⃣ Tick 顺序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%EF%B8%8F%E2%83%A3-%E6%B6%88%E6%81%AF%E6%97%B6%E5%BA%8F%E9%97%AE%E9%A2%98%EF%BC%88%E9%9D%9E%E5%B8%B8%E9%87%8D%E8%A6%81%EF%BC%89"><span class="toc-number">33.3.</span> <span class="toc-text">3️⃣ 消息时序问题（非常重要）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9D%97-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%87%8D%E8%A6%81%EF%BC%9F-1"><span class="toc-number">33.4.</span> <span class="toc-text">❗ 为什么重要？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%A7%A9-%E6%80%BB%E4%BD%93%E7%BB%93%E6%9E%84%E6%80%BB%E7%BB%93-1"><span class="toc-number">34.</span> <span class="toc-text">🧩 总体结构总结</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
   
-    </div></section>
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -264,9 +806,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
