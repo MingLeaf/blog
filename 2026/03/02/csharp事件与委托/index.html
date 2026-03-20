@@ -16,7 +16,7 @@
 <meta property="og:description" content="事件与委托一句话：委托（delegate）是“可以装方法的变量”；事件（event）是“受保护的委托通知机制”。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2026-03-02T02:43:21.000Z">
-<meta property="article:modified_time" content="2026-03-18T09:00:23.346Z">
+<meta property="article:modified_time" content="2026-03-20T07:17:16.965Z">
 <meta property="article:author" content="Ziming Ye">
 <meta property="article:tag" content="C#">
 <meta name="twitter:card" content="summary">
@@ -217,16 +217,10 @@
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">按钮被按下</span><br><span class="line">处理逻辑1：播放声音</span><br><span class="line">处理逻辑2：记录日志</span><br></pre></td></tr></table></figure>
 <p>流程拆解：  </p>
 <ol>
-<li><p>订阅  </p>
-<pre><code> button.Click += OnClick1;
- button.Click += OnClick2;
-</code></pre>
-</li>
-</ol>
-<p>现在内部相当于：<code>_click = OnClick1 + OnClick2;</code><br>2. 触发事件  <code>Click?.Invoke();</code><br>等价于：</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">OnClick1();</span><br><span class="line">OnClick2();</span><br></pre></td></tr></table></figure>
-<p>事件三要素：  </p>
-<ol>
+<li>订阅  <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">button.Click += OnClick1;</span><br><span class="line">button.Click += OnClick2;</span><br></pre></td></tr></table></figure>
+现在内部相当于：<code>_click = OnClick1 + OnClick2;</code>  </li>
+<li>触发事件  <code>Click?.Invoke();</code><br>等价于：<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">OnClick1();</span><br><span class="line">OnClick2();</span><br></pre></td></tr></table></figure>
+事件三要素：  </li>
 <li>发布者 这里是 class Button  </li>
 <li>事件本身 public event Action Click;  </li>
 <li>订阅者 button.Click +&#x3D; OnClick1;</li>
@@ -237,10 +231,15 @@
 <li>事件本质上就是委托，但进行了event封装，委托访问权在外部，事件访问权在内部</li>
 <li>多播的返回值问题，如： <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">delegate</span> <span class="built_in">int</span> <span class="title">Calc</span>()</span>;</span><br><span class="line"><span class="comment">// 再绑定多个方法</span></span><br><span class="line">Calc c = A;</span><br><span class="line">c += B;</span><br><span class="line">c += C;</span><br><span class="line"><span class="comment">//调用</span></span><br><span class="line"><span class="built_in">int</span> result = c();</span><br><span class="line"><span class="comment">// 此时该输出什么？</span></span><br></pre></td></tr></table></figure>
 答案是： <blockquote>
-<p>只会得到最后一个方法的返回值<br>完整例子：</p>
+<p>只会得到最后一个方法的返回值</p>
 </blockquote>
+</li>
+</ul>
+<p>完整例子：</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">MulticastReturnDemo</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="built_in">delegate</span> <span class="built_in">int</span> <span class="title">Calc</span>()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            Calc c = Method1;</span><br><span class="line">            c += Method2;</span><br><span class="line">            c += Method3;</span><br><span class="line"></span><br><span class="line">            <span class="built_in">int</span> result = c();</span><br><span class="line"></span><br><span class="line">            Console.WriteLine(<span class="string">&quot;最终返回值: &quot;</span> + result);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="built_in">int</span> <span class="title">Method1</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;Method1 执行&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="built_in">int</span> <span class="title">Method2</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;Method2 执行&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="number">20</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="built_in">int</span> <span class="title">Method3</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;Method3 执行&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="number">30</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-输出：<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Method1 执行</span><br><span class="line">Method2 执行</span><br><span class="line">Method3 执行</span><br><span class="line">最终返回值: 30</span><br></pre></td></tr></table></figure></li>
+<p>输出：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Method1 执行</span><br><span class="line">Method2 执行</span><br><span class="line">Method3 执行</span><br><span class="line">最终返回值: 30</span><br></pre></td></tr></table></figure>
+<ul>
 <li>中间有异常咋办？ 比如： Method1 正常 Method2 抛异常 Method3 正常<br>那么默认情况下，执行到 Method2 出错后，后面的 Method3 就不会继续执行。 此外，可以通过<code>GetInvocationList()</code>此方法来返回当前绑定的所有方法列表。这样你就可以一个一个调用，并分别处理异常</li>
 </ul>
 
