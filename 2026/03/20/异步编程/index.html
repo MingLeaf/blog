@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>LeafMing的个人主页</title>
+  <title>C#的异步编程 | LeafMing的个人主页</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="LeafMing的个人主页">
-<meta property="og:url" content="http://example.com/page/3/index.html">
+  <meta name="description" content="什么是异步？发起一个操作后，不需要一直等待它完成，可以先去做别的事，等它完成后再继续处理结果。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C#的异步编程">
+<meta property="og:url" content="http://example.com/2026/03/20/%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/index.html">
 <meta property="og:site_name" content="LeafMing的个人主页">
+<meta property="og:description" content="什么是异步？发起一个操作后，不需要一直等待它完成，可以先去做别的事，等它完成后再继续处理结果。">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2026-03-20T08:42:27.000Z">
+<meta property="article:modified_time" content="2026-03-20T10:31:22.153Z">
 <meta property="article:author" content="Ziming Ye">
+<meta property="article:tag" content="C#">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="LeafMing的个人主页" type="application/atom+xml">
@@ -134,32 +139,60 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-冒泡排序以及堆排序的实现" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-异步编程" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/07/19/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E4%BB%A5%E5%8F%8A%E5%A0%86%E6%8E%92%E5%BA%8F%E7%9A%84%E5%AE%9E%E7%8E%B0/">冒泡排序以及堆排序的实现</a>
+    <h1 class="article-title" itemprop="name">
+      C#的异步编程
     </h1>
   
 
         
-        <a href="/2023/07/19/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E4%BB%A5%E5%8F%8A%E5%A0%86%E6%8E%92%E5%BA%8F%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="archive-article-date">
-  	<time datetime="2023-07-19T00:15:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-07-19</time>
+        <a href="/2026/03/20/%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/" class="archive-article-date">
+  	<time datetime="2026-03-20T08:42:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-03-20</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="完成时间：大二上"><a href="#完成时间：大二上" class="headerlink" title="完成时间：大二上"></a>完成时间：大二上</h2>
-        
-          <a class="article-more-a" href="/2023/07/19/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E4%BB%A5%E5%8F%8A%E5%A0%86%E6%8E%92%E5%BA%8F%E7%9A%84%E5%AE%9E%E7%8E%B0/#more">more >></a>
-        
+        <h2 id="什么是异步？"><a href="#什么是异步？" class="headerlink" title="什么是异步？"></a>什么是异步？</h2><p>发起一个操作后，不需要一直等待它完成，可以先去做别的事，等它完成后再继续处理结果。</p>
+<span id="more"></span>
+
+<h2 id="和同步的区别？"><a href="#和同步的区别？" class="headerlink" title="和同步的区别？"></a>和同步的区别？</h2><p>同步（Sync）：你必须等它做完，才能继续</p>
+<p>异步（Async）： 你不用等，可以先干别的，完成后再回来处理</p>
+<h4 id="生活例子"><a href="#生活例子" class="headerlink" title="生活例子"></a>生活例子</h4><p>🍜 同步<br>你泡方便面：倒水 -&gt; 站着等 5 分钟 -&gt; 吃<br>这 5 分钟你啥也干不了</p>
+<hr>
+<p>🍜 异步<br>倒水 -&gt; 去刷手机 -&gt;面好了 -&gt; 回来吃<br>你没有“阻塞自己”  </p>
+<h3 id="完整例子"><a href="#完整例子" class="headerlink" title="完整例子"></a>完整例子</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Threading;</span><br><span class="line"><span class="keyword">using</span> System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">async</span> Task <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(<span class="string">$&quot;1. Main start, ThreadId = <span class="subst">&#123;Thread.CurrentThread.ManagedThreadId&#125;</span>&quot;</span>);</span><br><span class="line"></span><br><span class="line">        Task task = ReadDataAsync();</span><br><span class="line"></span><br><span class="line">        Console.WriteLine(<span class="string">$&quot;2. Main got Task, ThreadId = <span class="subst">&#123;Thread.CurrentThread.ManagedThreadId&#125;</span>&quot;</span>);</span><br><span class="line">        Console.WriteLine(<span class="string">&quot;3. Main can do other work...&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">await</span> task;</span><br><span class="line"></span><br><span class="line">        Console.WriteLine(<span class="string">$&quot;8. Main end, ThreadId = <span class="subst">&#123;Thread.CurrentThread.ManagedThreadId&#125;</span>&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">async</span> Task <span class="title">ReadDataAsync</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(<span class="string">$&quot;4. ReadDataAsync start, ThreadId = <span class="subst">&#123;Thread.CurrentThread.ManagedThreadId&#125;</span>&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">await</span> Task.Delay(<span class="number">3000</span>);</span><br><span class="line"></span><br><span class="line">        Console.WriteLine(<span class="string">$&quot;7. ReadDataAsync resumed after await, ThreadId = <span class="subst">&#123;Thread.CurrentThread.ManagedThreadId&#125;</span>&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<pre><code class="text">1. Main start, ThreadId = 1
+4. ReadDataAsync start, ThreadId = 1
+2. Main got Task, ThreadId = 1
+3. Main can do other work...
+7. ReadDataAsync resumed after await, ThreadId = 5
+8. Main end, ThreadId = 1
+</code></pre>
+<h4 id="过程拆解"><a href="#过程拆解" class="headerlink" title="过程拆解"></a>过程拆解</h4><ol>
+<li>进入main 执行 <code>Console.WriteLine($&quot;1. Main start, ThreadId = ...&quot;);</code> 打印：<code>Main start, ThreadId = 1</code></li>
+<li>调用 ReadDataAsync()  执行：<code>Task task = ReadDataAsync();</code><br>它会先同步执行一部分，一直执行到第一个 await 为止。<br>所以 ReadDataAsync() 被调用后，会先执行：<code>Console.WriteLine($&quot;4. ReadDataAsync start...&quot;);</code>于是就会打印<code>4. ReadDataAsync start</code></li>
+<li>遇到 <code>await Task.Delay(3000);</code>，启动了一个“3秒后完成”的任务，这里是一个假任务，需要耗时3秒，真实情况可能是在读文件、连数据库等操作。</li>
+<li>Main 继续往下执行，遇到了：</li>
+</ol>
+<pre><code class="c#">Console.WriteLine($&quot;2. Main got Task...&quot;);
+Console.WriteLine(&quot;3. Main can do other work...&quot;);
+</code></pre>
+<p>打印：</p>
+<pre><code class="c#">2. Main got Task
+3. Main can do other work...
+</code></pre>
+<p>这就说明：ReadDataAsync 虽然还没真正执行完，但 Main 并没有被卡住。<br>这就是“异步”的直观体现。<br>5. Main 执行到 await task，这句的意思不是“立刻继续往下执行”，而是：<br>等 ReadDataAsync 真正完成后，再继续执行 Main 后面的代码。<br>所以这时 Main 也暂停了。<br>在真实的操作中，可能表示在进行下一步操作前，需要等待数据库连接完毕，或者是文件读取完毕，取得了必要的东西后，再进行下一步。<br>6. 3 秒到了，Task.Delay(3000) 完成。 于是打印 <code>Console.WriteLine($&quot;7. ReadDataAsync resumed after await...&quot;);</code><br>此时，线程号可能变了，比如从 1 变成 5，这说明：在控制台程序里，await 后恢复执行，不一定回到原来的线程。<br>7. ReadDataAsync 执行完毕，等到了 <code>await task;</code> 后，程序就结束了，打印 <code>8. Main end</code>   </p>
+<hr>
+<h4 id="其余小知识点"><a href="#其余小知识点" class="headerlink" title="其余小知识点"></a>其余小知识点</h4><p><code>await task;</code> 这段代码在大多情况下是必需的，它的作用是等待这个异步任务执行完成，再继续往下走，所以它是不是必要，取决于你是否需要保证后面的代码在任务完成之后再执行。<br>一句话：await task 是否必要取决于业务是否需要等待该异步任务完成。如果后续逻辑依赖任务结果、依赖其完成顺序，或者需要正确处理异常，那么通常是必要的；如果只是启动一个与主流程无关的后台任务，则可以不 await，但这种做法需要谨慎。</p>
+
       
 
       
@@ -172,11 +205,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
         		</li>
       		
 		</ul>
@@ -185,16 +214,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2023/07/19/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E4%BB%A5%E5%8F%8A%E5%A0%86%E6%8E%92%E5%BA%8F%E7%9A%84%E5%AE%9E%E7%8E%B0/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2026/03/20/%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2026/03/20/%E6%89%98%E7%AE%A1%E4%B8%8E%E9%9D%9E%E6%89%98%E7%AE%A1%E8%B5%84%E6%BA%90/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">托管与非托管资源</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -209,185 +297,32 @@
         </div>
         
         
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-javasocket通信" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/07/16/javasocket%E9%80%9A%E4%BF%A1/">JavaSocket通信的实现</a>
-    </h1>
-  
-
-        
-        <a href="/2023/07/16/javasocket%E9%80%9A%E4%BF%A1/" class="archive-article-date">
-  	<time datetime="2023-07-16T04:01:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-07-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="完成时间：大一下"><a href="#完成时间：大一下" class="headerlink" title="完成时间：大一下"></a>完成时间：大一下</h2><p>此项目完成于大一下学期，以下为项目的源码以及截图，仅供参考</p>
-        
-          <a class="article-more-a" href="/2023/07/16/javasocket%E9%80%9A%E4%BF%A1/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习情况</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">socket</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2023/07/16/javasocket%E9%80%9A%E4%BF%A1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%BC%82%E6%AD%A5%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">什么是异步？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%92%8C%E5%90%8C%E6%AD%A5%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="toc-number">2.</span> <span class="toc-text">和同步的区别？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%9F%E6%B4%BB%E4%BE%8B%E5%AD%90"><span class="toc-number">2.0.1.</span> <span class="toc-text">生活例子</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8C%E6%95%B4%E4%BE%8B%E5%AD%90"><span class="toc-number">2.1.</span> <span class="toc-text">完整例子</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%87%E7%A8%8B%E6%8B%86%E8%A7%A3"><span class="toc-number">2.1.1.</span> <span class="toc-text">过程拆解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B6%E4%BD%99%E5%B0%8F%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="toc-number">2.1.2.</span> <span class="toc-text">其余小知识点</span></a></li></ol></li></ol></li></ol>
+                    </div>
+                </span>
             </div>
         </div>
         
-        
     </div>
 </aside>
 
 
 
-
-  
-    <article id="post-Python爬虫实践" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/07/10/Python%E7%88%AC%E8%99%AB%E5%AE%9E%E8%B7%B5/">简单Python爬虫的实践</a>
-    </h1>
-  
-
-        
-        <a href="/2023/07/10/Python%E7%88%AC%E8%99%AB%E5%AE%9E%E8%B7%B5/" class="archive-article-date">
-  	<time datetime="2023-07-10T03:15:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-07-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="完成时间：大一上"><a href="#完成时间：大一上" class="headerlink" title="完成时间：大一上"></a>完成时间：大一上</h2><p>此项目完成于大一的上学期，以下为项目的源码以及截图。</p>
-        
-          <a class="article-more-a" href="/2023/07/10/Python%E7%88%AC%E8%99%AB%E5%AE%9E%E8%B7%B5/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习情况</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">爬虫</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2023/07/10/Python%E7%88%AC%E8%99%AB%E5%AE%9E%E8%B7%B5/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
-    </nav>
+  
+
+  
+
+  
+
   
 
 
@@ -410,8 +345,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
