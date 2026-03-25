@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2026/2 | LeafMing的个人主页</title>
+  <title>性能优化之剖析工具 | LeafMing的个人主页</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="LeafMing的个人主页">
-<meta property="og:url" content="http://example.com/archives/2026/02/index.html">
+  <meta name="description" content="剖析工具 核心内容整理核心背景：性能优化的底层逻辑游戏是高性能实时系统，优化的核心依据是帕累托法则（80-20 规则），在计算机领域衍生为90-10 规则：    程序 90% 的挂钟时间（现实运行时间），仅消耗在 10% 的代码上 优化这 10% 的代码，可带来完全优化 90% 的整体运行速度提升  注：整理自《游戏引擎架构》 第二版">
+<meta property="og:type" content="article">
+<meta property="og:title" content="性能优化之剖析工具">
+<meta property="og:url" content="http://example.com/2026/03/25/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B9%8B%E5%89%96%E6%9E%90%E5%B7%A5%E5%85%B7/index.html">
 <meta property="og:site_name" content="LeafMing的个人主页">
+<meta property="og:description" content="剖析工具 核心内容整理核心背景：性能优化的底层逻辑游戏是高性能实时系统，优化的核心依据是帕累托法则（80-20 规则），在计算机领域衍生为90-10 规则：    程序 90% 的挂钟时间（现实运行时间），仅消耗在 10% 的代码上 优化这 10% 的代码，可带来完全优化 90% 的整体运行速度提升  注：整理自《游戏引擎架构》 第二版">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2026-03-25T06:39:00.000Z">
+<meta property="article:modified_time" content="2026-03-25T06:50:50.110Z">
 <meta property="article:author" content="Ziming Ye">
+<meta property="article:tag" content="性能优化">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="LeafMing的个人主页" type="application/atom+xml">
@@ -134,60 +139,204 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-性能优化之剖析工具" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2026" class="archive-year">2026</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2026/02/19/csharp%E5%8D%8F%E5%8F%98%E5%92%8C%E9%80%86%E5%8F%98/" class="archive-article-date">
-  	<time datetime="2026-02-19T06:03:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-02-19</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2026/02/19/csharp%E5%8D%8F%E5%8F%98%E5%92%8C%E9%80%86%E5%8F%98/">C# 协变和逆变</a>
+    <h1 class="article-title" itemprop="name">
+      性能优化之剖析工具
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2026/03/25/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B9%8B%E5%89%96%E6%9E%90%E5%B7%A5%E5%85%B7/" class="archive-article-date">
+  	<time datetime="2026-03-25T06:39:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-03-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="剖析工具-核心内容整理"><a href="#剖析工具-核心内容整理" class="headerlink" title="剖析工具 核心内容整理"></a>剖析工具 核心内容整理</h2><p>核心背景：性能优化的底层逻辑<br>游戏是高性能实时系统，优化的核心依据是帕累托法则（80-20 规则），在计算机领域衍生为90-10 规则：  </p>
+<ul>
+<li>程序 90% 的挂钟时间（现实运行时间），仅消耗在 10% 的代码上</li>
+<li>优化这 10% 的代码，可带来完全优化 90% 的整体运行速度提升</li>
+</ul>
+<p>注：整理自《游戏引擎架构》 第二版</p>
+<span id="more"></span>
+
+<h2 id="为什么会出现「90-时间耗在-10-代码上」？"><a href="#为什么会出现「90-时间耗在-10-代码上」？" class="headerlink" title="为什么会出现「90% 时间耗在 10% 代码上」？"></a>为什么会出现「90% 时间耗在 10% 代码上」？</h2><p>这个现象本质是帕累托法则（80&#x2F;20 法则）在程序性能上的延伸。<br>前置概念：  </p>
+<ul>
+<li>挂钟时间（wall clock time）：就是现实中程序从运行到结束的总耗时，和 CPU 实际执行指令的时间强相关，是用户能直观感受到的「程序卡不卡」的核心指标。  </li>
+<li>90-10 规则：是计算机领域对帕累托法则的经验总结：任意程序中，90% 的总运行时间，都消耗在仅 10% 的代码上；反过来，剩下 90% 的代码，只占总运行时间的 10%。</li>
+</ul>
+<h3 id="为什么会出现这个现象"><a href="#为什么会出现这个现象" class="headerlink" title="为什么会出现这个现象"></a>为什么会出现这个现象</h3><p>程序的代码分为两类，执行频率天差地别：</p>
+<ol>
+<li>热代码（Hot Code，就是那 10%）：是程序运行时高频、循环、反复执行的核心逻辑，比如游戏里的：</li>
+</ol>
+<ul>
+<li>每帧都要跑的渲染、物理碰撞、AI 寻路、输入处理</li>
+<li>循环百万次的数值计算、数据遍历</li>
+<li>这类代码会被执行成千上万次，哪怕单条指令只多几纳秒，累计起来就是总耗时的大头。</li>
+</ul>
+<ol start="2">
+<li>冷代码（Cold Code，剩下的 90%）：是低频、一次性执行的逻辑，比如：</li>
+</ol>
+<ul>
+<li>程序启动时的初始化、配置加载</li>
+<li>菜单界面的交互、报错提示</li>
+<li>存档、退出等只触发几次的操作</li>
+<li>这类代码哪怕单条指令慢 10 倍，对总耗时的影响也微乎其微。</li>
+</ul>
+<p>因此 热代码是总耗时的绝对大头，优化它的收益远高于优化冷代码。  </p>
+<h2 id="剖析器的核心作用"><a href="#剖析器的核心作用" class="headerlink" title="剖析器的核心作用"></a>剖析器的核心作用</h2><p>剖析器（profiler，也叫探查器、性能分析器）是定位需优化代码的核心工具（定位那10%的代码在哪），核心能力：   </p>
+<ol>
+<li>基础数据统计：度量代码执行时间，统计每个函数的耗时，定位占 “狮子份额”（大部分）执行时间的函数；同时可统计函数调用次数，区分耗时原因：</li>
+</ol>
+<ul>
+<li>函数本身单次运行耗时久（如 A * 寻路算法）</li>
+<li>函数被频繁调用（如每帧调用数十万次的计算点积函数，拖慢帧率）</li>
+</ul>
+<ol start="2">
+<li>进阶调用分析：生成调用图（call graph），展示函数的父函数（调用者）、子函数（被调用者），统计函数运行时间在后代中的占比、函数占整体运行时间的百分比。</li>
+</ol>
+<h2 id="剖析器的两大核心分类"><a href="#剖析器的两大核心分类" class="headerlink" title="剖析器的两大核心分类"></a>剖析器的两大核心分类</h2><p>1.统计式剖析器（statistical profiler）<br>核心特点：不唐突（unobtrusive），对目标代码执行速度影响极小<br>工作原理：周期性采样 CPU 的程序计数器寄存器，通过函数采样数估算其占整体执行时间的近似百分比<br>代表工具：Intel VTune（支持 Windows、Linux 平台，Pentium 平台的不二之选）</p>
+<p>2.测控式剖析器（instrumental profiler）<br>核心特点：数据最精准详尽，但会严重拖慢程序运行（无法实时运行）<br>工作原理：预处理可执行文件，为每个函数插入初构 &#x2F; 终解代码，监控每一行代码的执行时间、调用关系等全量细节<br>代表工具：IBM Rational Quantify（Rational Purify Plus 工具套装）</p>
+<p>3.混合式剖析器<br>代表工具：微软 LOP（Low Overhead Profiler，低开销剖析器）<br>核心优势：结合两类剖析器的优点，用统计方法采样处理器状态（对程序速度影响小），同时采样剖析调用堆栈，提供普通统计式剖析器无法获取的父函数调用分布数据。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">性能优化</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2026/03/25/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B9%8B%E5%89%96%E6%9E%90%E5%B7%A5%E5%85%B7/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2026/03/25/c-%E4%B8%AD%E7%9A%84%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E5%92%8C%E6%8D%9F%E5%9D%8F%E6%A3%80%E6%B5%8B/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">c++中的内存泄漏和损坏检测</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%96%E6%9E%90%E5%B7%A5%E5%85%B7-%E6%A0%B8%E5%BF%83%E5%86%85%E5%AE%B9%E6%95%B4%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text">剖析工具 核心内容整理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%87%BA%E7%8E%B0%E3%80%8C90-%E6%97%B6%E9%97%B4%E8%80%97%E5%9C%A8-10-%E4%BB%A3%E7%A0%81%E4%B8%8A%E3%80%8D%EF%BC%9F"><span class="toc-number">2.</span> <span class="toc-text">为什么会出现「90% 时间耗在 10% 代码上」？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%87%BA%E7%8E%B0%E8%BF%99%E4%B8%AA%E7%8E%B0%E8%B1%A1"><span class="toc-number">2.1.</span> <span class="toc-text">为什么会出现这个现象</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%96%E6%9E%90%E5%99%A8%E7%9A%84%E6%A0%B8%E5%BF%83%E4%BD%9C%E7%94%A8"><span class="toc-number">3.</span> <span class="toc-text">剖析器的核心作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%96%E6%9E%90%E5%99%A8%E7%9A%84%E4%B8%A4%E5%A4%A7%E6%A0%B8%E5%BF%83%E5%88%86%E7%B1%BB"><span class="toc-number">4.</span> <span class="toc-text">剖析器的两大核心分类</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -210,8 +359,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
