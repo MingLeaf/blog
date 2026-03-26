@@ -6,15 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives | LeafMing的个人主页</title>
+  <title>性能优化之缓存命中 | LeafMing的个人主页</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="LeafMing的个人主页">
-<meta property="og:url" content="http://example.com/archives/index.html">
+  <meta name="description" content="前置知识：范式转移”（paradigm shift）从“节省CPU计算”转变为“减少内存访问 + 利用并行计算。 注：整理自《游戏引擎架构》 第二版">
+<meta property="og:type" content="article">
+<meta property="og:title" content="性能优化之缓存命中">
+<meta property="og:url" content="http://example.com/2026/03/26/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B9%8B%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD/index.html">
 <meta property="og:site_name" content="LeafMing的个人主页">
+<meta property="og:description" content="前置知识：范式转移”（paradigm shift）从“节省CPU计算”转变为“减少内存访问 + 利用并行计算。 注：整理自《游戏引擎架构》 第二版">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260326203213125.png">
+<meta property="article:published_time" content="2026-03-26T11:46:26.000Z">
+<meta property="article:modified_time" content="2026-03-26T12:48:32.134Z">
 <meta property="article:author" content="Ziming Ye">
+<meta property="article:tag" content="性能优化">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260326203213125.png">
   
     <link rel="alternative" href="/atom.xml" title="LeafMing的个人主页" type="application/atom+xml">
   
@@ -134,36 +141,93 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-性能优化之缓存命中" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      性能优化之缓存命中
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2026" class="archive-year">2026</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2026/03/26/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B9%8B%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD/" class="archive-article-date">
+
+        
+        <a href="/2026/03/26/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B9%8B%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD/" class="archive-article-date">
   	<time datetime="2026-03-26T11:46:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-03-26</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2026/03/26/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B9%8B%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD/">性能优化之缓存命中</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前置知识：范式转移”（paradigm-shift）"><a href="#前置知识：范式转移”（paradigm-shift）" class="headerlink" title="前置知识：范式转移”（paradigm shift）"></a>前置知识：范式转移”（paradigm shift）</h2><p>从“节省CPU计算”转变为“减少内存访问 + 利用并行计算。</p>
+<p>注：整理自《游戏引擎架构》 第二版</p>
+<span id="more"></span>
 
-        <div class="article-info info-on-right">
-          
+<p>在早期的计算机中，CPU的效率低下，因此核心的优化在于少去计算</p>
+<p>而如今，情况反过来了，CPU的计算非常快，且可以多核，真正的瓶颈变成了内存，内存的访问速度远跟不上CPU，因此出现了一个经典说法：“内存访问昂贵，计算便宜” </p>
+<p>所以，要多做计算，尽量减少内存访问。  比如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">data = <span class="built_in">list</span>(<span class="built_in">range</span>(<span class="number">10_000_000</span>))</span><br><span class="line"></span><br><span class="line">s = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> data:</span><br><span class="line">    s += x</span><br></pre></td></tr></table></figure>
+<p>与</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">n = <span class="number">10_000_000</span></span><br><span class="line"></span><br><span class="line">s = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">    s += i</span><br></pre></td></tr></table></figure>
+
+<p>方案二的花费时间要少得多</p>
+<h3 id="缓存的概念"><a href="#缓存的概念" class="headerlink" title="缓存的概念"></a>缓存的概念</h3><p>缓存也是内存的一部分，但离CPU非常近，且采用了最贵以及最快的技术，这两个因素导致了缓存的容量远小于内存。</p>
+<p>通常结构：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">L1 Cache：最小、最快、离CPU最近</span><br><span class="line"></span><br><span class="line">L2 Cache：大一点，稍慢</span><br><span class="line"></span><br><span class="line">L3 Cache：更大，再慢一点</span><br><span class="line"></span><br><span class="line">再外面才是 主内存 RAM</span><br></pre></td></tr></table></figure>
+
+<p>内存缓存系统提升内存访问性能的方法是，将程序最常使用的数据块保存至缓存的局部<br>拷贝(local copy)。若CPU请求的数据已存在于缓存中，缓存就能非常快速地完成请求，通常是数十个周期的数量级，此情况称为缓存命中（cachehit）。然而，若数据未置于缓存中，那么必须从主内存读人缓存，这被称为缓存命中失败(cache miss)。从主内存读数据可能需花数千个周期，因此缓存命中失败的确会带来非常高的开销。  </p>
+<h3 id="缓存命中失败是什么"><a href="#缓存命中失败是什么" class="headerlink" title="缓存命中失败是什么"></a>缓存命中失败是什么</h3><p>CPU要数据 → 先去缓存找<br>如果找到了 → 命中（hit）<br>如果没找到 → 命中失败（miss） → 去内存拿（很慢）</p>
+<p>所以：  </p>
+<blockquote>
+<p>cache miss &#x3D; CPU在缓存里没找到想要的数据</p>
+</blockquote>
+<h3 id="缓存的层级结构"><a href="#缓存的层级结构" class="headerlink" title="缓存的层级结构"></a>缓存的层级结构</h3><p>就像这样：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">CPU</span><br><span class="line"> ↓</span><br><span class="line">L1 Cache（最快，最小）</span><br><span class="line"> ↓</span><br><span class="line">L2 Cache（次快）</span><br><span class="line"> ↓</span><br><span class="line">L3 Cache（更大，更慢）</span><br><span class="line"> ↓</span><br><span class="line">主内存 RAM（很慢）</span><br></pre></td></tr></table></figure>
+
+<h4 id="为什么这样做？"><a href="#为什么这样做？" class="headerlink" title="为什么这样做？"></a>为什么这样做？</h4><p>因为一个核心矛盾：<br>缓存越快 → 越小 → 越贵<br>你不可能：又要超快、又要超大<br>所以工程师做了一个折中：用多层缓存来平衡速度和容量  </p>
+<h4 id="如何减少命中失败的代价？"><a href="#如何减少命中失败的代价？" class="headerlink" title="如何减少命中失败的代价？"></a>如何减少命中失败的代价？</h4><p>如果不存在分级：CPU miss → 直接去内存（超慢）<br>有分层：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CPU</span><br><span class="line"> ↓ miss</span><br><span class="line">L1 miss</span><br><span class="line"> ↓</span><br><span class="line">L2 命中 （比内存快很多）</span><br></pre></td></tr></table></figure>
+
+<p>本质：不是减少 miss 次数，而是减少 miss 的“代价”</p>
+<p>此外，缓存不是按“一个变量”读，而是按“块（cache line）”读</p>
+<p>缓存空间远小于内存 → 必须“复用位置”（映射）</p>
+<p>一个缓存位置会对应很多内存地址（冲突来源）  </p>
+<h3 id="缓存线"><a href="#缓存线" class="headerlink" title="缓存线"></a>缓存线</h3><p>缓存控制器会读取“多于所请求的内存”<br>比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">不是这样：</span><br><span class="line">CPU要一个 int → 只读4字节</span><br><span class="line"></span><br><span class="line">实际是这样：</span><br><span class="line">CPU要一个 int → 读一整块（比如64B或128B）</span><br></pre></td></tr></table></figure>
+<p>这“一整块”就是：缓存线（cache line）  </p>
+<h4 id="为什么这样设计"><a href="#为什么这样设计" class="headerlink" title="为什么这样设计"></a>为什么这样设计</h4><p>程序通常是顺序访问的：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">100</span>):</span><br><span class="line">    arr[i]</span><br></pre></td></tr></table></figure>
+<p>访问 arr[0] → 顺便把 arr[1~15]带进缓存，后面访问直接命中，这就是“空间局部性”</p>
+<h4 id="缓存和内存的“映射关系”"><a href="#缓存和内存的“映射关系”" class="headerlink" title="缓存和内存的“映射关系”"></a>缓存和内存的“映射关系”</h4><p>缓存大小远小于内存 → 一个缓存位置要重复使用<br>我们假设：Cache：32 KiB，Cache line：128B，其中，32KiB &#x3D; 32768字节 32768&#x2F;128 &#x3D; 256，因此，一共有 256 条缓存线（32KB 的空间能放多少个 128B 的格子？<br>→ 256 个），再假设主内存为256 MiB，结果是什么？内存比缓存大 8192倍<br>所以：同一个缓存位置，要轮流存8192个不同的内存块<br><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260326203213125.png"><br>直接映射：主内存很多块 → 映射到缓存的固定位置<br>比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">内存地址：</span><br><span class="line">0x0000      → cache line 0</span><br><span class="line">0x8000      → cache line 0</span><br><span class="line">0x10000     → cache line 0</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>都映射到同一个位置！</p>
+<h4 id="冲突因此而来"><a href="#冲突因此而来" class="headerlink" title="冲突因此而来"></a>冲突因此而来</h4><p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">arr[0]</span><br><span class="line">arr[8192]</span><br><span class="line">arr[16384]</span><br></pre></td></tr></table></figure>
+<p>如果它们：</p>
+<p>映射到同一个 cache line</p>
+<p>那么：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">访问 arr[0]   → 放进cache</span><br><span class="line">访问 arr[8192] → 把 arr[0]踢掉</span><br><span class="line">访问 arr[0]   → 又miss！</span><br></pre></td></tr></table></figure>
+<p>来回抖动 → 性能灾难  </p>
+<h4 id="地址如何映射？"><a href="#地址如何映射？" class="headerlink" title="地址如何映射？"></a>地址如何映射？</h4><p>用地址“取模”缓存大小<br>cache_index &#x3D; 地址 % cache大小<br>决定它放哪个缓存槽</p>
+<p>然后地址会被拆成三部分：  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[ tag | index | offset ]</span><br></pre></td></tr></table></figure>
+
+<p>offset：在cache line里的位置</p>
+<p>index：在哪条cache line</p>
+<p>tag：验证是不是你要的数据</p>
+<blockquote>
+<p>一句话总结：缓存线解决“效率问题”，映射机制引入“冲突问题”</p>
+</blockquote>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -175,368 +239,118 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2026/03/26/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B9%8B%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2026/03/26/Unity%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" class="archive-article-date">
-  	<time datetime="2026-03-26T11:08:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-03-26</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2026/03/26/Unity%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Unity的生命周期</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2026/03/26/Unity%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">Unity的生命周期</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Unity</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86%EF%BC%9A%E8%8C%83%E5%BC%8F%E8%BD%AC%E7%A7%BB%E2%80%9D%EF%BC%88paradigm-shift%EF%BC%89"><span class="toc-number">1.</span> <span class="toc-text">前置知识：范式转移”（paradigm shift）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number">1.1.</span> <span class="toc-text">缓存的概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD%E5%A4%B1%E8%B4%A5%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.2.</span> <span class="toc-text">缓存命中失败是什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E7%9A%84%E5%B1%82%E7%BA%A7%E7%BB%93%E6%9E%84"><span class="toc-number">1.3.</span> <span class="toc-text">缓存的层级结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E6%A0%B7%E5%81%9A%EF%BC%9F"><span class="toc-number">1.3.1.</span> <span class="toc-text">为什么这样做？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%87%8F%E5%B0%91%E5%91%BD%E4%B8%AD%E5%A4%B1%E8%B4%A5%E7%9A%84%E4%BB%A3%E4%BB%B7%EF%BC%9F"><span class="toc-number">1.3.2.</span> <span class="toc-text">如何减少命中失败的代价？</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E7%BA%BF"><span class="toc-number">1.4.</span> <span class="toc-text">缓存线</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E6%A0%B7%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.4.1.</span> <span class="toc-text">为什么这样设计</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E5%92%8C%E5%86%85%E5%AD%98%E7%9A%84%E2%80%9C%E6%98%A0%E5%B0%84%E5%85%B3%E7%B3%BB%E2%80%9D"><span class="toc-number">1.4.2.</span> <span class="toc-text">缓存和内存的“映射关系”</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%B2%E7%AA%81%E5%9B%A0%E6%AD%A4%E8%80%8C%E6%9D%A5"><span class="toc-number">1.4.3.</span> <span class="toc-text">冲突因此而来</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%B0%E5%9D%80%E5%A6%82%E4%BD%95%E6%98%A0%E5%B0%84%EF%BC%9F"><span class="toc-number">1.4.4.</span> <span class="toc-text">地址如何映射？</span></a></li></ol></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2026/03/26/5%E5%A4%A7%E5%9D%90%E6%A0%87%E7%B3%BB/" class="archive-article-date">
-  	<time datetime="2026-03-26T10:15:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-03-26</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2026/03/26/5%E5%A4%A7%E5%9D%90%E6%A0%87%E7%B3%BB/">5大坐标系</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">图形学</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Unity</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2026/03/25/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B9%8B%E5%89%96%E6%9E%90%E5%B7%A5%E5%85%B7/" class="archive-article-date">
-  	<time datetime="2026-03-25T06:39:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-03-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2026/03/25/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B9%8B%E5%89%96%E6%9E%90%E5%B7%A5%E5%85%B7/">性能优化之剖析工具</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">性能优化</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2026/03/25/c-%E4%B8%AD%E7%9A%84%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E5%92%8C%E6%8D%9F%E5%9D%8F%E6%A3%80%E6%B5%8B/" class="archive-article-date">
-  	<time datetime="2026-03-25T06:30:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-03-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2026/03/25/c-%E4%B8%AD%E7%9A%84%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E5%92%8C%E6%8D%9F%E5%9D%8F%E6%A3%80%E6%B5%8B/">c++中的内存泄漏和损坏检测</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">c++</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2026/03/20/%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/" class="archive-article-date">
-  	<time datetime="2026-03-20T08:42:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-03-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2026/03/20/%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/">C#的异步编程</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2026/03/20/%E6%89%98%E7%AE%A1%E4%B8%8E%E9%9D%9E%E6%89%98%E7%AE%A1%E8%B5%84%E6%BA%90/" class="archive-article-date">
-  	<time datetime="2026-03-20T08:04:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-03-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2026/03/20/%E6%89%98%E7%AE%A1%E4%B8%8E%E9%9D%9E%E6%89%98%E7%AE%A1%E8%B5%84%E6%BA%90/">托管与非托管资源</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2026/03/19/CSharp%E4%B9%8B%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="archive-article-date">
-  	<time datetime="2026-03-19T07:22:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-03-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2026/03/19/CSharp%E4%B9%8B%E5%AD%97%E7%AC%A6%E4%B8%B2/">CSharp之字符串</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2026/03/19/CSharp%E8%A3%85%E7%AE%B1%E6%8B%86%E7%AE%B1/" class="archive-article-date">
-  	<time datetime="2026-03-19T07:04:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-03-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2026/03/19/CSharp%E8%A3%85%E7%AE%B1%E6%8B%86%E7%AE%B1/">CSharp装箱拆箱</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2026/03/18/games104/" class="archive-article-date">
-  	<time datetime="2026-03-18T14:07:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-03-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2026/03/18/games104/">games104</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Game Engine</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><a class="extend next" rel="next" href="/archives/page/2/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -560,8 +374,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
