@@ -6,23 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>最长子序列（动态规划） | LeafMing的个人主页</title>
+  <title>Tag: 图形学 | LeafMing的个人主页</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="完成时间：大二上">
-<meta property="og:type" content="article">
-<meta property="og:title" content="最长子序列（动态规划）">
-<meta property="og:url" content="http://example.com/2023/07/19/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E6%9C%80%E9%95%BF%E5%AD%90%E5%BA%8F%E5%88%97%E9%97%AE%E9%A2%98/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="LeafMing的个人主页">
+<meta property="og:url" content="http://example.com/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/index.html">
 <meta property="og:site_name" content="LeafMing的个人主页">
-<meta property="og:description" content="完成时间：大二上">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://z1.ax1x.com/2023/09/18/pPhbxun.png">
-<meta property="article:published_time" content="2023-07-19T01:19:31.000Z">
-<meta property="article:modified_time" content="2023-09-18T01:48:20.409Z">
 <meta property="article:author" content="Ziming Ye">
-<meta property="article:tag" content="Python">
-<meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://z1.ax1x.com/2023/09/18/pPhbxun.png">
   
     <link rel="alternative" href="/atom.xml" title="LeafMing的个人主页" type="application/atom+xml">
   
@@ -142,179 +134,64 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-动态规划-最长子序列问题" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      最长子序列（动态规划）
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2026" class="archive-year">2026</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2026/03/26/5%E5%A4%A7%E5%9D%90%E6%A0%87%E7%B3%BB/" class="archive-article-date">
+  	<time datetime="2026-03-26T10:15:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-03-26</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2026/03/26/5%E5%A4%A7%E5%9D%90%E6%A0%87%E7%B3%BB/">5大坐标系</a>
     </h1>
   
 
-        
-        <a href="/2023/07/19/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E6%9C%80%E9%95%BF%E5%AD%90%E5%BA%8F%E5%88%97%E9%97%AE%E9%A2%98/" class="archive-article-date">
-  	<time datetime="2023-07-19T01:19:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-07-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="完成时间：大二上"><a href="#完成时间：大二上" class="headerlink" title="完成时间：大二上"></a>完成时间：大二上</h2><span id="more"></span>
-<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>最长公共子序列问题：若给定序列X&#x3D;{x1,x2,…,xm}，则另一序列Z&#x3D;{z1,z2,…,zk}，是X的子序列是指存在一个严格递增下标序列{i1,i2,…,ik}使得对于所有j&#x3D;1,2,…,k有：zj&#x3D;xij。例如，序列Z&#x3D;{B，C，D，B}是序列X&#x3D;{A，B，C，B，D，A，B}的子序列，相应的递增下标序列为{2，3，5，7}。如果给定2个序列X和Y，当另一序列Z既是X的子序列又是Y的子序列时，称Z是序列X和Y的公共子序列。现给定2个序列X&#x3D;{x1,x2,…,xm}和Y&#x3D;{y1,y2,…,yn}，要求使用动态规划算法思想，找出X和Y的最长公共子序列。</p>
-<h2 id="问题建模"><a href="#问题建模" class="headerlink" title="问题建模"></a>问题建模</h2><p>先建立一个二维列表，构成一个矩阵flag[][]，将序列x的下标作为矩阵的横坐标，序列y作为纵坐标，默认全部值为0，将x[0]分别与y<a href="i=0,1,2,3%E2%80%A6.">i</a>进行比较，若相同则将将flag[0][i]+1，然后对x[1]重复上述上述步骤，直到遍历完整个矩阵，然后统计一条斜线上1的个数，其中1最多的斜线对应的坐标即为所求解。</p>
-<h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">a = []</span><br><span class="line">b = []</span><br><span class="line">while(1):</span><br><span class="line">    n = input(&quot;请给序列x赋值(输入空格退出)：&quot;)</span><br><span class="line">    if n == &quot; &quot;:</span><br><span class="line">        break</span><br><span class="line">    else:</span><br><span class="line">        a.append(n)</span><br><span class="line">while(1):</span><br><span class="line">    n = input(&quot;请给序列y赋值(输入空格退出)：&quot;)</span><br><span class="line">    if n == &quot; &quot;:</span><br><span class="line">        break</span><br><span class="line">    else:</span><br><span class="line">        b.append(n)</span><br><span class="line">l1 = []</span><br><span class="line">def lcs(a,b):</span><br><span class="line">    lena=len(a)</span><br><span class="line">    lenb=len(b)</span><br><span class="line">    c=[[0 for i in range(lenb+1)] for j in range(lena+1)]</span><br><span class="line">    flag=[[0 for i in range(lenb+1)] for j in range(lena+1)]</span><br><span class="line">    for i in range(lena):</span><br><span class="line">        for j in range(lenb):</span><br><span class="line">            if a[i]==b[j]:</span><br><span class="line">                c[i+1][j+1]=c[i][j]+1</span><br><span class="line">                flag[i+1][j+1]=&#x27;ok&#x27;</span><br><span class="line">            elif c[i+1][j]&gt;c[i][j+1]:</span><br><span class="line">                c[i+1][j+1]=c[i+1][j]</span><br><span class="line">                flag[i+1][j+1]=&#x27;left&#x27;</span><br><span class="line">            else:</span><br><span class="line">                c[i+1][j+1]=c[i][j+1]</span><br><span class="line">                flag[i+1][j+1]=&#x27;up&#x27;</span><br><span class="line">    return c,flag</span><br><span class="line">def Lcs(flag,a,i,j):</span><br><span class="line">    if i == 0 or j == 0:</span><br><span class="line">        return</span><br><span class="line">    if flag[i][j] == &#x27;ok&#x27;:</span><br><span class="line">        Lcs(flag,a,i-1,j-1)</span><br><span class="line">#       print(a[i-1],end=&#x27;&#x27;)</span><br><span class="line">        l1.append(a[i-1])</span><br><span class="line">    elif flag[i][j]==&#x27;left&#x27;:</span><br><span class="line">        Lcs(flag,a,i,j-1)</span><br><span class="line">    else:</span><br><span class="line">        Lcs(flag,a,i-1,j)</span><br><span class="line">c,flag=lcs(a,b)</span><br><span class="line">Lcs(flag,a,len(a),len(b))</span><br><span class="line">print(l1)</span><br></pre></td></tr></table></figure>
-
-<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><p><img src="https://z1.ax1x.com/2023/09/18/pPhbxun.png" alt="代码"></p>
-<h2 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h2><p>动态规划的时间复杂度分为两部分：状态计算的时间复杂度，每个状态的状态转移时间复杂度。<br>所有状态计算的时间复杂度为 O ( a ) O(a) O(a)，单个状态的状态转移时间复杂度为 O ( b ) O(b) O(b)，则整个动态规划的求解过程的时间复杂度就是 O ( a b ) O(ab) O(ab)。<br>线性DP 的状态数就是 O ( n ) O(n) O(n)，状态转移的时间复杂度一般为 O ( 1 ) O(1) O(1) 或者 O ( n ) O(n) O(n)，也有 O ( l o g 2 n ) O(log_2n) O(log2n) 的，可能利用二分枚举进行状态转移，比如最长单调子序列</p>
-<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>本实验完成于大二上学期（2021下半年），所使用语言为Python</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">图形学</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Unity</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2023/07/19/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E6%9C%80%E9%95%BF%E5%AD%90%E5%BA%8F%E5%88%97%E9%97%AE%E9%A2%98/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2023/07/20/%E6%97%85%E8%A1%8C%E5%94%AE%E8%B4%A7%E5%91%98%E9%97%AE%E9%A2%98/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          旅行售货员问题（TSP）
-        
-      </div>
-    </a>
   
   
-    <a href="/2023/07/19/%E6%A3%8B%E7%9B%98%E8%A6%86%E7%9B%96%E9%97%AE%E9%A2%98/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">棋盘覆盖问题（分治策略）</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-        <div class="toc-container tooltip-left">
-            <i class="icon-font icon-category"></i>
-            <div class="tooltip tooltip-east">
-                <span class="tooltip-item">
-                </span>
-                <span class="tooltip-content">
-                    <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%8C%E6%88%90%E6%97%B6%E9%97%B4%EF%BC%9A%E5%A4%A7%E4%BA%8C%E4%B8%8A"><span class="toc-number">1.</span> <span class="toc-text">完成时间：大二上</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="toc-number">2.</span> <span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E5%BB%BA%E6%A8%A1"><span class="toc-number">3.</span> <span class="toc-text">问题建模</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BA%90%E7%A0%81"><span class="toc-number">4.</span> <span class="toc-text">源码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C"><span class="toc-number">5.</span> <span class="toc-text">运行结果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90"><span class="toc-number">6.</span> <span class="toc-text">时间复杂度分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%B4%E6%98%8E"><span class="toc-number">7.</span> <span class="toc-text">说明</span></a></li></ol>
-                    </div>
-                </span>
-            </div>
-        </div>
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -337,9 +214,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
