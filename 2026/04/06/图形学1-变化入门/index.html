@@ -26,8 +26,9 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163306146.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163346000.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163336685.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406170437072.png">
 <meta property="article:published_time" content="2026-04-06T07:09:35.000Z">
-<meta property="article:modified_time" content="2026-04-06T08:34:18.029Z">
+<meta property="article:modified_time" content="2026-04-06T09:04:53.577Z">
 <meta property="article:author" content="Ziming Ye">
 <meta property="article:tag" content="图形学">
 <meta name="twitter:card" content="summary">
@@ -190,6 +191,7 @@
 <p>如果用一个矩阵乘以输入可以得到输出的坐标，那么称这个变换叫线性变换 因此，平移不是线性变换<br>但是，我们不希望多带一个尾巴，希望写成两个矩阵相乘的形式，因此，引入齐次坐标–增加一个维度。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163346000.png"></p>
 <p>矩阵：<br><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163336685.png"></p>
+<h4 id="2D-变化汇总"><a href="#2D-变化汇总" class="headerlink" title="2D 变化汇总"></a>2D 变化汇总</h4><p><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406170437072.png"></p>
 
       
 
@@ -302,7 +304,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D%E5%8F%98%E5%8C%96%E5%85%A5%E9%97%A8%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">介绍变化入门概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%91%E9%87%8F%E7%82%B9%E4%B9%98"><span class="toc-number">2.</span> <span class="toc-text">向量点乘</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%91%E9%87%8F%E5%8F%89%E4%B9%98"><span class="toc-number">3.</span> <span class="toc-text">向量叉乘</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E5%8F%98%E5%8C%96"><span class="toc-number">4.</span> <span class="toc-text">基础变化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%BC%A9%E6%94%BE"><span class="toc-number">4.1.</span> <span class="toc-text">1.缩放</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Shear-Matrix"><span class="toc-number">4.2.</span> <span class="toc-text">2.Shear Matrix</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%97%8B%E8%BD%AC"><span class="toc-number">4.3.</span> <span class="toc-text">3.旋转</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%B9%B3%E7%A7%BB"><span class="toc-number">4.4.</span> <span class="toc-text">4.平移</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D%E5%8F%98%E5%8C%96%E5%85%A5%E9%97%A8%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">介绍变化入门概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%91%E9%87%8F%E7%82%B9%E4%B9%98"><span class="toc-number">2.</span> <span class="toc-text">向量点乘</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%91%E9%87%8F%E5%8F%89%E4%B9%98"><span class="toc-number">3.</span> <span class="toc-text">向量叉乘</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E5%8F%98%E5%8C%96"><span class="toc-number">4.</span> <span class="toc-text">基础变化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%BC%A9%E6%94%BE"><span class="toc-number">4.1.</span> <span class="toc-text">1.缩放</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Shear-Matrix"><span class="toc-number">4.2.</span> <span class="toc-text">2.Shear Matrix</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%97%8B%E8%BD%AC"><span class="toc-number">4.3.</span> <span class="toc-text">3.旋转</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%B9%B3%E7%A7%BB"><span class="toc-number">4.4.</span> <span class="toc-text">4.平移</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2D-%E5%8F%98%E5%8C%96%E6%B1%87%E6%80%BB"><span class="toc-number">4.4.1.</span> <span class="toc-text">2D 变化汇总</span></a></li></ol></li></ol></li></ol>
                     </div>
                 </span>
             </div>
