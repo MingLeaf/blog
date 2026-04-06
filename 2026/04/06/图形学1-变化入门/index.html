@@ -6,21 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>对象池 | LeafMing的个人主页</title>
+  <title>图形学1-变化入门 | LeafMing的个人主页</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="对象池是什么？一句话：提前创建一批对象，放在“池子”里。需要用的时候拿出来，不用了再放回去，而不是反复 new 和 Destroy">
+  <meta name="description" content="介绍线代入门概念">
 <meta property="og:type" content="article">
-<meta property="og:title" content="对象池">
-<meta property="og:url" content="http://example.com/2026/04/01/%E5%AF%B9%E8%B1%A1%E6%B1%A0/index.html">
+<meta property="og:title" content="图形学1-变化入门">
+<meta property="og:url" content="http://example.com/2026/04/06/%E5%9B%BE%E5%BD%A2%E5%AD%A61-%E5%8F%98%E5%8C%96%E5%85%A5%E9%97%A8/index.html">
 <meta property="og:site_name" content="LeafMing的个人主页">
-<meta property="og:description" content="对象池是什么？一句话：提前创建一批对象，放在“池子”里。需要用的时候拿出来，不用了再放回去，而不是反复 new 和 Destroy">
+<meta property="og:description" content="介绍线代入门概念">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2026-04-01T07:40:25.000Z">
-<meta property="article:modified_time" content="2026-04-01T08:19:36.540Z">
+<meta property="og:image" content="http://example.com/image.png">
+<meta property="og:image" content="http://example.com/image-1.png">
+<meta property="og:image" content="http://example.com/image-2.png">
+<meta property="og:image" content="http://example.com/image-3.png">
+<meta property="article:published_time" content="2026-04-06T07:09:35.000Z">
+<meta property="article:modified_time" content="2026-04-06T08:26:11.933Z">
 <meta property="article:author" content="Ziming Ye">
-<meta property="article:tag" content="C#">
-<meta property="article:tag" content="性能优化">
+<meta property="article:tag" content="图形学">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/image.png">
   
     <link rel="alternative" href="/atom.xml" title="LeafMing的个人主页" type="application/atom+xml">
   
@@ -140,113 +144,39 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-对象池" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-图形学1-变化入门" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      对象池
+      图形学1-变化入门
     </h1>
   
 
         
-        <a href="/2026/04/01/%E5%AF%B9%E8%B1%A1%E6%B1%A0/" class="archive-article-date">
-  	<time datetime="2026-04-01T07:40:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-04-01</time>
+        <a href="/2026/04/06/%E5%9B%BE%E5%BD%A2%E5%AD%A61-%E5%8F%98%E5%8C%96%E5%85%A5%E9%97%A8/" class="archive-article-date">
+  	<time datetime="2026-04-06T07:09:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-04-06</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="对象池是什么？"><a href="#对象池是什么？" class="headerlink" title="对象池是什么？"></a>对象池是什么？</h2><p>一句话：提前创建一批对象，放在“池子”里。需要用的时候拿出来，不用了再放回去，而不是反复 new 和 Destroy</p>
-<span id="more"></span>
+        <h2 id="介绍线代入门概念"><a href="#介绍线代入门概念" class="headerlink" title="介绍线代入门概念"></a>介绍线代入门概念</h2><span id="more"></span>
 
-<h3 id="在游戏中为什么常用"><a href="#在游戏中为什么常用" class="headerlink" title="在游戏中为什么常用"></a>在游戏中为什么常用</h3><p>在游戏中，有很多对象需要频繁的创建和销毁，比如：子弹、特效、飘字、掉落物等</p>
-<p>如果一直：</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Instantiate(bulletPrefab);</span><br><span class="line">Destroy(bullet, <span class="number">2f</span>);</span><br></pre></td></tr></table></figure>
-
-<p>短时间内大量执行，就会带来以下问题：  </p>
-<ol>
-<li>性能开销：Instantiate 和 Destroy 都不便宜，特别是对象很多的时候</li>
-<li>垃圾回收GC：C# 会回收不用的内存。频繁创建销毁对象，容易产生很多垃圾，GC 一触发就可能卡一下</li>
-<li>游戏卡顿：尤其是弹幕、射击、特效爆发时，最容易出现掉帧</li>
-</ol>
-<p>所以对象池就是为了：减少反复创建&#x2F;销毁，提高性能，减少卡顿。</p>
-<h3 id="简单理解方式"><a href="#简单理解方式" class="headerlink" title="简单理解方式"></a>简单理解方式</h3><blockquote>
-<p>不用对象池：</p>
-</blockquote>
-<p>开枪一次：   </p>
-<ol>
-<li>Instantiate 一个子弹</li>
-<li>子弹飞出去</li>
-<li>撞到东西后Destroy</li>
-</ol>
-<blockquote>
-<p>用对象池：   </p>
-</blockquote>
-<p>游戏开始时：  </p>
-<ol>
-<li>先创建50个子弹</li>
-<li>隐藏起来</li>
-</ol>
-<p>开枪时：   </p>
-<ol>
-<li>从池里找一个没用的子弹</li>
-<li>激活，并放到枪口位置</li>
-<li>发射</li>
-</ol>
-<p>子弹用完后：  </p>
-<ol>
-<li>不销毁</li>
-<li>隐藏并标记“可复用”</li>
-</ol>
-<h3 id="简单示例"><a href="#简单示例" class="headerlink" title="简单示例"></a>简单示例</h3><p>一个基础的对象池<br>BulletPool.cs</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">BulletPool</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> GameObject bulletPrefab;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> initialSize = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> List&lt;GameObject&gt; pool = <span class="keyword">new</span> List&lt;GameObject&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Start</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; initialSize; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            GameObject bullet = Instantiate(bulletPrefab, transform);</span><br><span class="line">            bullet.SetActive(<span class="literal">false</span>);</span><br><span class="line">            pool.Add(bullet);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> GameObject <span class="title">GetBullet</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; pool.Count; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (!pool[i].activeInHierarchy)</span><br><span class="line">            &#123;</span><br><span class="line">                pool[i].SetActive(<span class="literal">true</span>);</span><br><span class="line">                <span class="keyword">return</span> pool[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 如果池里不够，就扩容</span></span><br><span class="line">        GameObject newBullet = Instantiate(bulletPrefab, transform);</span><br><span class="line">        pool.Add(newBullet);</span><br><span class="line">        <span class="keyword">return</span> newBullet;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>发射时使用：  </p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Gun</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> BulletPool bulletPool;</span><br><span class="line">    <span class="keyword">public</span> Transform firePoint;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Update</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (Input.GetKeyDown(KeyCode.Space))</span><br><span class="line">        &#123;</span><br><span class="line">            GameObject bullet = bulletPool.GetBullet();</span><br><span class="line">            bullet.transform.position = firePoint.position;</span><br><span class="line">            bullet.transform.rotation = firePoint.rotation;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>归还子弹：  </p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Bullet</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">float</span> speed = <span class="number">10f</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">float</span> lifeTime = <span class="number">2f</span>;  <span class="comment">// 假设2s后销毁</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="built_in">float</span> timer;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">OnEnable</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        timer = lifeTime;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Update</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        transform.Translate(Vector3.forward * speed * Time.deltaTime);</span><br><span class="line"></span><br><span class="line">        timer -= Time.deltaTime;</span><br><span class="line">        <span class="keyword">if</span> (timer &lt;= <span class="number">0f</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            gameObject.SetActive(<span class="literal">false</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="其余小点"><a href="#其余小点" class="headerlink" title="其余小点"></a>其余小点</h4><p>对象池最大的问题不是“拿出来”，而是“复位”<br>比如上一个对象可能有：   </p>
-<ul>
-<li>位置</li>
-<li>旋转</li>
-<li>速度</li>
-<li>血量</li>
-<li>动画</li>
-</ul>
-<p>等等<br>如果不重置，就可能导致奇怪的bug：   </p>
-<ul>
-<li>子弹一生成就乱飞</li>
-<li>敌人复活后血量还是上次剩下的</li>
-<li>特效拖尾残留</li>
-</ul>
-<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>本质上是空间换时间，使用额外的内存，换运行时的流畅<br>很适合：  </p>
-<ul>
-<li>高频生成&#x2F;销毁的对象</li>
-<li>数量多的对象</li>
-<li>生命周期短的对象</li>
-</ul>
-<p>典型例子：</p>
-<ul>
-<li>子弹</li>
-<li>特效</li>
-<li>敌人刷怪</li>
-<li>飘字</li>
-<li>掉落金币</li>
-<li>UI 消息条</li>
-</ul>
-<p>不一定需要：</p>
-<ul>
-<li>场景里只创建一次的大物体</li>
-<li>很少生成的 Boss</li>
-<li>几乎不会销毁的系统对象</li>
-</ul>
-<p>对象池不是所有东西都要上，重点是高频复用。</p>
+<h2 id="向量点乘"><a href="#向量点乘" class="headerlink" title="向量点乘"></a>向量点乘</h2><p>可以判断向量前与后的信息</p>
+<p>点乘&gt;0 同方向</p>
+<p>点乘&lt;0 反方向</p>
+<h2 id="向量叉乘"><a href="#向量叉乘" class="headerlink" title="向量叉乘"></a>向量叉乘</h2><p>A x B &#x3D; C 则 C 垂直于A和B所在的平面<br>右手螺旋定则：如a×b&#x3D;c 四指从a的方向向b的方向握紧，大拇指指向的就是c的方向<br>a×b得到结果是和z轴同向，是正的，说明b在a的左侧  负即为右侧  </p>
+<p>三角形：<br>AB×AP &gt; 0  说明P在AB左侧<br>BC×BP &gt; 0  说明P在BC左侧<br>CA×CP &gt; 0  说明P在CA左侧<br>说明点P落在三角形ABC内部<br><img src="/image.png" alt="alt text"></p>
+<h2 id="基础变化"><a href="#基础变化" class="headerlink" title="基础变化"></a>基础变化</h2><h3 id="1-缩放"><a href="#1-缩放" class="headerlink" title="1.缩放"></a>1.缩放</h3><h1 id="缩放0-5倍：-begin-bmatrix-x’-y’-end-bmatrix"><a href="#缩放0-5倍：-begin-bmatrix-x’-y’-end-bmatrix" class="headerlink" title="缩放0.5倍：$$\begin{bmatrix}x’ \y’\end{bmatrix}"></a>缩放0.5倍：<br>$$<br>\begin{bmatrix}<br>x’ \<br>y’<br>\end{bmatrix}</h1><p>\begin{bmatrix}<br>s &amp; 0 \<br>0 &amp; s<br>\end{bmatrix}<br>\begin{bmatrix}<br>x \<br>y<br>\end{bmatrix}<br>$$<br>此处 s &#x3D; 0.5</p>
+<h3 id="2-Shear-Matrix"><a href="#2-Shear-Matrix" class="headerlink" title="2.Shear Matrix"></a>2.Shear Matrix</h3><h1 id="begin-bmatrix-x’-y’-end-bmatrix"><a href="#begin-bmatrix-x’-y’-end-bmatrix" class="headerlink" title="$$\begin{bmatrix}x’ \y’\end{bmatrix}"></a><img src="/image-1.png" alt="alt text"><br>$$<br>\begin{bmatrix}<br>x’ \<br>y’<br>\end{bmatrix}</h1><p>\begin{bmatrix}<br>1 &amp; a \<br>0 &amp; 1<br>\end{bmatrix}<br>\begin{bmatrix}<br>x \<br>y<br>\end{bmatrix}<br>$$</p>
+<h3 id="3-旋转"><a href="#3-旋转" class="headerlink" title="3.旋转"></a>3.旋转</h3><p><img src="/image-2.png" alt="alt text"><br>$$<br>R_\theta &#x3D;<br>\begin{bmatrix}<br>cos\theta &amp; -sin\theta \<br>sin\theta &amp; cos\theta<br>\end{bmatrix}<br>$$</p>
+<h3 id="4-平移"><a href="#4-平移" class="headerlink" title="4.平移"></a>4.平移</h3><p><img src="/image-3.png" alt="alt text"></p>
+<h1 id="x’-x-t-x-y’-y-t-y-发现无法写成矩阵形式，于是：-begin-bmatrix-x’-y’-end-bmatrix"><a href="#x’-x-t-x-y’-y-t-y-发现无法写成矩阵形式，于是：-begin-bmatrix-x’-y’-end-bmatrix" class="headerlink" title="$$x’ &#x3D; x + t_x$$$$y’ &#x3D; y + t_y$$发现无法写成矩阵形式，于是：$$\begin{bmatrix}x’ \y’\end{bmatrix}"></a>$$<br>x’ &#x3D; x + t_x<br>$$<br>$$<br>y’ &#x3D; y + t_y<br>$$<br>发现无法写成矩阵形式，于是：<br>$$<br>\begin{bmatrix}<br>x’ \<br>y’<br>\end{bmatrix}</h1><p>\begin{bmatrix}<br>a &amp; b \<br>c &amp; d<br>\end{bmatrix}<br>\begin{bmatrix}<br>x \<br>y<br>\end{bmatrix}<br>+<br>\begin{bmatrix}<br>t_x \<br>t_y<br>\end{bmatrix}<br>$$<br>如果用一个矩阵乘以输入可以得到输出的坐标，那么称这个变换叫线性变换 因此，平移不是线性变换<br>但是，我们不希望多带一个尾巴，希望写成两个矩阵相乘的形式，因此，引入齐次坐标–增加一个维度。</p>
+<h1 id="2D-point-x-y-1-T-2D-vector-x-y-0-T-矩阵：-begin-pmatrix-x’-y’-w’-end-pmatrix"><a href="#2D-point-x-y-1-T-2D-vector-x-y-0-T-矩阵：-begin-pmatrix-x’-y’-w’-end-pmatrix" class="headerlink" title="$$2D point &#x3D; (x, y, 1)^T$$$$2D vector &#x3D; (x, y, 0)^T$$矩阵：$$\begin{pmatrix}x’ \y’ \w’\end{pmatrix}"></a>$$2D point &#x3D; (x, y, 1)^T$$<br>$$2D vector &#x3D; (x, y, 0)^T$$<br>矩阵：<br>$$<br>\begin{pmatrix}<br>x’ \<br>y’ \<br>w’<br>\end{pmatrix}</h1><h1 id="begin-pmatrix-1-0-t-x-0-1-t-y-0-0-1-end-pmatrix-begin-pmatrix-x-y-1-end-pmatrix"><a href="#begin-pmatrix-1-0-t-x-0-1-t-y-0-0-1-end-pmatrix-begin-pmatrix-x-y-1-end-pmatrix" class="headerlink" title="\begin{pmatrix}1 &amp; 0 &amp; t_x \0 &amp; 1 &amp; t_y \0 &amp; 0 &amp; 1\end{pmatrix}\begin{pmatrix}x \y \1\end{pmatrix}"></a>\begin{pmatrix}<br>1 &amp; 0 &amp; t_x \<br>0 &amp; 1 &amp; t_y \<br>0 &amp; 0 &amp; 1<br>\end{pmatrix}<br>\begin{pmatrix}<br>x \<br>y \<br>1<br>\end{pmatrix}</h1><p>\begin{pmatrix}<br>x + t_x \<br>y + t_y \<br>1<br>\end{pmatrix}<br>$$</p>
 
       
 
@@ -260,11 +190,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">性能优化</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">图形学</a>
         		</li>
       		
 		</ul>
@@ -320,7 +246,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2026/04/01/%E5%AF%B9%E8%B1%A1%E6%B1%A0/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2026/04/06/%E5%9B%BE%E5%BD%A2%E5%AD%A61-%E5%8F%98%E5%8C%96%E5%85%A5%E9%97%A8/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -334,18 +260,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2026/04/06/%E5%9B%BE%E5%BD%A2%E5%AD%A61-%E5%8F%98%E5%8C%96%E5%85%A5%E9%97%A8/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          图形学1-变化入门
-        
-      </div>
-    </a>
   
-  
-    <a href="/2026/03/30/%E6%B8%B8%E6%88%8FDemo/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">游戏Demo</div>
+    <a href="/2026/04/01/%E5%AF%B9%E8%B1%A1%E6%B1%A0/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">对象池</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -372,7 +289,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E8%B1%A1%E6%B1%A0%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">对象池是什么？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E6%B8%B8%E6%88%8F%E4%B8%AD%E4%B8%BA%E4%BB%80%E4%B9%88%E5%B8%B8%E7%94%A8"><span class="toc-number">1.1.</span> <span class="toc-text">在游戏中为什么常用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3%E6%96%B9%E5%BC%8F"><span class="toc-number">1.2.</span> <span class="toc-text">简单理解方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E7%A4%BA%E4%BE%8B"><span class="toc-number">1.3.</span> <span class="toc-text">简单示例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B6%E4%BD%99%E5%B0%8F%E7%82%B9"><span class="toc-number">1.3.1.</span> <span class="toc-text">其余小点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-number">1.3.2.</span> <span class="toc-text">小结</span></a></li></ol></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D%E7%BA%BF%E4%BB%A3%E5%85%A5%E9%97%A8%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">介绍线代入门概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%91%E9%87%8F%E7%82%B9%E4%B9%98"><span class="toc-number">2.</span> <span class="toc-text">向量点乘</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%91%E9%87%8F%E5%8F%89%E4%B9%98"><span class="toc-number">3.</span> <span class="toc-text">向量叉乘</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E5%8F%98%E5%8C%96"><span class="toc-number">4.</span> <span class="toc-text">基础变化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%BC%A9%E6%94%BE"><span class="toc-number">4.1.</span> <span class="toc-text">1.缩放</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BC%A9%E6%94%BE0-5%E5%80%8D%EF%BC%9A-begin-bmatrix-x%E2%80%99-y%E2%80%99-end-bmatrix"><span class="toc-number"></span> <span class="toc-text">缩放0.5倍：$$\begin{bmatrix}x’ \y’\end{bmatrix}</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Shear-Matrix"><span class="toc-number">0.1.</span> <span class="toc-text">2.Shear Matrix</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#begin-bmatrix-x%E2%80%99-y%E2%80%99-end-bmatrix"><span class="toc-number"></span> <span class="toc-text">$$\begin{bmatrix}x’ \y’\end{bmatrix}</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%97%8B%E8%BD%AC"><span class="toc-number">0.1.</span> <span class="toc-text">3.旋转</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%B9%B3%E7%A7%BB"><span class="toc-number">0.2.</span> <span class="toc-text">4.平移</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#x%E2%80%99-x-t-x-y%E2%80%99-y-t-y-%E5%8F%91%E7%8E%B0%E6%97%A0%E6%B3%95%E5%86%99%E6%88%90%E7%9F%A9%E9%98%B5%E5%BD%A2%E5%BC%8F%EF%BC%8C%E4%BA%8E%E6%98%AF%EF%BC%9A-begin-bmatrix-x%E2%80%99-y%E2%80%99-end-bmatrix"><span class="toc-number"></span> <span class="toc-text">$$x’ &#x3D; x + t_x$$$$y’ &#x3D; y + t_y$$发现无法写成矩阵形式，于是：$$\begin{bmatrix}x’ \y’\end{bmatrix}</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2D-point-x-y-1-T-2D-vector-x-y-0-T-%E7%9F%A9%E9%98%B5%EF%BC%9A-begin-pmatrix-x%E2%80%99-y%E2%80%99-w%E2%80%99-end-pmatrix"><span class="toc-number"></span> <span class="toc-text">$$2D point &#x3D; (x, y, 1)^T$$$$2D vector &#x3D; (x, y, 0)^T$$矩阵：$$\begin{pmatrix}x’ \y’ \w’\end{pmatrix}</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#begin-pmatrix-1-0-t-x-0-1-t-y-0-0-1-end-pmatrix-begin-pmatrix-x-y-1-end-pmatrix"><span class="toc-number"></span> <span class="toc-text">\begin{pmatrix}1 &amp; 0 &amp; t_x \0 &amp; 1 &amp; t_y \0 &amp; 0 &amp; 1\end{pmatrix}\begin{pmatrix}x \y \1\end{pmatrix}</span></a>
                     </div>
                 </span>
             </div>
