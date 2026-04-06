@@ -8,23 +8,30 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>图形学1-变化入门 | LeafMing的个人主页</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="介绍线代入门概念">
+  <meta name="description" content="介绍变化入门概念">
 <meta property="og:type" content="article">
 <meta property="og:title" content="图形学1-变化入门">
 <meta property="og:url" content="http://example.com/2026/04/06/%E5%9B%BE%E5%BD%A2%E5%AD%A61-%E5%8F%98%E5%8C%96%E5%85%A5%E9%97%A8/index.html">
 <meta property="og:site_name" content="LeafMing的个人主页">
-<meta property="og:description" content="介绍线代入门概念">
+<meta property="og:description" content="介绍变化入门概念">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/image.png">
-<meta property="og:image" content="http://example.com/image-1.png">
-<meta property="og:image" content="http://example.com/image-2.png">
-<meta property="og:image" content="http://example.com/image-3.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163101063.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163117020.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163107623.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163117043.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163107645.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163117064.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163107667.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163248469.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163306146.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163346000.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163336685.png">
 <meta property="article:published_time" content="2026-04-06T07:09:35.000Z">
-<meta property="article:modified_time" content="2026-04-06T08:26:11.933Z">
+<meta property="article:modified_time" content="2026-04-06T08:34:18.029Z">
 <meta property="article:author" content="Ziming Ye">
 <meta property="article:tag" content="图形学">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/image.png">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163101063.png">
   
     <link rel="alternative" href="/atom.xml" title="LeafMing的个人主页" type="application/atom+xml">
   
@@ -164,19 +171,25 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="介绍线代入门概念"><a href="#介绍线代入门概念" class="headerlink" title="介绍线代入门概念"></a>介绍线代入门概念</h2><span id="more"></span>
+        <h2 id="介绍变化入门概念"><a href="#介绍变化入门概念" class="headerlink" title="介绍变化入门概念"></a>介绍变化入门概念</h2><span id="more"></span>
 
 <h2 id="向量点乘"><a href="#向量点乘" class="headerlink" title="向量点乘"></a>向量点乘</h2><p>可以判断向量前与后的信息</p>
 <p>点乘&gt;0 同方向</p>
 <p>点乘&lt;0 反方向</p>
 <h2 id="向量叉乘"><a href="#向量叉乘" class="headerlink" title="向量叉乘"></a>向量叉乘</h2><p>A x B &#x3D; C 则 C 垂直于A和B所在的平面<br>右手螺旋定则：如a×b&#x3D;c 四指从a的方向向b的方向握紧，大拇指指向的就是c的方向<br>a×b得到结果是和z轴同向，是正的，说明b在a的左侧  负即为右侧  </p>
-<p>三角形：<br>AB×AP &gt; 0  说明P在AB左侧<br>BC×BP &gt; 0  说明P在BC左侧<br>CA×CP &gt; 0  说明P在CA左侧<br>说明点P落在三角形ABC内部<br><img src="/image.png" alt="alt text"></p>
-<h2 id="基础变化"><a href="#基础变化" class="headerlink" title="基础变化"></a>基础变化</h2><h3 id="1-缩放"><a href="#1-缩放" class="headerlink" title="1.缩放"></a>1.缩放</h3><h1 id="缩放0-5倍：-begin-bmatrix-x’-y’-end-bmatrix"><a href="#缩放0-5倍：-begin-bmatrix-x’-y’-end-bmatrix" class="headerlink" title="缩放0.5倍：$$\begin{bmatrix}x’ \y’\end{bmatrix}"></a>缩放0.5倍：<br>$$<br>\begin{bmatrix}<br>x’ \<br>y’<br>\end{bmatrix}</h1><p>\begin{bmatrix}<br>s &amp; 0 \<br>0 &amp; s<br>\end{bmatrix}<br>\begin{bmatrix}<br>x \<br>y<br>\end{bmatrix}<br>$$<br>此处 s &#x3D; 0.5</p>
-<h3 id="2-Shear-Matrix"><a href="#2-Shear-Matrix" class="headerlink" title="2.Shear Matrix"></a>2.Shear Matrix</h3><h1 id="begin-bmatrix-x’-y’-end-bmatrix"><a href="#begin-bmatrix-x’-y’-end-bmatrix" class="headerlink" title="$$\begin{bmatrix}x’ \y’\end{bmatrix}"></a><img src="/image-1.png" alt="alt text"><br>$$<br>\begin{bmatrix}<br>x’ \<br>y’<br>\end{bmatrix}</h1><p>\begin{bmatrix}<br>1 &amp; a \<br>0 &amp; 1<br>\end{bmatrix}<br>\begin{bmatrix}<br>x \<br>y<br>\end{bmatrix}<br>$$</p>
-<h3 id="3-旋转"><a href="#3-旋转" class="headerlink" title="3.旋转"></a>3.旋转</h3><p><img src="/image-2.png" alt="alt text"><br>$$<br>R_\theta &#x3D;<br>\begin{bmatrix}<br>cos\theta &amp; -sin\theta \<br>sin\theta &amp; cos\theta<br>\end{bmatrix}<br>$$</p>
-<h3 id="4-平移"><a href="#4-平移" class="headerlink" title="4.平移"></a>4.平移</h3><p><img src="/image-3.png" alt="alt text"></p>
-<h1 id="x’-x-t-x-y’-y-t-y-发现无法写成矩阵形式，于是：-begin-bmatrix-x’-y’-end-bmatrix"><a href="#x’-x-t-x-y’-y-t-y-发现无法写成矩阵形式，于是：-begin-bmatrix-x’-y’-end-bmatrix" class="headerlink" title="$$x’ &#x3D; x + t_x$$$$y’ &#x3D; y + t_y$$发现无法写成矩阵形式，于是：$$\begin{bmatrix}x’ \y’\end{bmatrix}"></a>$$<br>x’ &#x3D; x + t_x<br>$$<br>$$<br>y’ &#x3D; y + t_y<br>$$<br>发现无法写成矩阵形式，于是：<br>$$<br>\begin{bmatrix}<br>x’ \<br>y’<br>\end{bmatrix}</h1><p>\begin{bmatrix}<br>a &amp; b \<br>c &amp; d<br>\end{bmatrix}<br>\begin{bmatrix}<br>x \<br>y<br>\end{bmatrix}<br>+<br>\begin{bmatrix}<br>t_x \<br>t_y<br>\end{bmatrix}<br>$$<br>如果用一个矩阵乘以输入可以得到输出的坐标，那么称这个变换叫线性变换 因此，平移不是线性变换<br>但是，我们不希望多带一个尾巴，希望写成两个矩阵相乘的形式，因此，引入齐次坐标–增加一个维度。</p>
-<h1 id="2D-point-x-y-1-T-2D-vector-x-y-0-T-矩阵：-begin-pmatrix-x’-y’-w’-end-pmatrix"><a href="#2D-point-x-y-1-T-2D-vector-x-y-0-T-矩阵：-begin-pmatrix-x’-y’-w’-end-pmatrix" class="headerlink" title="$$2D point &#x3D; (x, y, 1)^T$$$$2D vector &#x3D; (x, y, 0)^T$$矩阵：$$\begin{pmatrix}x’ \y’ \w’\end{pmatrix}"></a>$$2D point &#x3D; (x, y, 1)^T$$<br>$$2D vector &#x3D; (x, y, 0)^T$$<br>矩阵：<br>$$<br>\begin{pmatrix}<br>x’ \<br>y’ \<br>w’<br>\end{pmatrix}</h1><h1 id="begin-pmatrix-1-0-t-x-0-1-t-y-0-0-1-end-pmatrix-begin-pmatrix-x-y-1-end-pmatrix"><a href="#begin-pmatrix-1-0-t-x-0-1-t-y-0-0-1-end-pmatrix-begin-pmatrix-x-y-1-end-pmatrix" class="headerlink" title="\begin{pmatrix}1 &amp; 0 &amp; t_x \0 &amp; 1 &amp; t_y \0 &amp; 0 &amp; 1\end{pmatrix}\begin{pmatrix}x \y \1\end{pmatrix}"></a>\begin{pmatrix}<br>1 &amp; 0 &amp; t_x \<br>0 &amp; 1 &amp; t_y \<br>0 &amp; 0 &amp; 1<br>\end{pmatrix}<br>\begin{pmatrix}<br>x \<br>y \<br>1<br>\end{pmatrix}</h1><p>\begin{pmatrix}<br>x + t_x \<br>y + t_y \<br>1<br>\end{pmatrix}<br>$$</p>
+<p>三角形：<br>AB×AP &gt; 0  说明P在AB左侧<br>BC×BP &gt; 0  说明P在BC左侧<br>CA×CP &gt; 0  说明P在CA左侧<br>说明点P落在三角形ABC内部<br><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163101063.png"></p>
+<h2 id="基础变化"><a href="#基础变化" class="headerlink" title="基础变化"></a>基础变化</h2><h3 id="1-缩放"><a href="#1-缩放" class="headerlink" title="1.缩放"></a>1.缩放</h3><p>缩放0.5倍：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163117020.png"></p>
+<p>此处 s &#x3D; 0.5</p>
+<h3 id="2-Shear-Matrix"><a href="#2-Shear-Matrix" class="headerlink" title="2.Shear Matrix"></a>2.Shear Matrix</h3><p><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163107623.png"><br><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163117043.png"></p>
+<h3 id="3-旋转"><a href="#3-旋转" class="headerlink" title="3.旋转"></a>3.旋转</h3><p><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163107645.png"><br><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163117064.png"></p>
+<h3 id="4-平移"><a href="#4-平移" class="headerlink" title="4.平移"></a>4.平移</h3><p><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163107667.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163248469.png"></p>
+<p>发现无法写成矩阵形式，于是：  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163306146.png"></p>
+<p>如果用一个矩阵乘以输入可以得到输出的坐标，那么称这个变换叫线性变换 因此，平移不是线性变换<br>但是，我们不希望多带一个尾巴，希望写成两个矩阵相乘的形式，因此，引入齐次坐标–增加一个维度。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163346000.png"></p>
+<p>矩阵：<br><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163336685.png"></p>
 
       
 
@@ -289,7 +302,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D%E7%BA%BF%E4%BB%A3%E5%85%A5%E9%97%A8%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">介绍线代入门概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%91%E9%87%8F%E7%82%B9%E4%B9%98"><span class="toc-number">2.</span> <span class="toc-text">向量点乘</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%91%E9%87%8F%E5%8F%89%E4%B9%98"><span class="toc-number">3.</span> <span class="toc-text">向量叉乘</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E5%8F%98%E5%8C%96"><span class="toc-number">4.</span> <span class="toc-text">基础变化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%BC%A9%E6%94%BE"><span class="toc-number">4.1.</span> <span class="toc-text">1.缩放</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BC%A9%E6%94%BE0-5%E5%80%8D%EF%BC%9A-begin-bmatrix-x%E2%80%99-y%E2%80%99-end-bmatrix"><span class="toc-number"></span> <span class="toc-text">缩放0.5倍：$$\begin{bmatrix}x’ \y’\end{bmatrix}</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Shear-Matrix"><span class="toc-number">0.1.</span> <span class="toc-text">2.Shear Matrix</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#begin-bmatrix-x%E2%80%99-y%E2%80%99-end-bmatrix"><span class="toc-number"></span> <span class="toc-text">$$\begin{bmatrix}x’ \y’\end{bmatrix}</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%97%8B%E8%BD%AC"><span class="toc-number">0.1.</span> <span class="toc-text">3.旋转</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%B9%B3%E7%A7%BB"><span class="toc-number">0.2.</span> <span class="toc-text">4.平移</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#x%E2%80%99-x-t-x-y%E2%80%99-y-t-y-%E5%8F%91%E7%8E%B0%E6%97%A0%E6%B3%95%E5%86%99%E6%88%90%E7%9F%A9%E9%98%B5%E5%BD%A2%E5%BC%8F%EF%BC%8C%E4%BA%8E%E6%98%AF%EF%BC%9A-begin-bmatrix-x%E2%80%99-y%E2%80%99-end-bmatrix"><span class="toc-number"></span> <span class="toc-text">$$x’ &#x3D; x + t_x$$$$y’ &#x3D; y + t_y$$发现无法写成矩阵形式，于是：$$\begin{bmatrix}x’ \y’\end{bmatrix}</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2D-point-x-y-1-T-2D-vector-x-y-0-T-%E7%9F%A9%E9%98%B5%EF%BC%9A-begin-pmatrix-x%E2%80%99-y%E2%80%99-w%E2%80%99-end-pmatrix"><span class="toc-number"></span> <span class="toc-text">$$2D point &#x3D; (x, y, 1)^T$$$$2D vector &#x3D; (x, y, 0)^T$$矩阵：$$\begin{pmatrix}x’ \y’ \w’\end{pmatrix}</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#begin-pmatrix-1-0-t-x-0-1-t-y-0-0-1-end-pmatrix-begin-pmatrix-x-y-1-end-pmatrix"><span class="toc-number"></span> <span class="toc-text">\begin{pmatrix}1 &amp; 0 &amp; t_x \0 &amp; 1 &amp; t_y \0 &amp; 0 &amp; 1\end{pmatrix}\begin{pmatrix}x \y \1\end{pmatrix}</span></a>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D%E5%8F%98%E5%8C%96%E5%85%A5%E9%97%A8%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">介绍变化入门概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%91%E9%87%8F%E7%82%B9%E4%B9%98"><span class="toc-number">2.</span> <span class="toc-text">向量点乘</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%91%E9%87%8F%E5%8F%89%E4%B9%98"><span class="toc-number">3.</span> <span class="toc-text">向量叉乘</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E5%8F%98%E5%8C%96"><span class="toc-number">4.</span> <span class="toc-text">基础变化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%BC%A9%E6%94%BE"><span class="toc-number">4.1.</span> <span class="toc-text">1.缩放</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Shear-Matrix"><span class="toc-number">4.2.</span> <span class="toc-text">2.Shear Matrix</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%97%8B%E8%BD%AC"><span class="toc-number">4.3.</span> <span class="toc-text">3.旋转</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%B9%B3%E7%A7%BB"><span class="toc-number">4.4.</span> <span class="toc-text">4.平移</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
