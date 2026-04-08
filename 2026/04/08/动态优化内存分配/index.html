@@ -6,15 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>LeafMing的个人主页</title>
+  <title>动态优化内存分配 | LeafMing的个人主页</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="LeafMing的个人主页">
-<meta property="og:url" content="http://example.com/page/4/index.html">
+  <meta name="description" content="游戏开发中如何优化动态内存分配malloc&#x2F;free（或 new&#x2F;delete）很慢，原因有两个：    通用性太强：要处理各种大小、碎片、对齐等情况 可能触发系统调用：甚至导致内核态切换（context switch）  所以游戏开发经验：尽量减少堆分配，尤其不要在高频循环里用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="动态优化内存分配">
+<meta property="og:url" content="http://example.com/2026/04/08/%E5%8A%A8%E6%80%81%E4%BC%98%E5%8C%96%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/index.html">
 <meta property="og:site_name" content="LeafMing的个人主页">
+<meta property="og:description" content="游戏开发中如何优化动态内存分配malloc&#x2F;free（或 new&#x2F;delete）很慢，原因有两个：    通用性太强：要处理各种大小、碎片、对齐等情况 可能触发系统调用：甚至导致内核态切换（context switch）  所以游戏开发经验：尽量减少堆分配，尤其不要在高频循环里用">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260408235751096.png">
+<meta property="article:published_time" content="2026-04-08T14:44:33.000Z">
+<meta property="article:modified_time" content="2026-04-08T16:11:09.029Z">
 <meta property="article:author" content="Ziming Ye">
+<meta property="article:tag" content="c++">
+<meta property="article:tag" content="性能优化">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260408235751096.png">
   
     <link rel="alternative" href="/atom.xml" title="LeafMing的个人主页" type="application/atom+xml">
   
@@ -134,32 +142,197 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-汽车加油问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-动态优化内存分配" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/07/19/%E6%B1%BD%E8%BD%A6%E5%8A%A0%E6%B2%B9%E9%97%AE%E9%A2%98/">汽车加油问题(贪心算法)</a>
+    <h1 class="article-title" itemprop="name">
+      动态优化内存分配
     </h1>
   
 
         
-        <a href="/2023/07/19/%E6%B1%BD%E8%BD%A6%E5%8A%A0%E6%B2%B9%E9%97%AE%E9%A2%98/" class="archive-article-date">
-  	<time datetime="2023-07-19T01:15:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-07-19</time>
+        <a href="/2026/04/08/%E5%8A%A8%E6%80%81%E4%BC%98%E5%8C%96%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" class="archive-article-date">
+  	<time datetime="2026-04-08T14:44:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2026-04-08</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="完成时间：大二上"><a href="#完成时间：大二上" class="headerlink" title="完成时间：大二上"></a>完成时间：大二上</h2>
-        
-          <a class="article-more-a" href="/2023/07/19/%E6%B1%BD%E8%BD%A6%E5%8A%A0%E6%B2%B9%E9%97%AE%E9%A2%98/#more">more >></a>
-        
+        <h2 id="游戏开发中如何优化动态内存分配"><a href="#游戏开发中如何优化动态内存分配" class="headerlink" title="游戏开发中如何优化动态内存分配"></a>游戏开发中如何优化动态内存分配</h2><p>malloc&#x2F;free（或 new&#x2F;delete）很慢，原因有两个：  </p>
+<ol>
+<li>通用性太强：要处理各种大小、碎片、对齐等情况</li>
+<li>可能触发系统调用：甚至导致内核态切换（context switch）</li>
+</ol>
+<p>所以游戏开发经验：尽量减少堆分配，尤其不要在高频循环里用</p>
+<span id="more"></span>
+
+<h3 id="如何解决"><a href="#如何解决" class="headerlink" title="如何解决"></a>如何解决</h3><blockquote>
+<p>1.预分配大块内存  </p>
+</blockquote>
+<p>一次性申请一大块内存，后续都在这块里面“切分使用” 👉 避免频繁 malloc&#x2F;free   </p>
+<blockquote>
+<p>2️.按使用模式优化（关键）</p>
+</blockquote>
+<p>不同场景用不同分配策略，比如：栈式（LIFO）、池式（固定大小）、双端栈等</p>
+<h2 id="栈式分配器（StackAllocator）"><a href="#栈式分配器（StackAllocator）" class="headerlink" title="栈式分配器（StackAllocator）"></a>栈式分配器（StackAllocator）</h2><p>核心思想（像“栈”一样用内存）<br>👉 分配：往前“推”<br>👉 释放：只能“回退”</p>
+<p>就像函数调用栈一样（先进后出）<br>分配方式:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span>* <span class="title">alloc</span><span class="params">(U32 size_bytes)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>每次分配：从当前“栈顶”拿一块，指针向前移动</p>
+<p>限制：不能随便 free 某一块内存！<br>只能：一次性回退或按顺序释放  </p>
+<h4 id="Marker-机制"><a href="#Marker-机制" class="headerlink" title="Marker 机制"></a>Marker 机制</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Marker <span class="title">getMarker</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">freeToMarker</span><span class="params">(Marker marker)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>怎么理解？👉 Marker &#x3D; 当前内存位置的“书签”<br>使用流程：</p>
+<ol>
+<li>分配一些内存  </li>
+<li>记录一个 marker  </li>
+<li>再分配一些内存  </li>
+<li>想释放？直接回到 marker</li>
+</ol>
+<p>等价于：  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[ A ][ B ][ C ][ D ][ E ]</span><br><span class="line">            ↑ marker</span><br></pre></td></tr></table></figure>
+<p>执行 freeToMarker 后：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[ A ][ B ]</span><br></pre></td></tr></table></figure>
+<p>👉 C、D、E 全部一次性释放</p>
+<h4 id="优点-vs-缺点"><a href="#优点-vs-缺点" class="headerlink" title="优点 vs 缺点"></a>优点 vs 缺点</h4><p>✅ 优点  </p>
+<ol>
+<li>极快（几乎就是指针移动）</li>
+<li>无碎片</li>
+<li>cache 友好</li>
+</ol>
+<p>❌ 缺点  </p>
+<ol>
+<li>不灵活（必须按顺序释放）</li>
+<li>不适合复杂生命周期对象</li>
+</ol>
+<h2 id="双端栈分配器"><a href="#双端栈分配器" class="headerlink" title="双端栈分配器"></a>双端栈分配器</h2><p>升级版👇<br>👉 一块内存，两头都可以分配：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">低地址 ←——— 内存块 ———→ 高地址</span><br><span class="line">   ↑                     ↑</span><br><span class="line">  左栈                  右栈</span><br></pre></td></tr></table></figure>
+<p>特点：一边往右长，一边往左长<br>👉 用途：两类生命周期不同的数据<br>比如：一边：长期资源，一边：临时数据</p>
+<h2 id="池分配器（Pool-Allocator）"><a href="#池分配器（Pool-Allocator）" class="headerlink" title="池分配器（Pool Allocator）"></a>池分配器（Pool Allocator）</h2><p>核心思想：把内存切成很多“固定大小的小块”，重复利用<br>为什么需要它？<br>很多对象：大小固定（比如：粒子、子弹、节点）且创建&#x2F;销毁频繁<br>👉 用 malloc&#x2F;free：慢、会产生碎片</p>
+<hr>
+<p>🧩 怎么做？<br>第一步：申请一大块内存</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[ 整块内存 ]</span><br></pre></td></tr></table></figure>
+<p>第二步：切成小块（chunk）   </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[ ][ ][ ][ ][ ][ ]</span><br></pre></td></tr></table></figure>
+<p>每块大小一样（比如 32 bytes）</p>
+<hr>
+<p>第三步：用“空闲链表”管理<br>👉 每个空闲块里，存“下一个空闲块的指针”  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">free list:</span><br><span class="line">[ A ] -&gt; [ B ] -&gt; [ C ] -&gt; ...</span><br></pre></td></tr></table></figure>
+<p>分配过程:  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">alloc():</span><br><span class="line">  从 free list 取一个块</span><br><span class="line">  head = head-&gt;next</span><br></pre></td></tr></table></figure>
+<p>O(1)，超级快</p>
+<p>释放过程:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">free(ptr):</span><br><span class="line">  把 ptr 插回 free list 头部</span><br></pre></td></tr></table></figure>
+<p>也是 O(1) </p>
+<hr>
+<blockquote>
+<p>“没有分配的内存块本身就用来存链表指针”</p>
+</blockquote>
+<p>也就是：不用额外结构，内存自己管理自己<br>限制：只能分配固定大小，不适合大小变化的对象</p>
+<hr>
+<p>适用场景：粒子系统、子弹对象、ECS组件、网络包结构</p>
+<h3 id="内存对齐"><a href="#内存对齐" class="headerlink" title="内存对齐"></a>内存对齐</h3><p>什么是“对齐”？<br>👉 数据地址必须是某个数的倍数<br>比如：  4字节对齐 → 地址 % 4 &#x3D;&#x3D; 0；16字节对齐 → 地址 % 16 &#x3D;&#x3D; 0  </p>
+<hr>
+<p>为什么要对齐？<br>1.CPU要求 某些CPU不对齐会：性能下降，甚至崩溃<br>2.SIMD &#x2F; GPU &#x2F; DMA 比如：SSE &#x2F; AVX 要求 16 &#x2F; 32 字节对齐，GPU buffer 也有要求</p>
+<p>问题来了，普通 malloc 不一定满足高对齐（比如16字节以上）<br>所以需要：aligned allocation（对齐分配）</p>
+<h4 id="对齐分配的实现原理（重点）"><a href="#对齐分配的实现原理（重点）" class="headerlink" title="对齐分配的实现原理（重点）"></a>对齐分配的实现原理（重点）</h4><p>申请内存，使返回地址满足：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">address % alignment == 0</span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">为此，为了使其能对齐，我们一般需要多分配一点内存，满足下式：  </span><br></pre></td></tr></table></figure>
+<p>aligned &#x3D; (raw + alignment - 1) &amp; ~(alignment - 1);</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">意思是 向上取整到 alignment 的倍数  </span><br><span class="line">比如：raw = 1003 alignment = 16  </span><br><span class="line">对齐后：aligned = 1008  </span><br><span class="line"></span><br><span class="line">&gt; 关键技巧：保存偏移量（bookkeeping）  </span><br><span class="line"></span><br><span class="line">在 free 的时候我们要用原始指针，而非调整后的地址，所以：</span><br></pre></td></tr></table></figure>
+<p>[ 原始地址 … 对齐地址 ]<br>               ↑<br>          返回给用户</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">⬆️这是不对的，因此：  </span><br><span class="line">为了完成这个转化，我们可以存一些元信息到额外分配的内存当中，比如在“对齐地址前面”存一个值：</span><br></pre></td></tr></table></figure>
+<p>aligned[-1] &#x3D; adjustment</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">这样在释放时：</span><br><span class="line">```cpp</span><br><span class="line">adjustment = *(aligned - 1)</span><br><span class="line">raw = aligned - adjustment</span><br><span class="line">free(raw)</span><br></pre></td></tr></table></figure>
+<p>就能成功找回原始 malloc 指针<br><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260408235751096.png">  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">malloc 得到 raw 地址</span><br><span class="line">↓</span><br><span class="line">向上对齐 → aligned</span><br><span class="line">↓</span><br><span class="line">中间有 padding（浪费的空间）</span><br><span class="line">↓</span><br><span class="line">在 aligned 前存 adjustment</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>分配器</th>
+<th>特点</th>
+<th>适用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>栈分配器</td>
+<td>快，但只能顺序释放</td>
+<td>临时数据</td>
+</tr>
+<tr>
+<td>池分配器</td>
+<td>固定大小，O(1)</td>
+<td>小对象</td>
+</tr>
+<tr>
+<td>对齐分配</td>
+<td>满足硬件要求</td>
+<td>SIMD &#x2F; GPU</td>
+</tr>
+</tbody></table>
+<h3 id="按帧管理临时内存"><a href="#按帧管理临时内存" class="headerlink" title="按帧管理临时内存"></a>按帧管理临时内存</h3><p>分为：</p>
+<ul>
+<li>单帧分配器（single-frame allocator）</li>
+<li>双缓冲分配器（double-buffered allocator）</li>
+</ul>
+<p>它们本质上都是前面“栈式分配器”在游戏主循环里的具体用法。  </p>
+<p>为什么会有？<br>在游戏中，一般的流程是：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="built_in">update</span>();</span><br><span class="line">    <span class="built_in">render</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>每一帧里都会产生很多临时数据，比如：碰撞检测临时结果、可见性裁剪列表、渲染命令缓存、动画混合中间结果、AI 搜索临时节点</p>
+<p>这些数据通常有两种生命周期：<b>只在当前帧有效</b> 或 <b>当前帧生成，下一帧还要继续用</b></p>
+<p>所以就有了这两个分配器。</p>
+<h4 id="单帧分配器（Single-Frame-Allocator）"><a href="#单帧分配器（Single-Frame-Allocator）" class="headerlink" title="单帧分配器（Single-Frame Allocator）"></a>单帧分配器（Single-Frame Allocator）</h4><p>核心思想</p>
+<blockquote>
+<p>每一帧开始时，把整块临时内存“清空”，本帧里只管分配，不单独释放。</p>
+</blockquote>
+<p>它其实就是一个普通的 StackAllocator：<br>帧开始：clear()<br>帧内：不断 alloc()<br>帧结束：什么都不用管<br>下一帧开始：再 clear()</p>
+<p>优点：</p>
+<ol>
+<li>非常快，只需要移动栈顶指针。</li>
+<li>没有碎片，因为根本不是零散释放。</li>
+<li>编程简单，不用操心一块块 free。</li>
+</ol>
+<p>从这里分配出来的内存，只能在当前帧内使用。因为下一帧一开始就 clear() 了，之前的指针全部失效。<br>所以程序员必须很小心：  </p>
+<ol>
+<li>不能把这些指针保存到长期对象里  </li>
+<li>不能跨帧访问  </li>
+<li>不能把它当普通堆内存用</li>
+</ol>
+<h4 id="双缓冲分配器"><a href="#双缓冲分配器" class="headerlink" title="双缓冲分配器"></a>双缓冲分配器</h4><p>双缓冲分配器解决的问题是： 有些临时数据虽然不是永久的，但需要跨一帧。</p>
+<p>比如：</p>
+<ul>
+<li>第 i 帧生成的数据，第 i+1 帧还要读</li>
+<li>异步任务本帧开始，下一帧才结束</li>
+<li>GPU &#x2F; SPU &#x2F; 其他线程正在使用上一帧的数据</li>
+</ul>
+<p>这时候单帧分配器就不够了，因为它一到下一帧就清空。   </p>
+<hr>
+<p>它本质上是准备两个单帧栈，交替使用：  </p>
+<p>m_stack[0]<br>m_stack[1]</p>
+<p>当前帧只往其中一个里分配。到下一帧时：</p>
+<ul>
+<li>交换当前缓冲区</li>
+<li>清空新的当前缓冲区</li>
+<li>旧缓冲区保留不动，供上一帧数据继续使用</li>
+</ul>
+<p>核心逻辑</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">swapBuffers</span>();        <span class="comment">// 0 和 1 互换</span></span><br><span class="line"><span class="built_in">clearCurrentBuffer</span>(); <span class="comment">// 清空本帧要写的那个</span></span><br><span class="line"><span class="built_in">alloc</span>(...);           <span class="comment">// 从当前缓冲区分配</span></span><br></pre></td></tr></table></figure>
+<p>m_curStack &#x3D; !m_curStack; 这一句就是在 0 和 1 之间来回切换。  </p>
+<p>为什么叫“双缓冲”</p>
+<p>因为和图形学里的双缓冲思想是一样的：<br>一个缓冲区负责“当前写入”，另一个缓冲区负责“上一帧继续被读取”  ，下一帧两者交换。</p>
+<p>所以它能保证：本帧写新数据时，不会覆盖上一帧仍在使用的数据</p>
+<blockquote>
+<p>对于游戏循环里的临时数据，最好的办法不是“精细地一个个释放”，而是根据数据的生命周期，按帧批量回收。</p>
+</blockquote>
+<p>所以：</p>
+<ul>
+<li>当前帧就死的数据 → 单帧分配器</li>
+<li>还要保留到下一帧的数据 → 双缓冲分配器</li>
+</ul>
+
       
 
       
@@ -172,11 +345,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">c++</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">性能优化</a>
         		</li>
       		
 		</ul>
@@ -185,16 +358,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2023/07/19/%E6%B1%BD%E8%BD%A6%E5%8A%A0%E6%B2%B9%E9%97%AE%E9%A2%98/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2026/04/08/%E5%8A%A8%E6%80%81%E4%BC%98%E5%8C%96%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2026/04/07/c++%E4%B8%AD%E7%9A%84Array%E3%80%81%E6%95%B0%E7%BB%84%E3%80%81Vector/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">c++中Vector&amp;数组&amp;Array</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -209,265 +441,32 @@
         </div>
         
         
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-冒泡排序以及堆排序的实现" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/07/19/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E4%BB%A5%E5%8F%8A%E5%A0%86%E6%8E%92%E5%BA%8F%E7%9A%84%E5%AE%9E%E7%8E%B0/">冒泡排序以及堆排序的实现</a>
-    </h1>
-  
-
-        
-        <a href="/2023/07/19/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E4%BB%A5%E5%8F%8A%E5%A0%86%E6%8E%92%E5%BA%8F%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="archive-article-date">
-  	<time datetime="2023-07-19T00:15:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-07-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="完成时间：大二上"><a href="#完成时间：大二上" class="headerlink" title="完成时间：大二上"></a>完成时间：大二上</h2>
-        
-          <a class="article-more-a" href="/2023/07/19/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E4%BB%A5%E5%8F%8A%E5%A0%86%E6%8E%92%E5%BA%8F%E7%9A%84%E5%AE%9E%E7%8E%B0/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2023/07/19/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E4%BB%A5%E5%8F%8A%E5%A0%86%E6%8E%92%E5%BA%8F%E7%9A%84%E5%AE%9E%E7%8E%B0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B8%AD%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D"><span class="toc-number">1.</span> <span class="toc-text">游戏开发中如何优化动态内存分配</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3"><span class="toc-number">1.1.</span> <span class="toc-text">如何解决</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%88%E5%BC%8F%E5%88%86%E9%85%8D%E5%99%A8%EF%BC%88StackAllocator%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">栈式分配器（StackAllocator）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Marker-%E6%9C%BA%E5%88%B6"><span class="toc-number">2.0.1.</span> <span class="toc-text">Marker 机制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%98%E7%82%B9-vs-%E7%BC%BA%E7%82%B9"><span class="toc-number">2.0.2.</span> <span class="toc-text">优点 vs 缺点</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8C%E7%AB%AF%E6%A0%88%E5%88%86%E9%85%8D%E5%99%A8"><span class="toc-number">3.</span> <span class="toc-text">双端栈分配器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B1%A0%E5%88%86%E9%85%8D%E5%99%A8%EF%BC%88Pool-Allocator%EF%BC%89"><span class="toc-number">4.</span> <span class="toc-text">池分配器（Pool Allocator）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E5%AF%B9%E9%BD%90"><span class="toc-number">4.1.</span> <span class="toc-text">内存对齐</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%B9%E9%BD%90%E5%88%86%E9%85%8D%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%EF%BC%88%E9%87%8D%E7%82%B9%EF%BC%89"><span class="toc-number">4.1.1.</span> <span class="toc-text">对齐分配的实现原理（重点）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%89%E5%B8%A7%E7%AE%A1%E7%90%86%E4%B8%B4%E6%97%B6%E5%86%85%E5%AD%98"><span class="toc-number">4.2.</span> <span class="toc-text">按帧管理临时内存</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%95%E5%B8%A7%E5%88%86%E9%85%8D%E5%99%A8%EF%BC%88Single-Frame-Allocator%EF%BC%89"><span class="toc-number">4.2.1.</span> <span class="toc-text">单帧分配器（Single-Frame Allocator）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%8C%E7%BC%93%E5%86%B2%E5%88%86%E9%85%8D%E5%99%A8"><span class="toc-number">4.2.2.</span> <span class="toc-text">双缓冲分配器</span></a></li></ol></li></ol></li></ol>
+                    </div>
+                </span>
             </div>
         </div>
         
-        
     </div>
 </aside>
 
 
 
-
-  
-    <article id="post-javasocket通信" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/07/16/javasocket%E9%80%9A%E4%BF%A1/">JavaSocket通信的实现</a>
-    </h1>
-  
-
-        
-        <a href="/2023/07/16/javasocket%E9%80%9A%E4%BF%A1/" class="archive-article-date">
-  	<time datetime="2023-07-16T04:01:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-07-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="完成时间：大一下"><a href="#完成时间：大一下" class="headerlink" title="完成时间：大一下"></a>完成时间：大一下</h2><p>此项目完成于大一下学期，以下为项目的源码以及截图，仅供参考</p>
-        
-          <a class="article-more-a" href="/2023/07/16/javasocket%E9%80%9A%E4%BF%A1/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习情况</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">socket</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2023/07/16/javasocket%E9%80%9A%E4%BF%A1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Python爬虫实践" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/07/10/Python%E7%88%AC%E8%99%AB%E5%AE%9E%E8%B7%B5/">简单Python爬虫的实践</a>
-    </h1>
-  
-
-        
-        <a href="/2023/07/10/Python%E7%88%AC%E8%99%AB%E5%AE%9E%E8%B7%B5/" class="archive-article-date">
-  	<time datetime="2023-07-10T03:15:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-07-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="完成时间：大一上"><a href="#完成时间：大一上" class="headerlink" title="完成时间：大一上"></a>完成时间：大一上</h2><p>此项目完成于大一的上学期，以下为项目的源码以及截图。</p>
-        
-          <a class="article-more-a" href="/2023/07/10/Python%E7%88%AC%E8%99%AB%E5%AE%9E%E8%B7%B5/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习情况</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">爬虫</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2023/07/10/Python%E7%88%AC%E8%99%AB%E5%AE%9E%E8%B7%B5/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/3/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
-    </nav>
+  
+
+  
+
+  
+
   
 
 
@@ -490,8 +489,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
