@@ -16,19 +16,20 @@
 <meta property="og:description" content="介绍变化入门概念">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163101063.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163117020.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163107623.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260421154407315.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163117043.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163107645.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163117064.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163107667.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163117020.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163107623.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163248469.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163306146.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163346000.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163336685.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406170437072.png">
 <meta property="article:published_time" content="2026-04-06T07:09:35.000Z">
-<meta property="article:modified_time" content="2026-04-06T09:04:53.577Z">
+<meta property="article:modified_time" content="2026-04-21T07:46:47.417Z">
 <meta property="article:author" content="Ziming Ye">
 <meta property="article:tag" content="图形学">
 <meta name="twitter:card" content="summary">
@@ -179,12 +180,10 @@
 <p>点乘&lt;0 反方向</p>
 <h2 id="向量叉乘"><a href="#向量叉乘" class="headerlink" title="向量叉乘"></a>向量叉乘</h2><p>A x B &#x3D; C 则 C 垂直于A和B所在的平面<br>右手螺旋定则：如a×b&#x3D;c 四指从a的方向向b的方向握紧，大拇指指向的就是c的方向<br>a×b得到结果是和z轴同向，是正的，说明b在a的左侧  负即为右侧  </p>
 <p>三角形：<br>AB×AP &gt; 0  说明P在AB左侧<br>BC×BP &gt; 0  说明P在BC左侧<br>CA×CP &gt; 0  说明P在CA左侧<br>说明点P落在三角形ABC内部<br><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163101063.png"></p>
-<h2 id="基础变化"><a href="#基础变化" class="headerlink" title="基础变化"></a>基础变化</h2><h3 id="1-缩放"><a href="#1-缩放" class="headerlink" title="1.缩放"></a>1.缩放</h3><p>缩放0.5倍：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163117020.png"></p>
-<p>此处 s &#x3D; 0.5</p>
-<h3 id="2-Shear-Matrix"><a href="#2-Shear-Matrix" class="headerlink" title="2.Shear Matrix"></a>2.Shear Matrix</h3><p><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163107623.png"><br><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163117043.png"></p>
-<h3 id="3-旋转"><a href="#3-旋转" class="headerlink" title="3.旋转"></a>3.旋转</h3><p><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163107645.png"><br><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163117064.png"></p>
-<h3 id="4-平移"><a href="#4-平移" class="headerlink" title="4.平移"></a>4.平移</h3><p><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163107667.png"></p>
+<h2 id="基础变化"><a href="#基础变化" class="headerlink" title="基础变化"></a>基础变化</h2><h3 id="1-缩放"><a href="#1-缩放" class="headerlink" title="1.缩放"></a>1.缩放</h3><p>缩放0.5倍：<br><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260421154407315.png"><br><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163117043.png"><br>此处 s_x &#x3D; 0.5</p>
+<h3 id="2-Shear-Matrix-错切变换"><a href="#2-Shear-Matrix-错切变换" class="headerlink" title="2.Shear Matrix  错切变换"></a>2.Shear Matrix  错切变换</h3><p><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163107645.png"><br><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163117064.png"></p>
+<h3 id="3-旋转"><a href="#3-旋转" class="headerlink" title="3.旋转"></a>3.旋转</h3><p><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163107667.png"><br><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163117020.png"></p>
+<h3 id="4-平移"><a href="#4-平移" class="headerlink" title="4.平移"></a>4.平移</h3><p><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163107623.png"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163248469.png"></p>
 <p>发现无法写成矩阵形式，于是：  </p>
 <p><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163306146.png"></p>
@@ -313,7 +312,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D%E5%8F%98%E5%8C%96%E5%85%A5%E9%97%A8%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">介绍变化入门概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%91%E9%87%8F%E7%82%B9%E4%B9%98"><span class="toc-number">2.</span> <span class="toc-text">向量点乘</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%91%E9%87%8F%E5%8F%89%E4%B9%98"><span class="toc-number">3.</span> <span class="toc-text">向量叉乘</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E5%8F%98%E5%8C%96"><span class="toc-number">4.</span> <span class="toc-text">基础变化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%BC%A9%E6%94%BE"><span class="toc-number">4.1.</span> <span class="toc-text">1.缩放</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Shear-Matrix"><span class="toc-number">4.2.</span> <span class="toc-text">2.Shear Matrix</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%97%8B%E8%BD%AC"><span class="toc-number">4.3.</span> <span class="toc-text">3.旋转</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%B9%B3%E7%A7%BB"><span class="toc-number">4.4.</span> <span class="toc-text">4.平移</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2D-%E5%8F%98%E5%8C%96%E6%B1%87%E6%80%BB"><span class="toc-number">4.4.1.</span> <span class="toc-text">2D 变化汇总</span></a></li></ol></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D%E5%8F%98%E5%8C%96%E5%85%A5%E9%97%A8%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">介绍变化入门概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%91%E9%87%8F%E7%82%B9%E4%B9%98"><span class="toc-number">2.</span> <span class="toc-text">向量点乘</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%91%E9%87%8F%E5%8F%89%E4%B9%98"><span class="toc-number">3.</span> <span class="toc-text">向量叉乘</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E5%8F%98%E5%8C%96"><span class="toc-number">4.</span> <span class="toc-text">基础变化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%BC%A9%E6%94%BE"><span class="toc-number">4.1.</span> <span class="toc-text">1.缩放</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Shear-Matrix-%E9%94%99%E5%88%87%E5%8F%98%E6%8D%A2"><span class="toc-number">4.2.</span> <span class="toc-text">2.Shear Matrix  错切变换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%97%8B%E8%BD%AC"><span class="toc-number">4.3.</span> <span class="toc-text">3.旋转</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%B9%B3%E7%A7%BB"><span class="toc-number">4.4.</span> <span class="toc-text">4.平移</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2D-%E5%8F%98%E5%8C%96%E6%B1%87%E6%80%BB"><span class="toc-number">4.4.1.</span> <span class="toc-text">2D 变化汇总</span></a></li></ol></li></ol></li></ol>
                     </div>
                 </span>
             </div>
