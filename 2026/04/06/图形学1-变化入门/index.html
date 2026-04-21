@@ -28,8 +28,14 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163346000.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163336685.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406170437072.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260421163807162.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260421163858751.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260421164125268.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260421181911464.png">
+<meta property="og:image" content="https://i2.hdslb.com/bfs/note/1494f4276d252ab49ccd32bf70ce7e9b12e61e40.jpg@686w_!web-note.avif">
+<meta property="og:image" content="https://i2.hdslb.com/bfs/note/106c442b64c98577d40ba20b76bceb6950e94a40.jpg@686w_!web-note.avif">
 <meta property="article:published_time" content="2026-04-06T07:09:35.000Z">
-<meta property="article:modified_time" content="2026-04-21T07:46:47.417Z">
+<meta property="article:modified_time" content="2026-04-21T13:33:34.000Z">
 <meta property="article:author" content="Ziming Ye">
 <meta property="article:tag" content="图形学">
 <meta name="twitter:card" content="summary">
@@ -190,8 +196,40 @@
 <p>如果用一个矩阵乘以输入可以得到输出的坐标，那么称这个变换叫线性变换 因此，平移不是线性变换<br>但是，我们不希望多带一个尾巴，希望写成两个矩阵相乘的形式，因此，引入齐次坐标–增加一个维度。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163346000.png"></p>
 <p>矩阵：<br><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406163336685.png"></p>
+<p>那么，为什么向量的最后一维是0，而点是1呢？<br>向量具有平移不变性，即一个向量经过平移，他的值不应该改变，置0就可以很好的体现这一点。</p>
 <h4 id="2D-变化汇总"><a href="#2D-变化汇总" class="headerlink" title="2D 变化汇总"></a>2D 变化汇总</h4><p><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260406170437072.png"></p>
-
+<h2 id="3D变化"><a href="#3D变化" class="headerlink" title="3D变化"></a>3D变化</h2><p><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260421163807162.png"><br>相对应的：使用4*4的矩阵表示变化<br><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260421163858751.png">  </p>
+<h3 id="3D-旋转"><a href="#3D-旋转" class="headerlink" title="3D 旋转"></a>3D 旋转</h3><p><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260421164125268.png"><br>为什么y轴如此特殊？  </p>
+<p>在 xy 平面里，你习惯按 (x,y) 看 2D 旋转</p>
+<p>在 yz 平面里，你也能按 (y,z) 看</p>
+<p>但在 xz 平面里，若还按 (x,z) 去套 2D 旋转模板，就会觉得符号“反了”<br>因为：x × z &#x3D; −y<br>也就是说，(x,z) 这个顺序对应的法向量是 −y，不是 +y。</p>
+<p>而绕 +y 轴的正旋转，真正与右手系匹配的平面坐标顺序其实是：(z, x)</p>
+<p>因为 z×x&#x3D;y  这才和“绕 +y 轴”一致。</p>
+<h4 id="Rodrigues旋转公式"><a href="#Rodrigues旋转公式" class="headerlink" title="Rodrigues旋转公式"></a>Rodrigues旋转公式</h4><p><img src="https://cdn.jsdelivr.net/gh/MingLeaf/ImgRepository/img/20260421181911464.png"><br>其中，n是旋转轴 α是旋转角度</p>
+<h2 id="Viewing（观测）变化"><a href="#Viewing（观测）变化" class="headerlink" title="Viewing（观测）变化"></a>Viewing（观测）变化</h2><p>图形学的最终目的是为了将三维中的物体渲染成二维里的图像</p>
+<p>在现实生活中如何照一张照片？</p>
+<ul>
+<li>找个好地方摆pose（Model变换）</li>
+<li>把相机放个好角度（View变换）</li>
+<li>按快门（Projection变换）</li>
+</ul>
+<p>View变换–如何摆放相机的角度</p>
+<ul>
+<li>决定相机的位置</li>
+<li>决定相机看向的方向</li>
+<li>决定相机头朝上的方向</li>
+</ul>
+<p><img src="https://i2.hdslb.com/bfs/note/1494f4276d252ab49ccd32bf70ce7e9b12e61e40.jpg@686w_!web-note.avif"></p>
+<p>规定相机永远在（0，0，0），沿着-Z看，变化的永远是其他物体</p>
+<p><img src="https://i2.hdslb.com/bfs/note/106c442b64c98577d40ba20b76bceb6950e94a40.jpg@686w_!web-note.avif"></p>
+<p> 所以要先把摄像机归到原点</p>
+<ol>
+<li>平移摄像机至（0，0，0）</li>
+<li>将相机lookat的方向旋转到-z</li>
+<li>旋转相机头朝上的方向到Y</li>
+</ol>
+<p>在进行旋转时，若发现，将任意向量旋转至x轴（假设）很困难，则可以先将x轴旋转至任意向量，求出其变化矩阵，再求逆，即可得到我们希望的正向的矩阵。</p>
+<h3 id="投影"><a href="#投影" class="headerlink" title="投影"></a>投影</h3>
       
 
       
@@ -312,7 +350,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D%E5%8F%98%E5%8C%96%E5%85%A5%E9%97%A8%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">介绍变化入门概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%91%E9%87%8F%E7%82%B9%E4%B9%98"><span class="toc-number">2.</span> <span class="toc-text">向量点乘</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%91%E9%87%8F%E5%8F%89%E4%B9%98"><span class="toc-number">3.</span> <span class="toc-text">向量叉乘</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E5%8F%98%E5%8C%96"><span class="toc-number">4.</span> <span class="toc-text">基础变化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%BC%A9%E6%94%BE"><span class="toc-number">4.1.</span> <span class="toc-text">1.缩放</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Shear-Matrix-%E9%94%99%E5%88%87%E5%8F%98%E6%8D%A2"><span class="toc-number">4.2.</span> <span class="toc-text">2.Shear Matrix  错切变换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%97%8B%E8%BD%AC"><span class="toc-number">4.3.</span> <span class="toc-text">3.旋转</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%B9%B3%E7%A7%BB"><span class="toc-number">4.4.</span> <span class="toc-text">4.平移</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2D-%E5%8F%98%E5%8C%96%E6%B1%87%E6%80%BB"><span class="toc-number">4.4.1.</span> <span class="toc-text">2D 变化汇总</span></a></li></ol></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D%E5%8F%98%E5%8C%96%E5%85%A5%E9%97%A8%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">介绍变化入门概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%91%E9%87%8F%E7%82%B9%E4%B9%98"><span class="toc-number">2.</span> <span class="toc-text">向量点乘</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%91%E9%87%8F%E5%8F%89%E4%B9%98"><span class="toc-number">3.</span> <span class="toc-text">向量叉乘</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E5%8F%98%E5%8C%96"><span class="toc-number">4.</span> <span class="toc-text">基础变化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%BC%A9%E6%94%BE"><span class="toc-number">4.1.</span> <span class="toc-text">1.缩放</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Shear-Matrix-%E9%94%99%E5%88%87%E5%8F%98%E6%8D%A2"><span class="toc-number">4.2.</span> <span class="toc-text">2.Shear Matrix  错切变换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%97%8B%E8%BD%AC"><span class="toc-number">4.3.</span> <span class="toc-text">3.旋转</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%B9%B3%E7%A7%BB"><span class="toc-number">4.4.</span> <span class="toc-text">4.平移</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2D-%E5%8F%98%E5%8C%96%E6%B1%87%E6%80%BB"><span class="toc-number">4.4.1.</span> <span class="toc-text">2D 变化汇总</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3D%E5%8F%98%E5%8C%96"><span class="toc-number">5.</span> <span class="toc-text">3D变化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3D-%E6%97%8B%E8%BD%AC"><span class="toc-number">5.1.</span> <span class="toc-text">3D 旋转</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Rodrigues%E6%97%8B%E8%BD%AC%E5%85%AC%E5%BC%8F"><span class="toc-number">5.1.1.</span> <span class="toc-text">Rodrigues旋转公式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Viewing%EF%BC%88%E8%A7%82%E6%B5%8B%EF%BC%89%E5%8F%98%E5%8C%96"><span class="toc-number">6.</span> <span class="toc-text">Viewing（观测）变化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%95%E5%BD%B1"><span class="toc-number">6.1.</span> <span class="toc-text">投影</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
